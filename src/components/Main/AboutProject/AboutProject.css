@@ -1,0 +1,40 @@
+.about-project__content {
+  padding: 110px 0 141px;
+}
+
+.about-project__divider {
+  margin-top: 23px;
+}
+
+.about-project__stages {
+  margin-top: 70px;
+  gap: 40px;
+  display: flex;
+}
+
+.about-project__stage {
+  gap: 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-project__time-completion {
+  margin-top: 110px;
+  display: flex;
+
+}
+
+.about-project__time-completion-weeks {
+  text-align: center;
+  padding: 9px 0;
+}
+
+.about-project__time-completion-weeks_frontend {
+  width: 80%;
+  background-color: #303030;
+}
+
+.about-project__time-completion-weeks_backend {
+  width: 20%;
+  background-color: var(--theme-color-secondary);
+}
