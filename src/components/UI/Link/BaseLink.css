@@ -1,0 +1,13 @@
+.base-link {
+  margin: 0;
+  padding: 0;
+  font-style: none;
+  text-decoration: none;
+  color: var(--theme-color-font-main);
+  transition: opacity var(--theme-transition-opacity-duration);
+  opacity: 1;
+}
+
+.base-link:hover {
+  opacity: var(--theme-opacity);
+}

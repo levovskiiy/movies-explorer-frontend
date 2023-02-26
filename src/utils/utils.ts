@@ -37,6 +37,6 @@ export function configClasses (namespace: string): [string, modAddHandler] {
   return [namespace, mod]
 }
 
-export function classess (...cls: string[]): string {
+export function classess (...cls: Array<string | undefined>): string {
   return cls.join(' ').trim() ?? ''
 }

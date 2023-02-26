@@ -9,6 +9,7 @@ interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
 
 const Paragraph: FC<ParagraphProps> = ({ children, size = 'mb', className = '', ...props }) => {
   const styles = ['paragraph', `paragraph_size_${size}`, className]
+  console.log(className)
 
   const cls = useMemo(() => classess(...styles), [size])
 

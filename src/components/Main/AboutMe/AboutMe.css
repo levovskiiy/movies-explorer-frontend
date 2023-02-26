@@ -1,0 +1,40 @@
+.about-me {
+  padding: 110px 0 125px 0;
+}
+
+.about-me__title {
+  margin-bottom: 23px;
+}
+
+.about-me__content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 66px;
+  margin-bottom: 100px;
+}
+
+.about-me__student {
+  position: relative;
+  max-width: 600px;
+}
+
+.about-me__name {
+  margin-bottom: 18px;
+}
+
+.about-me__profession {
+  font-size: 18px;
+  margin-bottom: 26px;
+}
+
+.about-me__social-list {
+  position: absolute;
+  bottom: 0;
+}
+
+.about-me__student-image {
+  display: block;
+  border-radius: 10px;
+  width: 270px;
+  height: 327px;
+}

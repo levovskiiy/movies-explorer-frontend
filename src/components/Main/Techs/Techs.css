@@ -1,0 +1,39 @@
+.techs {
+  padding: 100px 0;
+  background-color: #272727;
+}
+
+.techs__header {
+  margin-bottom: 23px;
+}
+
+.techs__content {
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techs__content-title {
+  margin-bottom: 26px;
+}
+
+.techs__content-text {
+  margin-bottom: 100px;
+}
+
+.techs__list {
+  max-width: 690px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  text-align: center;
+  gap: 10px;
+}
+
+.techs__list-item {
+  font-size: 14px;
+  padding: 22px 0;
+  background-color: #303030;
+  border-radius: 10px;
+}
