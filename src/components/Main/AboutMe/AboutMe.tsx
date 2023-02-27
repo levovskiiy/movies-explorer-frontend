@@ -9,11 +9,13 @@ import Paragraph from '../../UI/Paragraph/Paragraph'
 import PresonImage from '../../../images/person_image.jpg'
 import './AboutMe.css'
 import BaseLink from '../../UI/Link/BaseLink'
+import Portfolio from '../Portfolio/Portfolio'
 
 const AboutMe = () => {
   const socialLinks: ISocial[] = [{
     social: 'GitHub',
-    link: 'https://github.com/levovskiiy'
+    link: 'https://github.com/levovskiiy',
+    id: Date.now()
   }]
 
   return (
@@ -35,11 +37,14 @@ const AboutMe = () => {
               После того, как прошёл курс по веб-разработке,
               начал заниматься фриланс-заказами и ушёл с постоянной работы.
             </Paragraph>
-            <List className='about-me__social-list' items={socialLinks} renderItem={(item) => <ListItem>
-              <BaseLink href={item.link} className='about-me__social-link'>{item.social}</BaseLink>
+            <List className='about-me__social-list' items={socialLinks} renderItem={(item) => <ListItem key={item.id}>
+              <BaseLink to={item.link} className='about-me__social-link'>{item.social}</BaseLink>
             </ListItem>} />
           </div>
           <img className='about-me__student-image' src={PresonImage} alt="Фото студента" />
+        </div>
+        <div className="about-me__portfolio">
+          <Portfolio />
         </div>
       </Container>
     </section>
