@@ -1,16 +1,16 @@
-import React, { type FC, type LabelHTMLAttributes, type ReactNode } from 'react'
+import React, { type FC, type LabelHTMLAttributes } from 'react'
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  children: ReactNode
+  label: string
 }
 
-const Label: FC<LabelProps> = ({ children, className, ...props }) => {
+const Label: FC<LabelProps> = ({ label, className, ...props }) => {
   return (
     <label
       {...props}
       className={['label', className].join(' ')}
     >
-      {children}
+      {label}
     </label>
   )
 }

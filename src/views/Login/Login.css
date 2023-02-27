@@ -1,0 +1,16 @@
+.login-page {
+  padding: 70px 0;
+}
+
+.login-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 396px;
+}
+
+.login-page__logo {
+  width: 30px;
+  height: 30px;
+}

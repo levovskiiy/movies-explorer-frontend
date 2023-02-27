@@ -1,8 +1,9 @@
 import React, { type FC, type ReactNode, type FormEvent, useMemo } from 'react'
 import { bem, classess } from '../../../utils/utils'
+import './Form.css'
 
 interface FormProps {
-  children: ReactNode
+  children?: ReactNode
   className?: string
   onSubmit: (evt: FormEvent) => any
 }

@@ -12,3 +12,7 @@
 .header_theme_landing {
   background-color: var(--theme-color-header-landing);
 }
+
+.header_theme_auth {
+  display: none;
+}

@@ -18,6 +18,8 @@ const Header: FC<HeaderProps> = ({ isLoggin }) => {
   useEffect(() => {
     if (location.pathname === '/') {
       setTheme('landing')
+    } else if (location.pathname === '/login' || location.pathname === '/register') {
+      setTheme('auth')
     } else {
       setTheme('app')
     }
