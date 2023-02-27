@@ -6,8 +6,8 @@ import './NavTab.css'
 const NavTab = () => {
   return (
     <nav>
-      <BaseLink href='#'>Регистрация</BaseLink>
-      <Button rounded size='md' variant='secondary'>Логин</Button>
+      <BaseLink to='/register' isRoute>Регистрация</BaseLink>
+      <Button to='/login' rounded size='md' variant='secondary'>Логин</Button>
     </nav>
   )
 }

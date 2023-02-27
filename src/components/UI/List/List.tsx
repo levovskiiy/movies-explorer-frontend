@@ -5,14 +5,13 @@ import './List.css'
 
 interface ListProps<T> extends HTMLAttributes<HTMLUListElement> {
   items: T[]
-  direction?: 'row' | 'col'
-  renderItem: (item: T) => ReactNode
+  renderItem: (item: T, index: number) => ReactNode
 }
 
-export default function List<T>({ items, renderItem, className = '', direction = 'row', ...props }: ListProps<T>) {
-  const styles = ['list', `list_dir_${direction}`, className]
+export default function List<T>({ items, renderItem, className, ...props }: ListProps<T>) {
+  const styles = ['list', className]
 
-  const cls = useMemo(() => classess(...styles), [className, direction])
+  const cls = useMemo(() => classess(...styles), [className, styles])
 
   return (
     <ul {...props} className={cls}>
