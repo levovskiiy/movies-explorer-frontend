@@ -1,5 +1,5 @@
 type BemMapModification = Record<string, string | boolean>
-type classnameFn = (name: string, elementMods: BemMapModification) => string[]
+type classnameFn = (name: string, elementMods: BemMapModification) => string
 
 interface BemBlock {
   block: string
@@ -50,7 +50,7 @@ export function bem (blockOption: BemBlock): [string, classnameFn] {
     return classes.join(' ').trimEnd()
   }
 
-  const classname = (name: string, elementMods: BemMapModification = {}): string[] => {
+  const classname = (name: string, elementMods: BemMapModification = {}): string => {
     const template = block + BemSeparators.e + name
     const classes = [template]
 
@@ -58,7 +58,7 @@ export function bem (blockOption: BemBlock): [string, classnameFn] {
       classes.push(makeMod(template, key, value))
     }
 
-    return classes
+    return classes.join(' ').trimEnd()
   }
 
   return [init(), classname]
