@@ -1,6 +1,6 @@
 import React, { useMemo, type FC, type HTMLAttributes, type ReactNode } from 'react'
 import { type Size } from '../../../types/types'
-import { classess } from '../../../utils/utils'
+import { bem, classess } from '../../../utils/utils'
 import BaseLink from '../Link/BaseLink'
 import './Button.css'
 
@@ -27,15 +27,17 @@ const Button: FC<ButtonProps> = (
     to,
     ...props
   }) => {
-  const styles = [
-    'button',
-    `button_size_${size}`,
-    `button_variant_${variant}`,
-    rounded ? 'button_rounded' : '',
-    className
-  ]
-
-  const cls = useMemo(() => classess(...styles), [styles])
+  const cls = useMemo(() => {
+    const [block] = bem({
+      block: 'button',
+      modifiers: {
+        size,
+        variant,
+        rounded
+      }
+    })
+    return classess(block, className)
+  }, [size, variant, rounded, className])
   const loader = isLoading ? <></> : null
 
   if (to !== undefined) {

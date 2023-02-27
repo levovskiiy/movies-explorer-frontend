@@ -2,7 +2,7 @@ import React, { useEffect, useState, type FC } from 'react'
 import { useLocation } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import { type Theme } from '../../types/types'
-import { classess } from '../../utils/utils'
+import { bem } from '../../utils/utils'
 import NavTab from '../Main/NavTab/NavTab'
 import Container from '../UI/Container/Container'
 import './Header.css'
@@ -23,10 +23,13 @@ const Header: FC<HeaderProps> = ({ isLoggin }) => {
     }
   }, [location])
 
-  const styles = classess(...['header', `header_theme_${theme}`])
+  const [block] = bem({
+    block: 'header',
+    modifiers: { theme }
+  })
 
   return (
-    <header className={styles}>
+    <header className={block}>
       <Container>
         <div className="header__container">
           <div className="header__logo">

@@ -45,7 +45,7 @@ const Portfolio = () => {
           <BaseLink className="portfolio__link" to={item.url}>
             {item.name}
           </BaseLink>
-          {idx !== portfolio.length - 1 && <Divider/>}
+          {idx !== portfolio.length - 1 && <Divider />}
         </ListItem>
       )}>
     </List>

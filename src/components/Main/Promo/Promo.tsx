@@ -7,7 +7,7 @@ const Promo = () => {
   return (
     <div className='promo'>
       <Container>
-        <div className="promo__content">
+        <div className='promo__content'>
           <Heading size='xl' className='promo__header'>
             Учебный проект студента факультета Веб-разработки.
           </Heading>

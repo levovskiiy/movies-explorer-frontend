@@ -1,42 +1,69 @@
-interface BemConfigType {
-  elDelimeter: string
-  modDelimeter: string
+type BemMapModification = Record<string, string | boolean>
+type classnameFn = (name: string, elementMods: BemMapModification) => string[]
+
+interface BemBlock {
+  block: string
+  modifiers?: BemMapModification
 }
 
-type modAddHandler = (mod: string, modVal: string) => string
-
-const bemConfig: BemConfigType = {
-  elDelimeter: '__',
-  modDelimeter: '_'
+const BemSeparators = {
+  e: '__',
+  m: '_'
 }
 
-export function blockModificators (
-  block: string,
-  modificator: string,
-  value: string): string {
-  let namespace = ''
+function makeBoolMod (template: string, mod: string): string {
+  return template + BemSeparators.m + mod
+}
 
-  if (value === '' || typeof value === 'undefined') {
-    return ''
+function makeMapMod (template: string, modName: string, modVal: string): string {
+  return template + BemSeparators.m + modName + BemSeparators.m + modVal
+}
+
+function isBoolMod (modVal: string | boolean): boolean {
+  return typeof modVal === 'boolean' && modVal
+}
+
+function makeMod (template: string, mod: string, modVal: string | boolean): string {
+  if (isBoolMod(modVal)) {
+    return makeBoolMod(template, mod)
   }
-
-  namespace += block + bemConfig.modDelimeter + modificator + bemConfig.modDelimeter + value + ' '
-
-  return namespace.trim() ?? ''
+  return makeMapMod(template, mod, modVal as string)
 }
 
-export function configClasses (namespace: string): [string, modAddHandler] {
-  function mod (mod: string, modVal: string) {
-    if (mod === '' || typeof mod === 'undefined') {
-      return ''
+export function bem (blockOption: BemBlock): [string, classnameFn] {
+  const {
+    block,
+    modifiers
+  } = blockOption
+
+  const init = () => {
+    const classes = [block]
+
+    if (modifiers === undefined) {
+      return classes.join('')
     }
 
-    return blockModificators(namespace, mod, modVal) ?? ''
+    for (const [mod, modVal] of Object.entries(modifiers)) {
+      classes.push(makeMod(block, mod, modVal))
+    }
+
+    return classes.join(' ').trimEnd()
   }
 
-  return [namespace, mod]
+  const classname = (name: string, elementMods: BemMapModification = {}): string[] => {
+    const template = block + BemSeparators.e + name
+    const classes = [template]
+
+    for (const [key, value] of Object.entries(elementMods)) {
+      classes.push(makeMod(template, key, value))
+    }
+
+    return classes
+  }
+
+  return [init(), classname]
 }
 
-export function classess (...cls: Array<string | undefined>): string {
-  return cls.join(' ').trim() ?? ''
+export function classess (...styles: Array<string | undefined>) {
+  return styles.join(' ').trimEnd() ?? ''
 }
