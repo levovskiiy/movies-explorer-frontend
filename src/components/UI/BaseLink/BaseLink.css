@@ -1,12 +1,20 @@
 .base-link {
   margin: 0;
   padding: 0;
-  text-decoration: none;
   color: var(--theme-color-font-main);
+  text-decoration: none;
   transition: opacity var(--theme-transition-opacity-duration);
   opacity: 1;
 }
 
 .base-link:hover {
   opacity: var(--theme-opacity);
+}
+
+.base-link_variant_secondary {
+  color: var(--theme-color-tertiary);
+}
+
+.base-link_variant_danger {
+  color: var(--theme-color-quaternary);
 }

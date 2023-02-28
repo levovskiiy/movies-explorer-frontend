@@ -1,12 +1,12 @@
-import React, { useMemo, type FC, type HTMLAttributes, type ReactNode } from 'react'
+import React, { type ButtonHTMLAttributes, useMemo, type FC, type ReactNode } from 'react'
 import { type Size } from '../../../types/types'
 import { bem, classess } from '../../../utils/utils'
-import BaseLink from '../Link/BaseLink'
+import BaseLink from '../BaseLink/BaseLink'
 import './Button.css'
 
 type Variant = 'primary' | 'secondary' | 'link' | 'ghost'
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   size?: Size
   isLoading?: boolean

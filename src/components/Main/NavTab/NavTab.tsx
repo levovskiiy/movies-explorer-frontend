@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../../UI/Button/Button'
-import BaseLink from '../../UI/Link/BaseLink'
+import BaseLink from '../../UI/BaseLink/BaseLink'
 import './NavTab.css'
 
 const NavTab = () => {

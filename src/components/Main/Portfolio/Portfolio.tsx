@@ -1,5 +1,5 @@
 import React from 'react'
-import BaseLink from '../../UI/Link/BaseLink'
+import BaseLink from '../../UI/BaseLink/BaseLink'
 import ListItem from '../../UI/List/Item/ListItem'
 import List from '../../UI/List/List'
 

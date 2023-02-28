@@ -1,28 +1,23 @@
-import React, { useState } from 'react'
-import Header from '../Header/Header'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Main from '../Main/Main'
-import Footer from '../Footer/Footer'
-import Login from '../../views/Login/Login'
-import Content from '../UI/Content/Content'
 import Wrapper from '../UI/Wrapper/Wrapper'
-// import { type Theme } from '../../types/types'
+import Layout from '../Layout/Layout'
+import Register from '../Register/Register'
+import Login from '../Login/Login'
 
 function App() {
-  const [isLoggin] = useState(false)
-
   return (
     <>
       <Wrapper>
-        <Header isLoggin={isLoggin} />
-        <Content>
-          <Routes>
-            <Route path='/' element={<Main />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-          </Routes>
-        </Content>
-        <Footer />
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Main />} />
+          </Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
+        </Routes>
       </Wrapper>
     </ >
   )

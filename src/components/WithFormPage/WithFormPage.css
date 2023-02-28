@@ -1,8 +1,8 @@
-.login-page {
+.form-page {
   padding: 70px 0;
 }
 
-.login-page__content {
+.form-page__content {
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -10,7 +10,7 @@
   max-width: 396px;
 }
 
-.login-page__logo {
+.form-page__logo {
   width: 30px;
   height: 30px;
 }

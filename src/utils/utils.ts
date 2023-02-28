@@ -1,6 +1,8 @@
 type BemMapModification = Record<string, string | boolean>
 type classnameFn = (name: string, elementMods?: BemMapModification) => string
 
+export type BemConfigurator = [string, classnameFn]
+
 interface BemBlock {
   block: string
   modifiers?: BemMapModification
@@ -30,7 +32,7 @@ function makeMod (template: string, mod: string, modVal: string | boolean): stri
   return makeMapMod(template, mod, modVal as string)
 }
 
-export function bem (blockOption: BemBlock): [string, classnameFn] {
+export function bem (blockOption: BemBlock): BemConfigurator {
   const {
     block,
     modifiers
@@ -39,12 +41,10 @@ export function bem (blockOption: BemBlock): [string, classnameFn] {
   const init = () => {
     const classes = [block]
 
-    if (modifiers === undefined) {
-      return classes.join('')
-    }
-
-    for (const [mod, modVal] of Object.entries(modifiers)) {
-      classes.push(makeMod(block, mod, modVal))
+    if (modifiers !== undefined) {
+      for (const [mod, modVal] of Object.entries(modifiers)) {
+        classes.push(makeMod(block, mod, modVal))
+      }
     }
 
     return classes.join(' ').trimEnd()
@@ -68,4 +68,8 @@ export function bem (blockOption: BemBlock): [string, classnameFn] {
 
 export function classess (...styles: Array<string | undefined>) {
   return styles.join(' ').trimEnd() ?? ''
+}
+
+export function merge (first: string, second: string): string {
+  return first + ' ' + second
 }

@@ -8,7 +8,7 @@ import List from '../../UI/List/List'
 import Paragraph from '../../UI/Paragraph/Paragraph'
 import PresonImage from '../../../images/person_image.jpg'
 import './AboutMe.css'
-import BaseLink from '../../UI/Link/BaseLink'
+import BaseLink from '../../UI/BaseLink/BaseLink'
 import Portfolio from '../Portfolio/Portfolio'
 
 const AboutMe = () => {

@@ -2,7 +2,7 @@ import React, { type FC } from 'react'
 import Container from '../UI/Container/Container'
 import Divider from '../UI/Divider/Divider'
 import Heading from '../UI/Heading/Heading'
-import BaseLink from '../UI/Link/BaseLink'
+import BaseLink from '../UI/BaseLink/BaseLink'
 
 import './Footer.css'
 

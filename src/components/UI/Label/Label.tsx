@@ -1,4 +1,5 @@
 import React, { type FC, type LabelHTMLAttributes } from 'react'
+import './Label.css'
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   label: string

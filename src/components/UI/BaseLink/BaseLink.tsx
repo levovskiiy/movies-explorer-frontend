@@ -1,19 +1,27 @@
 import React, { type ReactNode, useMemo, type FC, type HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
-import { classess } from '../../../utils/utils'
+import { bem, merge } from '../../../utils/utils'
 
 import './BaseLink.css'
 
 interface LinkProps extends HTMLAttributes<HTMLAnchorElement> {
   to: string
+  variant?: 'secondary' | 'danger'
   isRoute?: boolean
   children: ReactNode
 }
 
-const BaseLink: FC<LinkProps> = ({ children, to, isRoute = false, className, ...props }) => {
-  const styles = ['base-link', className]
+const BaseLink: FC<LinkProps> = ({ children, variant, to, isRoute = false, className, ...props }) => {
+  const cls = useMemo(() => {
+    const [baseLink] = bem({
+      block: 'base-link',
+      modifiers: {
+        variant: (variant as string)
+      }
+    })
 
-  const cls = useMemo(() => classess(...styles), [styles])
+    return merge(baseLink, className ?? '')
+  }, [className])
 
   if (isRoute) {
     return <Link to={to} className={cls}>{children}</Link>
