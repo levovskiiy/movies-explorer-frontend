@@ -1,0 +1,21 @@
+.navigation {
+  width: 100%;
+}
+
+.navigation__list {
+  width: 100%;
+  grid-template-columns: repeat(2, max-content) 1fr max-content;
+  align-items: center;
+  grid-gap: 16px;
+}
+
+.navigation__list-item {
+  justify-self: end;
+}
+
+.navigation__list-icon {
+  width: 30px;
+  height: 30px;
+  background: no-repeat center url('../../images/user_icon.svg') #313131;
+  border-radius: 6px;
+}

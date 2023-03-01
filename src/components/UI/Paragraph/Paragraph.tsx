@@ -1,6 +1,6 @@
-import React, { useMemo, type FC, type HTMLAttributes } from 'react'
+import React, { type FC, type HTMLAttributes } from 'react'
 import { type Size } from '../../../types/types'
-import { bem, classess } from '../../../utils/utils'
+import { classname } from '../../../utils/utils'
 import './Paragraph.css'
 
 interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
@@ -8,17 +8,10 @@ interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 const Paragraph: FC<ParagraphProps> = ({ children, className, size = 'mb', ...props }) => {
-  const cls = useMemo(() => {
-    const [paragraph] = bem({
-      block: 'paragraph',
-      modifiers: { size }
-    })
-
-    return classess(paragraph, className)
-  }, [className, size])
+  const { block } = classname('paragraph', { size }, [className])
 
   return (
-    <p {...props} className={cls}>{children}</p>
+    <p {...props} className={block}>{children}</p>
   )
 }
 

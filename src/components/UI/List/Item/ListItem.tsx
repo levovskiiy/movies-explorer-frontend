@@ -1,17 +1,15 @@
-import React, { useMemo, type FC, type HTMLAttributes } from 'react'
-import { classess } from '../../../../utils/utils'
+import React, { type FC, type HTMLAttributes } from 'react'
+import { classname } from '../../../../utils/utils'
 import './ListItem.css'
 interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
 
 }
 
 const Item: FC<ListItemProps> = ({ children, className = '' }) => {
-  const styles = ['list__item', className]
-
-  const cls = useMemo(() => classess(...styles), [className])
+  const { block } = classname('list__item', {}, [className])
 
   return (
-    <li className={cls}>{children}</li>
+    <li className={block}>{children}</li>
   )
 }
 

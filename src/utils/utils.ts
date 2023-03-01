@@ -1,75 +1,93 @@
-type BemMapModification = Record<string, string | boolean>
-type classnameFn = (name: string, elementMods?: BemMapModification) => string
+export type Modificators = Record<string, string | boolean>
+export type Mixins = Array<string | undefined>
+export type BemFormatter = (block: string, blockMods?: Modificators, mixins?: Mixins) => Bem
 
-export type BemConfigurator = [string, classnameFn]
-
-interface BemBlock {
+export interface Bem {
   block: string
-  modifiers?: BemMapModification
+  element: (elementName: string, elementMods?: Modificators, mixins?: Mixins) => string
 }
 
-const BemSeparators = {
-  e: '__',
-  m: '_'
+interface Preset {
+  namepsace?: string
+  elementDelimeter?: string
+  modDelimeter?: string
 }
 
-function makeBoolMod (template: string, mod: string): string {
-  return template + BemSeparators.m + mod
-}
+function addMods(blockName: string, mods: Modificators, preset: Preset): string[] {
+  const resultMods = []
 
-function makeMapMod (template: string, modName: string, modVal: string): string {
-  return template + BemSeparators.m + modName + BemSeparators.m + modVal
-}
+  const modPrefix = blockName + preset.modDelimeter
 
-function isBoolMod (modVal: string | boolean): boolean {
-  return typeof modVal === 'boolean' && modVal
-}
+  for (const [key, value] of Object.entries(mods)) {
+    const modName = key
+    const modValue = value
 
-function makeMod (template: string, mod: string, modVal: string | boolean): string {
-  if (isBoolMod(modVal)) {
-    return makeBoolMod(template, mod)
+    if (modValue === true) {
+      resultMods.push(modPrefix + modName)
+    }
+
+    if (modValue && typeof modValue !== 'boolean') {
+      resultMods.push(modPrefix + modName + preset.modDelimeter + modValue)
+    }
   }
-  return makeMapMod(template, mod, modVal as string)
+
+  return resultMods
 }
 
-export function bem (blockOption: BemBlock): BemConfigurator {
-  const {
-    block,
-    modifiers
-  } = blockOption
+function bem(preset: Preset): BemFormatter {
+  function toString(block: string, el?: string, mods?: Modificators | null, mixins?: Mixins) {
+    const name = el ? block + preset.elementDelimeter + el : block
+    const classnames: string[] = [name]
 
-  const init = () => {
-    const classes = [block]
+    if (mods) {
+      classnames.push(...addMods(name, mods, preset))
+    }
 
-    if (modifiers !== undefined) {
-      for (const [mod, modVal] of Object.entries(modifiers)) {
-        classes.push(makeMod(block, mod, modVal))
+    if (mixins) {
+      for (const mix of mixins) {
+        if (mix && typeof mix?.valueOf() === 'string') {
+          classnames.push(mix)
+        }
       }
     }
 
-    return classes.join(' ').trimEnd()
+    return classnames.length === 1 ? name : classnames.join(' ')
   }
 
-  const classname = (name: string, elementMods?: BemMapModification): string => {
-    const template = block + BemSeparators.e + name
-    const classes = [template]
+  return function generator(block: string, blockMods?: Modificators, mixins?: Mixins): Bem {
+    return {
+      get block() {
+        return toString(block, undefined, blockMods, mixins)
+      },
 
-    if (elementMods !== undefined) {
-      for (const [key, value] of Object.entries(elementMods)) {
-        classes.push(makeMod(template, key, value))
+      element(elementName: string, elementMods?: Modificators, mixins?: Mixins) {
+        return toString(block, elementName, elementMods, mixins)
       }
     }
+  }
+}
 
-    return classes.join(' ').trimEnd()
+function merge (...tokens: Array<string | undefined>): string {
+  const result: string[] = []
+  const classnames = tokens.join(' ').split(' ')
+  const unique = new Set()
+
+  for (const classname of classnames) {
+    if (classname !== '' && !unique.has(classname)) {
+      unique.add(classname)
+      result.push(classname)
+    }
   }
 
-  return [init(), classname]
+  return result.join(' ')
 }
 
-export function classess (...styles: Array<string | undefined>) {
-  return styles.join(' ').trimEnd() ?? ''
-}
+const classname = bem({
+  modDelimeter: '_',
+  elementDelimeter: '__'
+})
 
-export function merge (first: string, second: string): string {
-  return first + ' ' + second
+export {
+  classname,
+  merge
 }

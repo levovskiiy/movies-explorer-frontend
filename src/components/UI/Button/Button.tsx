@@ -1,6 +1,6 @@
-import React, { type ButtonHTMLAttributes, useMemo, type FC, type ReactNode } from 'react'
+import React, { type ButtonHTMLAttributes, type FC, type ReactNode } from 'react'
 import { type Size } from '../../../types/types'
-import { bem, classess } from '../../../utils/utils'
+import { classname, merge } from '../../../utils/utils'
 import BaseLink from '../BaseLink/BaseLink'
 import './Button.css'
 
@@ -27,25 +27,21 @@ const Button: FC<ButtonProps> = (
     to,
     ...props
   }) => {
-  const cls = useMemo(() => {
-    const [block] = bem({
-      block: 'button',
-      modifiers: {
-        size,
-        variant,
-        rounded
-      }
-    })
-    return classess(block, className)
-  }, [size, variant, rounded, className])
+  const { block } = classname('button', {
+    size,
+    variant,
+    rounded
+  })
+  const classnames = merge(block, className)
+
   const loader = isLoading ? <></> : null
 
   if (to !== undefined) {
-    return <BaseLink isRoute to={to} className={cls}>{children}</BaseLink>
+    return <BaseLink isRoute to={to} className={classnames}>{children}</BaseLink>
   }
 
   return (
-    <button {...props} className={cls}>
+    <button {...props} className={classnames}>
       {loader}{children}
     </button>
   )

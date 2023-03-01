@@ -2,8 +2,9 @@ import React, { useEffect, useState, type FC } from 'react'
 import { useLocation } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import { type Theme } from '../../types/types'
-import { bem } from '../../utils/utils'
+import { classname } from '../../utils/utils'
 import NavTab from '../Main/NavTab/NavTab'
+import Navigation from '../Navigation/Navigation'
 import Container from '../UI/Container/Container'
 import './Header.css'
 
@@ -14,6 +15,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ isLoggin }) => {
   const [theme, setTheme] = useState<Theme>('landing')
   const location = useLocation()
+  const [logged] = useState(true)
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -25,21 +27,24 @@ const Header: FC<HeaderProps> = ({ isLoggin }) => {
     }
   }, [location])
 
-  const [block] = bem({
-    block: 'header',
-    modifiers: { theme }
-  })
+  const { block, element } = classname('header', { theme })
+
+  const styles = {
+    container: element('container'),
+    logo: element('logo'),
+    logoImage: element('logo-image')
+  }
 
   return (
     <header className={block}>
       <Container>
-        <div className="header__container">
-          <div className="header__logo">
-            <img src={logo} alt="Логотип" className="header__logo-image" />
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            <img src={logo} alt="Логотип" className={styles.logoImage} />
           </div>
-          <div className="header__navigation">
-            <NavTab />
-          </div>
+          {
+            logged ? <Navigation isLoggin={logged} /> : <NavTab />
+          }
         </div>
       </Container>
     </header>

@@ -6,6 +6,7 @@ import Wrapper from '../UI/Wrapper/Wrapper'
 import Layout from '../Layout/Layout'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import Movies from '../Movies/Movies'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Main />} />
+            <Route path='movies' element={<Movies />} />
           </Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>

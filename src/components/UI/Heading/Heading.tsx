@@ -1,6 +1,6 @@
-import React, { useMemo, type FC, type HTMLAttributes } from 'react'
+import React, { type FC, type HTMLAttributes } from 'react'
 import { type Size } from '../../../types/types'
-import { bem, classess } from '../../../utils/utils'
+import { classname } from '../../../utils/utils'
 import './Heading.css'
 
 export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -14,17 +14,11 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 
 const Heading: FC<HeadingProps> = ({ as, children, className = '', size = 'xl', ...props }) => {
   const Tag = as ?? 'h1'
-  const [block] = bem({
-    block: 'heading',
-    modifiers: { size }
-  })
 
-  const cls = useMemo(() => {
-    return classess(block, className)
-  }, [size, className])
+  const { block } = classname('heading', { size }, [className])
 
   return (
-    <Tag {...props} className={cls}>
+    <Tag {...props} className={block}>
       {children}
     </Tag>
   )

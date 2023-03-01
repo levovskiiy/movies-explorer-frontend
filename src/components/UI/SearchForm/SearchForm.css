@@ -1,0 +1,15 @@
+.search-form {
+  position: relative;
+}
+
+.search-form__input {
+  padding: 25px 0 25px 25px;
+  font-size: 18px;
+}
+
+.search-form__button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

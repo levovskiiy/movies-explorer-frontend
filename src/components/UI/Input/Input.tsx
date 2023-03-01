@@ -1,13 +1,16 @@
-import React, { type FC, type ChangeEvent, type InputHTMLAttributes } from 'react'
+import React, { type FC, type InputHTMLAttributes } from 'react'
+import { classname } from '../../../utils/utils'
 import './Input.css'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  onChange?: (evt: ChangeEvent) => any
+  variant?: 'primary' | 'ghost'
 }
 
-const Input: FC<InputProps> = ({ className, onChange, ...props }) => {
+const Input: FC<InputProps> = ({ className, variant = 'primary', ...props }) => {
+  const { block } = classname('input', { variant }, [className])
+
   return (
-    <input {...props} onChange={onChange} className={['input', className].join(' ')} />
+    <input {...props} className={block} />
   )
 }
 

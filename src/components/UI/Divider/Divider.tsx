@@ -1,5 +1,4 @@
-import React, { type HTMLAttributes, useMemo, type FC } from 'react'
-import { classess } from '../../../utils/utils'
+import React, { type HTMLAttributes, type FC } from 'react'
 import './Divider.css'
 
 interface DividerProps extends HTMLAttributes<HTMLDivElement> {
@@ -7,9 +6,9 @@ interface DividerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Divider: FC<DividerProps> = ({ className = '' }) => {
-  const styles = useMemo(() => classess('divider', className), [className])
+  const classnames = 'divider' + ' ' + className
   return (
-    <div className={styles}></div>
+    <div className={classnames}></div>
   )
 }
 

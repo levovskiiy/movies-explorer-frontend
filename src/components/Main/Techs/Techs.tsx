@@ -1,4 +1,5 @@
 import React from 'react'
+import { classname } from '../../../utils/utils'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
 import Heading from '../../UI/Heading/Heading'
@@ -11,25 +12,27 @@ import './Techs.css'
 const Techs = () => {
   const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'MongoDB']
 
+  const { block, element } = classname('techs')
+
   return (
-    <section className='techs'>
+    <section className={block}>
       <Container>
-        <Heading as='h4' size='md' className='techs__header'>Технологии</Heading>
+        <Heading as='h4' size='md' className={element('header')}>Технологии</Heading>
         <Divider />
 
-        <div className="techs__content">
-          <Heading as='h3' size='xxl' className='techs__content-title'>7 Технологий</Heading>
-          <Paragraph className='techs__content-text'>
+        <div className={element('content')}>
+          <Heading as='h3' size='xxl' className={element('content-title')}>7 Технологий</Heading>
+          <Paragraph className={element('content-text')}>
             На курсе веб-разработки мы освоили технологии,
             которые применили в дипломном проекте.
           </Paragraph>
 
           <List
-            className='techs__list'
+            className={element('list')}
             items={techs}
             renderItem={
               (item) => <ListItem
-                className='techs__list-item'
+                className={element('list-item')}
                 key={item}>
                 {item}
               </ListItem>} />

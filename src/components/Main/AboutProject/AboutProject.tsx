@@ -1,4 +1,5 @@
 import React from 'react'
+import { classname } from '../../../utils/utils'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
 import Heading from '../../UI/Heading/Heading'
@@ -6,16 +7,18 @@ import Paragraph from '../../UI/Paragraph/Paragraph'
 import './AboutProject.css'
 
 const AboutProject = () => {
+  const { block, element } = classname('about-project')
+
   return (
-    <section className='about-project'>
+    <section className={block}>
       <Container>
-        <div className='about-project__content'>
+        <div className={element('content')}>
           <Heading as='h3' size='md'>
             О проекте
           </Heading>
-          <Divider className='about-project__divider' />
-          <div className="about-project__stages">
-            <div className="about-project__stage">
+          <Divider className={element('divider')} />
+          <div className={element('stages')}>
+            <div className={element('stage')}>
               <Heading as='h4' size='sm'>Дипломный проект включал 5 этапов</Heading>
               <Paragraph>
                 Составление плана,
@@ -23,7 +26,7 @@ const AboutProject = () => {
                 добавление функциональности и финальные доработки.
               </Paragraph>
             </div>
-            <div className="about-project__stage">
+            <div className={element('stage')}>
               <Heading as='h4' size='sm'>На выполнение диплома ушло 5 недель</Heading>
               <Paragraph>
                 У каждого этапа был мягкий и жёсткий дедлайн,
@@ -33,20 +36,16 @@ const AboutProject = () => {
             </div>
           </div>
 
-          <div className="about-project__time-completion">
+          <div className={element('time-completion')}>
             <Paragraph
               size='sm'
-              className='
-                about-project__time-completion-weeks
-                about-project__time-completion-weeks_backend'
+              className={element('time-completion-weeks', { backend: true })}
             >
               1 неделя
             </Paragraph>
             <Paragraph
               size='sm'
-              className='
-                about-project__time-completion-weeks
-                about-project__time-completion-weeks_frontend'
+              className={element('time-completion-weeks', { frontend: true })}
             >
               4 недели
             </Paragraph>

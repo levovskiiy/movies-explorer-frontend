@@ -6,10 +6,10 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Container: FC<ContainerProps> = ({ children, className, ...props }) => {
-  const classes = `container ${className ?? ''}`
+  const classnames = `container ${className ?? ''}`
 
   return (
-    <div {...props} className={classes}>
+    <div {...props} className={classnames}>
       {children}
     </div>
   )

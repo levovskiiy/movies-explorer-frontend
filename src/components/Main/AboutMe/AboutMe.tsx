@@ -7,9 +7,10 @@ import ListItem from '../../UI/List/Item/ListItem'
 import List from '../../UI/List/List'
 import Paragraph from '../../UI/Paragraph/Paragraph'
 import PresonImage from '../../../images/person_image.jpg'
-import './AboutMe.css'
 import BaseLink from '../../UI/BaseLink/BaseLink'
 import Portfolio from '../Portfolio/Portfolio'
+import { classname } from '../../../utils/utils'
+import './AboutMe.css'
 
 const AboutMe = () => {
   const socialLinks: ISocial[] = [{
@@ -18,32 +19,34 @@ const AboutMe = () => {
     id: Date.now()
   }]
 
+  const { block, element } = classname('about-me')
+
   return (
-    <section className='about-me'>
+    <section className={block}>
       <Container>
-        <Heading as='h4' size='md' className='about-me__title'>
+        <Heading as='h4' size='md' className={element('title')}>
           Студент
         </Heading>
         <Divider />
 
-        <div className="about-me__content">
-          <div className="about-me__student">
-            <Heading as='h3' size='xxl' className='about-me__name'>Лев</Heading>
-            <Heading as='h4' className='about-me__profession'>Фронтенд-разработчик</Heading>
-            <Paragraph size='sm' className='about-me__text'>
+        <div className={element('content')}>
+          <div className={element('student')}>
+            <Heading as='h3' size='xxl' className={element('name')}>Лев</Heading>
+            <Heading as='h4' className={element('profession')}>Фронтенд-разработчик</Heading>
+            <Paragraph size='sm' className={element('text')}>
               Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
               и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.
               С 2015 года работал в компании «СКБ Контур».
               После того, как прошёл курс по веб-разработке,
               начал заниматься фриланс-заказами и ушёл с постоянной работы.
             </Paragraph>
-            <List className='about-me__social-list' items={socialLinks} renderItem={(item) => <ListItem key={item.id}>
-              <BaseLink to={item.link} className='about-me__social-link'>{item.social}</BaseLink>
+            <List className={element('social-list')} items={socialLinks} renderItem={(item) => <ListItem key={item.id}>
+              <BaseLink to={element('link')} className='about-me__social-link'>{item.social}</BaseLink>
             </ListItem>} />
           </div>
-          <img className='about-me__student-image' src={PresonImage} alt="Фото студента" />
+          <img className={element('student-image')} src={PresonImage} alt="Фото студента" />
         </div>
-        <div className="about-me__portfolio">
+        <div className={element('portfolio')}>
           <Portfolio />
         </div>
       </Container>

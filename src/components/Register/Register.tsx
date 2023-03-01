@@ -5,37 +5,34 @@ import Input from '../UI/Input/Input'
 import Label from '../UI/Label/Label'
 import BaseLink from '../UI/BaseLink/BaseLink'
 import Paragraph from '../UI/Paragraph/Paragraph'
-import { bem, merge, type BemConfigurator } from '../../utils/utils'
 import withForm from '../WithForm/WithForm'
 import withFormPage from '../WithFormPage/WithFormPage'
+import { classname, merge, type Bem } from '../../utils/utils'
 
 interface RegisterProps {
-  bemConfigurator: BemConfigurator
+  withForm: Bem
 }
 
-const Register: FC<RegisterProps> = ({ bemConfigurator }) => {
-  const [registerBlock, registerClasses] = bemConfigurator
+const Register: FC<RegisterProps> = ({ withForm }) => {
+  const withFormClasses = withForm
+  const { block, element } = classname('register-form')
 
   const styles = useMemo(() => {
-    const [registerForm, registerFormClasses] = bem({
-      block: 'register-form'
-    })
-
     return {
-      main: merge(registerForm, registerBlock),
-      nameLabel: merge(registerClasses('label'), registerFormClasses('name-label')),
-      name: merge(registerClasses('input'), registerFormClasses('name-input')),
-      loginLabel: merge(registerClasses('label'), registerFormClasses('email-label')),
-      emailInput: merge(registerClasses('input'), registerFormClasses('email-input')),
-      passwordLabel: merge(registerClasses('label'), registerFormClasses('password-label')),
-      passwordInput: merge(registerClasses('input'), registerFormClasses('password-input')),
-      formAction: merge(registerClasses('form-action'), registerFormClasses('form-action')),
-      submitButton: merge(registerClasses('submit-button'), registerFormClasses('login'))
+      main: merge(withFormClasses.block, block),
+      nameLabel: merge(withFormClasses.element('label'), element('name-label')),
+      name: merge(withFormClasses.element('input'), element('name-input')),
+      loginLabel: merge(withFormClasses.element('label'), element('email-label')),
+      emailInput: merge(withFormClasses.element('input'), element('email-input')),
+      passwordLabel: merge(withFormClasses.element('label'), element('password-label')),
+      passwordInput: merge(withFormClasses.element('input'), element('password-input')),
+      formAction: merge(withFormClasses.element('form-action'), element('form-action')),
+      submitButton: merge(withFormClasses.element('submit-button'), element('login'))
     }
   }, [])
 
   return (
-    <Form onSubmit={() => 1} className={styles.main}>
+    <Form className={styles.main}>
       <Label label='Имя' htmlFor='name' className={styles.nameLabel} />
       <Input id='name' type='text' name='name' className={styles.name} />
 

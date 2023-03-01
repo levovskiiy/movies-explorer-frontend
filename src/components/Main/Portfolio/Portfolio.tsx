@@ -5,49 +5,41 @@ import List from '../../UI/List/List'
 
 import './Portfolio.css'
 import Divider from '../../UI/Divider/Divider'
-
-interface IPortfolio {
-  name: string
-  url: string
-  id: number
-}
+import { classname } from '../../../utils/utils'
 
 const Portfolio = () => {
-  const portfolio: IPortfolio[] = [
-    {
-      name: 'Статический сайт',
-      url: 'https://github.com/levovskiiy/',
-      id: Date.now()
-    },
-    {
-      name: 'Сайт Vanilla JS',
-      url: 'https://github.com/levovskiiy/',
-      id: Date.now()
-    },
-    {
-      name: 'Сайт React',
-      url: 'https://github.com/levovskiiy/',
-      id: Date.now()
-    },
-    {
-      name: 'FullStack App',
-      url: 'https://github.com/levovskiiy/',
-      id: Date.now()
-    }
-  ]
+  const { element } = classname('portfolio')
+
+  const styles = {
+    items: element('items'),
+    link: element('link')
+  }
 
   return (
-    <List
-      className="portfolio__items"
-      items={portfolio}
-      renderItem={(item, idx) => (
-        <ListItem key={item.id + idx}>
-          <BaseLink className="portfolio__link" to={item.url}>
-            {item.name}
-          </BaseLink>
-          {idx !== portfolio.length - 1 && <Divider />}
-        </ListItem>
-      )}>
+    <List className={styles.items}>
+      <ListItem>
+        <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
+          Статический сайт
+        </BaseLink>
+        <Divider />
+      </ListItem>
+      <ListItem>
+        <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
+          Сайт React
+        </BaseLink>
+        <Divider />
+      </ListItem>
+      <ListItem>
+        <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
+          Vainlla JS
+        </BaseLink>
+        <Divider />
+      </ListItem>
+      <ListItem>
+        <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
+          Fullstack Application
+        </BaseLink>
+      </ListItem>
     </List>
   )
 }

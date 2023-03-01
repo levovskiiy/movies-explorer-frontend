@@ -1,19 +1,17 @@
 import React, { type FC, type ComponentType } from 'react'
-import { bem, type BemConfigurator } from '../../utils/utils'
+import { classname, type Bem } from '../../utils/utils'
 import './WithForm.css'
 
 interface WithFormProps {
-  bemConfigurator: BemConfigurator
+  withForm: Bem
 }
 
 function withForm<P extends WithFormProps>(WrappedComponent: ComponentType<P>): FC<Omit<P, keyof WithFormProps>> {
   const WithForm = (props: Omit<P, keyof WithFormProps>) => {
-    const withFormBem = bem({
-      block: 'with-form'
-    })
+    const withForm = classname('with-form')
 
     return (
-      <WrappedComponent {...props as P} bemConfigurator={withFormBem} />
+      <WrappedComponent {...props as P} withForm={withForm} />
     )
   }
 
