@@ -2,8 +2,6 @@ import React from 'react'
 import { classname } from '../../../utils/utils'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
-import Heading from '../../UI/Heading/Heading'
-import Paragraph from '../../UI/Paragraph/Paragraph'
 import './AboutProject.css'
 
 const AboutProject = () => {
@@ -13,42 +11,51 @@ const AboutProject = () => {
     <section className={block}>
       <Container>
         <div className={element('content')}>
-          <Heading as='h3' size='md'>
+          <h3>
             О проекте
-          </Heading>
+          </h3>
           <Divider className={element('divider')} />
           <div className={element('stages')}>
             <div className={element('stage')}>
-              <Heading as='h4' size='sm'>Дипломный проект включал 5 этапов</Heading>
-              <Paragraph>
+              <h4>Дипломный проект включал 5 этапов</h4>
+              <p className={element('stage-description')}>
                 Составление плана,
                 работу над бэкендом, вёрстку,
                 добавление функциональности и финальные доработки.
-              </Paragraph>
+              </p>
             </div>
             <div className={element('stage')}>
-              <Heading as='h4' size='sm'>На выполнение диплома ушло 5 недель</Heading>
-              <Paragraph>
+              <h4>На выполнение диплома ушло 5 недель</h4>
+              <p className={element('stage-description')}>
                 У каждого этапа был мягкий и жёсткий дедлайн,
                 которые нужно было соблюдать,
                 чтобы успешно защититься.
-              </Paragraph>
+              </p>
             </div>
           </div>
 
           <div className={element('time-completion')}>
-            <Paragraph
-              size='sm'
+            <p
               className={element('time-completion-weeks', { backend: true })}
             >
               1 неделя
-            </Paragraph>
-            <Paragraph
-              size='sm'
+            </p>
+            <p
               className={element('time-completion-weeks', { frontend: true })}
             >
               4 недели
-            </Paragraph>
+            </p>
+
+            <p
+              className={element('time-completion-placeholder')}
+            >
+              Back-end
+            </p>
+            <p
+              className={element('time-completion-placeholder')}
+            >
+              Front-end
+            </p>
           </div>
         </div>
       </Container>

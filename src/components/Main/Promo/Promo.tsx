@@ -1,6 +1,5 @@
 import React from 'react'
 import Container from '../../UI/Container/Container'
-import Heading from '../../UI/Heading/Heading'
 import { classname } from '../../../utils/utils'
 import './Promo.css'
 
@@ -10,9 +9,9 @@ const Promo = () => {
     <div className={block}>
       <Container>
         <div className={element('content')}>
-          <Heading size='xl' className={element('header')}>
+          <h1 className={element('header')}>
             Учебный проект студента факультета Веб-разработки.
-          </Heading>
+          </h1>
           <div className={element('picture')}></div>
         </div>
       </Container>

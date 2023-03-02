@@ -15,7 +15,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ isLoggin }) => {
   const [theme, setTheme] = useState<Theme>('landing')
   const location = useLocation()
-  const [logged] = useState(true)
+  const [logged] = useState(false)
 
   useEffect(() => {
     if (location.pathname === '/') {

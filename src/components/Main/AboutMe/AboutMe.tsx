@@ -2,10 +2,8 @@ import React from 'react'
 import { type ISocial } from '../../../types/types'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
-import Heading from '../../UI/Heading/Heading'
 import ListItem from '../../UI/List/Item/ListItem'
 import List from '../../UI/List/List'
-import Paragraph from '../../UI/Paragraph/Paragraph'
 import PresonImage from '../../../images/person_image.jpg'
 import BaseLink from '../../UI/BaseLink/BaseLink'
 import Portfolio from '../Portfolio/Portfolio'
@@ -24,22 +22,22 @@ const AboutMe = () => {
   return (
     <section className={block}>
       <Container>
-        <Heading as='h4' size='md' className={element('title')}>
+        <h4 className={element('title')}>
           Студент
-        </Heading>
+        </h4>
         <Divider />
 
         <div className={element('content')}>
           <div className={element('student')}>
-            <Heading as='h3' size='xxl' className={element('name')}>Лев</Heading>
-            <Heading as='h4' className={element('profession')}>Фронтенд-разработчик</Heading>
-            <Paragraph size='sm' className={element('text')}>
+            <h3 className={element('name')}>Лев</h3>
+            <h4 className={element('profession')}>Фронтенд-разработчик, 21 год</h4>
+            <p className={element('text')}>
               Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
               и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.
               С 2015 года работал в компании «СКБ Контур».
               После того, как прошёл курс по веб-разработке,
               начал заниматься фриланс-заказами и ушёл с постоянной работы.
-            </Paragraph>
+            </p>
             <List className={element('social-list')} items={socialLinks} renderItem={(item) => <ListItem key={item.id}>
               <BaseLink to={element('link')} className='about-me__social-link'>{item.social}</BaseLink>
             </ListItem>} />

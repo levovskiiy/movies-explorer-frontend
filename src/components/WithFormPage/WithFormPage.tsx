@@ -1,6 +1,5 @@
 import React, { type FC, type ComponentType } from 'react'
 import { classname } from '../../utils/utils'
-import Heading from '../UI/Heading/Heading'
 import logo from '../../images/logo.svg'
 import './WithFormPage.css'
 
@@ -18,7 +17,7 @@ const withFormPage = <P extends object>(WrappedComponent: ComponentType<P>, titl
       <section className={block}>
         <div className={classnames.content}>
           <img src={logo} alt="Логотип" className={classnames.logo} />
-          <Heading as='h1' size="md" className={classnames.title}>{title}</Heading>
+          <h1 className={classnames.title}>{title}</h1>
           <WrappedComponent {...props} />
         </div>
       </section>

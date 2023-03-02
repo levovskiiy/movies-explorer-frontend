@@ -14,7 +14,7 @@ export default function List<T>({ items, renderItem, children, className, ...pro
   if (items !== undefined && renderItem !== undefined) {
     return (
       <ul {...props} className={block}>
-        items.map(renderItem)
+        {items.map(renderItem)}
       </ul>
     )
   }

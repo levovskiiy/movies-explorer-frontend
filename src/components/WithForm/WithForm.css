@@ -1,5 +1,7 @@
-.with-form__form {
-  width: 100%;
+.with-form {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .with-form__label {
@@ -7,18 +9,17 @@
 }
 
 .with-form__input {
+  padding: 15px;
   margin-bottom: 20px;
 }
 
 .with-form__form-action {
-  position: absolute;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  max-width: 396px;
   width: 100%;
-  bottom: 70px;
 }
 
 .with-form__submit-button {

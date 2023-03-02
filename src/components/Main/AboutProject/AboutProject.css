@@ -16,17 +16,33 @@
   gap: 26px;
   display: flex;
   flex-direction: column;
+  line-height: 1.5;
 }
 
 .about-project__time-completion {
   margin-top: 110px;
   display: flex;
+  flex-wrap: wrap;
 
 }
 
 .about-project__time-completion-weeks {
   text-align: center;
+  line-height: 1.21;
   padding: 9px 0;
+}
+
+.about-project__time-completion-placeholder {
+  color: var(--theme-color-thumb-secondary);
+  margin-top: 14px;
+  width: 20%;
+  line-height: 1.21;
+  text-align: center;
+}
+
+.about-project__time-completion-placeholder:last-child {
+  width: 80%;
+  text-align: center;
 }
 
 .about-project__time-completion-weeks_frontend {
@@ -35,6 +51,17 @@
 }
 
 .about-project__time-completion-weeks_backend {
+  color: #303030;
   width: 20%;
   background-color: var(--theme-color-secondary);
+}
+
+@media screen and (max-width: 767px) {
+  .about-project__stage {
+    gap: 30px;
+  }
+
+  .about-project__stage-description {
+    max-width: 319px;
+  }
 }

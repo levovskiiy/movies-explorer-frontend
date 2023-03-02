@@ -5,7 +5,6 @@ import Form from '../UI/Form/Form'
 import Input from '../UI/Input/Input'
 import Label from '../UI/Label/Label'
 import BaseLink from '../UI/BaseLink/BaseLink'
-import Paragraph from '../UI/Paragraph/Paragraph'
 import withForm from '../WithForm/WithForm'
 import withFormPage from '../WithFormPage/WithFormPage'
 import './Login.css'
@@ -41,7 +40,7 @@ const Login: FC<LoginProps> = ({ withForm, ...props }) => {
 
       <div className={styles.formAction}>
         <Button type='submit' variant='primary' rounded className={styles.submitButton}>Войти</Button>
-        <Paragraph>Еще не зарегистрированы? <BaseLink variant='secondary' to={'/register'} isRoute>Зарегистрироваться</BaseLink></Paragraph>
+        <p>Еще не зарегистрированы? <BaseLink variant='secondary' to={'/register'} isRoute>Зарегистрироваться</BaseLink></p>
       </div>
     </Form>
   )

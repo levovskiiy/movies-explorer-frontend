@@ -27,6 +27,10 @@
   color: var(--theme-color-font-secondary);
 }
 
+.button_variant_tertiary {
+  background-color: #313131;
+}
+
 .button_size_sm {
   padding: 5px 12px;
   font-size: 10px;

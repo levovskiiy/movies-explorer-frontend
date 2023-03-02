@@ -4,7 +4,7 @@ import { classname, merge } from '../../../utils/utils'
 import BaseLink from '../BaseLink/BaseLink'
 import './Button.css'
 
-type Variant = 'primary' | 'secondary' | 'link' | 'ghost'
+type Variant = 'primary' | 'secondary' | 'link' | 'ghost' | 'tertiary'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode

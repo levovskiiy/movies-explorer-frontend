@@ -1,7 +1,6 @@
 import React, { type FC } from 'react'
 import Container from '../UI/Container/Container'
 import Divider from '../UI/Divider/Divider'
-import Heading from '../UI/Heading/Heading'
 import BaseLink from '../UI/BaseLink/BaseLink'
 
 import './Footer.css'
@@ -19,7 +18,7 @@ const Footer: FC = () => {
   return (
     <footer className={block} >
       <Container>
-        <Heading as='h6' size='mb' className={classnames.title}>Учебный проект Яндекс.Практикум х BeatFilm.</Heading>
+        <h6 className={classnames.title}>Учебный проект Яндекс.Практикум х BeatFilm.</h6>
         <Divider />
         <div className={classnames.content}>
           <span className={classnames.copyright}>

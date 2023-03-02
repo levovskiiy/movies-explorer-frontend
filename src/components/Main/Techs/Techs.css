@@ -16,9 +16,15 @@
 
 .techs__content-title {
   margin-bottom: 26px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
 }
 
 .techs__content-text {
+  max-width: 460px;
+  text-align: center;
+  line-height: 1.50;
+  letter-spacing: -0.04em;
   margin-bottom: 100px;
 }
 
