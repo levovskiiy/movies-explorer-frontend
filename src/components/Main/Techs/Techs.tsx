@@ -2,8 +2,10 @@ import React from 'react'
 import { classname } from '../../../utils/utils'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
+import Heading from '../../UI/Heading/Heading'
 import ListItem from '../../UI/List/Item/ListItem'
 import List from '../../UI/List/List'
+import Text from '../../UI/Text/Text'
 
 import './Techs.css'
 
@@ -15,15 +17,15 @@ const Techs = () => {
   return (
     <section className={block}>
       <Container>
-        <h4 className={element('header')}>Технологии</h4>
+        <Heading as='h4' className={element('header')}>Технологии</Heading>
         <Divider />
 
         <div className={element('content')}>
-          <h3 className={element('content-title')}>7 Технологий</h3>
-          <p className={element('content-text')}>
+          <Heading as='h3' className={element('content-title')}>7 Технологий</Heading>
+          <Text className={element('content-text')}>
             На курсе веб-разработки мы освоили технологии,
             которые применили в дипломном проекте.
-          </p>
+          </Text>
 
           <List
             className={element('list')}

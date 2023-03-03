@@ -7,6 +7,7 @@ import Label from '../UI/Label/Label'
 import BaseLink from '../UI/BaseLink/BaseLink'
 import withForm from '../WithForm/WithForm'
 import withFormPage from '../WithFormPage/WithFormPage'
+import Text from '../UI/Text/Text'
 import './Login.css'
 
 interface LoginProps {
@@ -40,7 +41,11 @@ const Login: FC<LoginProps> = ({ withForm, ...props }) => {
 
       <div className={styles.formAction}>
         <Button type='submit' variant='primary' rounded className={styles.submitButton}>Войти</Button>
-        <p>Еще не зарегистрированы? <BaseLink variant='secondary' to={'/register'} isRoute>Зарегистрироваться</BaseLink></p>
+        <Text>Еще не зарегистрированы?
+          <BaseLink variant='secondary' to={'/register'} isRoute>
+            Зарегистрироваться
+          </BaseLink>
+        </Text>
       </div>
     </Form>
   )

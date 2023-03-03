@@ -12,12 +12,11 @@
   --theme-transition-all-duration: 0.4s;
 }
 
-html, #root {
+html,
+#root {
   margin: 0;
   height: 100%;
   font-family: Inter, sans-serif;
-  font-weight: 400;
-  font-style: normal;
   font-size: 12px;
   color: var(--theme-color-font-main);
   background-color: var(--theme-color-primary);

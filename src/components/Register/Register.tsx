@@ -7,6 +7,7 @@ import BaseLink from '../UI/BaseLink/BaseLink'
 import withForm from '../WithForm/WithForm'
 import withFormPage from '../WithFormPage/WithFormPage'
 import { classname, merge, type Bem } from '../../utils/utils'
+import Text from '../UI/Text/Text'
 
 interface RegisterProps {
   withForm: Bem
@@ -43,7 +44,11 @@ const Register: FC<RegisterProps> = ({ withForm }) => {
 
       <div className={styles.formAction}>
         <Button type='submit' variant='primary' rounded className={styles.submitButton}>Зарегистрироваться</Button>
-        <p>Уже зарегистрированы? <BaseLink variant='secondary' to={'/login'} isRoute>Войти</BaseLink></p>
+        <Text>Уже зарегистрированы?
+          <BaseLink variant='secondary' to={'/login'} isRoute>
+            Войти
+          </BaseLink>
+        </Text>
       </div>
     </Form>
   )

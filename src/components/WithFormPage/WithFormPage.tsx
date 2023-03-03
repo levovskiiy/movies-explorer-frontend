@@ -1,6 +1,8 @@
 import React, { type FC, type ComponentType } from 'react'
 import { classname } from '../../utils/utils'
 import logo from '../../images/logo.svg'
+import Heading from '../UI/Heading/Heading'
+
 import './WithFormPage.css'
 
 const withFormPage = <P extends object>(WrappedComponent: ComponentType<P>, title?: string): FC<P> => {
@@ -17,7 +19,7 @@ const withFormPage = <P extends object>(WrappedComponent: ComponentType<P>, titl
       <section className={block}>
         <div className={classnames.content}>
           <img src={logo} alt="Логотип" className={classnames.logo} />
-          <h1 className={classnames.title}>{title}</h1>
+          <Heading className={classnames.title}>{title}</Heading>
           <WrappedComponent {...props} />
         </div>
       </section>

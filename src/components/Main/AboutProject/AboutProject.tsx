@@ -2,6 +2,8 @@ import React from 'react'
 import { classname } from '../../../utils/utils'
 import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
+import Heading from '../../UI/Heading/Heading'
+import Text from '../../UI/Text/Text'
 import './AboutProject.css'
 
 const AboutProject = () => {
@@ -11,51 +13,51 @@ const AboutProject = () => {
     <section className={block}>
       <Container>
         <div className={element('content')}>
-          <h3>
+          <Heading as='h3' className={element('title')}>
             О проекте
-          </h3>
+          </Heading>
           <Divider className={element('divider')} />
           <div className={element('stages')}>
             <div className={element('stage')}>
-              <h4>Дипломный проект включал 5 этапов</h4>
-              <p className={element('stage-description')}>
+              <Heading as='h4' className={element('stage-title')}>Дипломный проект включал 5 этапов</Heading>
+              <Text className={element('stage-description')}>
                 Составление плана,
                 работу над бэкендом, вёрстку,
                 добавление функциональности и финальные доработки.
-              </p>
+              </Text>
             </div>
             <div className={element('stage')}>
-              <h4>На выполнение диплома ушло 5 недель</h4>
-              <p className={element('stage-description')}>
+              <Heading as='h4' className={element('stage-title')}>На выполнение диплома ушло 5 недель</Heading>
+              <Text className={element('stage-description')}>
                 У каждого этапа был мягкий и жёсткий дедлайн,
                 которые нужно было соблюдать,
                 чтобы успешно защититься.
-              </p>
+              </Text>
             </div>
           </div>
 
-          <div className={element('time-completion')}>
-            <p
-              className={element('time-completion-weeks', { backend: true })}
+          <div className={element('duration')}>
+            <Text
+              className={element('duration-weeks', { backend: true })}
             >
               1 неделя
-            </p>
-            <p
-              className={element('time-completion-weeks', { frontend: true })}
+            </Text>
+            <Text
+              className={element('duration-weeks', { frontend: true })}
             >
               4 недели
-            </p>
+            </Text>
 
-            <p
-              className={element('time-completion-placeholder')}
+            <Text
+              className={element('duration-stage')}
             >
               Back-end
-            </p>
-            <p
-              className={element('time-completion-placeholder')}
+            </Text>
+            <Text
+              className={element('duration-stage')}
             >
               Front-end
-            </p>
+            </Text>
           </div>
         </div>
       </Container>
