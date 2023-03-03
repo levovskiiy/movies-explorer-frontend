@@ -5,7 +5,7 @@ import Header from '../Header/Header'
 import Content from '../UI/Content/Content'
 import Wrapper from '../UI/Wrapper/Wrapper'
 
-const Layout = () => {
+function Layout(): JSX.Element {
   return (
     <>
       <Wrapper>

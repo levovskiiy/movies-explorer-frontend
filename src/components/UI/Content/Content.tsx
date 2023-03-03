@@ -1,11 +1,7 @@
-import React, { type ReactNode, type FC } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import './Content.css'
 
-interface ContentProps {
-  children: ReactNode
-}
-
-const Content: FC<ContentProps> = ({ children }) => {
+function Content({ children }: PropsWithChildren): JSX.Element {
   return (
     <main className='content'>
       {children}

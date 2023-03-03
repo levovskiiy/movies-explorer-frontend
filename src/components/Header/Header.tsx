@@ -1,27 +1,24 @@
-import React, { useEffect, useState, type FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import { type Theme } from '../../types/types'
 import { classname } from '../../utils/utils'
-import NavTab from '../Main/NavTab/NavTab'
+import LendingNav from '../Main/LendingNav/LendingNav'
 import Navigation from '../Navigation/Navigation'
 import Container from '../UI/Container/Container'
 import './Header.css'
 
-interface HeaderProps {
+type HeaderProps = {
   isLoggin: boolean
 }
 
-const Header: FC<HeaderProps> = ({ isLoggin }) => {
+function Header({ isLoggin }: HeaderProps): JSX.Element {
   const [theme, setTheme] = useState<Theme>('landing')
   const location = useLocation()
-  const [logged] = useState(false)
 
   useEffect(() => {
     if (location.pathname === '/') {
       setTheme('landing')
-    } else if (location.pathname === '/login' || location.pathname === '/register') {
-      setTheme('auth')
     } else {
       setTheme('app')
     }
@@ -43,7 +40,7 @@ const Header: FC<HeaderProps> = ({ isLoggin }) => {
             <img src={logo} alt="Логотип" className={styles.logoImage} />
           </div>
           {
-            logged ? <Navigation isLoggin={logged} /> : <NavTab />
+            isLoggin ? <Navigation /> : <LendingNav />
           }
         </div>
       </Container>

@@ -15,7 +15,7 @@ export default class Api {
     const response = await fetch(`${this.url}/${path}`, params)
 
     if (response.ok) {
-      return await response.json()
+      return response
     }
 
     return await Promise.reject(new Error('При запросе произошла ошибка'))

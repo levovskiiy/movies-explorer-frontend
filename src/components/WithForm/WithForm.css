@@ -1,5 +1,7 @@
 .with-form {
-  min-height: 60vh;
+  width: 100%;
+  margin-top: 40px;
+  min-height: 413px;
   display: flex;
   flex-direction: column;
 }
@@ -24,4 +26,20 @@
 
 .with-form__submit-button {
   width: 100%;
+}
+
+.with-form__link {
+  margin-left: 7px;
+}
+
+@media screen and (max-width: 1280px) {
+  .with-form {
+    min-height: 360px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .with-form {
+    min-height: 497px;
+  }
 }

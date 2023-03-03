@@ -1,14 +1,15 @@
-import React, { type HTMLAttributes, type ReactNode } from 'react'
+import React, { type PropsWithChildren, type HTMLAttributes, type ReactNode } from 'react'
 import { classname } from '../../../utils/utils'
 
 import './List.css'
 
-interface ListProps<T> extends HTMLAttributes<HTMLUListElement> {
+type ListProps<T> = {
   items?: T[]
   renderItem?: (item: T, index: number) => ReactNode
-}
+} & HTMLAttributes<HTMLUListElement>
 
-export default function List<T>({ items, renderItem, children, className, ...props }: ListProps<T>) {
+function List<T>(props: PropsWithChildren<ListProps<T>>): JSX.Element {
+  const { items, renderItem, children, className } = props
   const { block } = classname('list', {}, [className])
 
   if (items !== undefined && renderItem !== undefined) {
@@ -25,3 +26,5 @@ export default function List<T>({ items, renderItem, children, className, ...pro
     </ul>
   )
 }
+
+export default List

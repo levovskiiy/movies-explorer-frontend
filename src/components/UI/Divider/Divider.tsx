@@ -1,12 +1,13 @@
-import React, { type HTMLAttributes, type FC } from 'react'
+import React from 'react'
 import './Divider.css'
 
-interface DividerProps extends HTMLAttributes<HTMLDivElement> {
+type DividerProps = {
   className?: string
 }
 
-const Divider: FC<DividerProps> = ({ className = '' }) => {
+function Divider({ className }: DividerProps): JSX.Element {
   const classnames = 'divider' + ' ' + className
+
   return (
     <div className={classnames}></div>
   )

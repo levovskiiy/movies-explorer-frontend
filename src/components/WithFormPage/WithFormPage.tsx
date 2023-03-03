@@ -2,10 +2,11 @@ import React, { type FC, type ComponentType } from 'react'
 import { classname } from '../../utils/utils'
 import logo from '../../images/logo.svg'
 import Heading from '../UI/Heading/Heading'
+import Container from '../UI/Container/Container'
 
 import './WithFormPage.css'
 
-const withFormPage = <P extends object>(WrappedComponent: ComponentType<P>, title?: string): FC<P> => {
+function withFormPage<P extends object>(WrappedComponent: ComponentType<P>, title?: string): FC<P> {
   const WithFormPage: FC<P> = (props) => {
     const { block, element } = classname('form-page')
 
@@ -16,13 +17,15 @@ const withFormPage = <P extends object>(WrappedComponent: ComponentType<P>, titl
     }
 
     return (
-      <section className={block}>
-        <div className={classnames.content}>
-          <img src={logo} alt="Логотип" className={classnames.logo} />
-          <Heading className={classnames.title}>{title}</Heading>
-          <WrappedComponent {...props} />
-        </div>
-      </section>
+      <Container>
+        <section className={block}>
+          <div className={classnames.content}>
+            <img src={logo} alt="Логотип" className={classnames.logo} />
+            <Heading className={classnames.title}>{title}</Heading>
+            <WrappedComponent {...props} />
+          </div>
+        </section>
+      </Container>
     )
   }
 

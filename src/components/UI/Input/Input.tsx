@@ -1,12 +1,12 @@
-import React, { type FC, type InputHTMLAttributes } from 'react'
+import React, { type InputHTMLAttributes } from 'react'
 import { classname } from '../../../utils/utils'
 import './Input.css'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+type InputProps = {
   variant?: 'primary' | 'ghost'
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
-const Input: FC<InputProps> = ({ className, variant = 'primary', ...props }) => {
+function Input({ className, variant = 'primary', ...props }: InputProps): JSX.Element {
   const { block } = classname('input', { variant }, [className])
 
   return (

@@ -1,4 +1,4 @@
-import React, { type FC } from 'react'
+import React from 'react'
 import Container from '../UI/Container/Container'
 import Divider from '../UI/Divider/Divider'
 import BaseLink from '../UI/BaseLink/BaseLink'
@@ -6,7 +6,7 @@ import BaseLink from '../UI/BaseLink/BaseLink'
 import './Footer.css'
 import { classname } from '../../utils/utils'
 
-const Footer: FC = () => {
+function Footer(): JSX.Element {
   const { block, element } = classname('footer')
 
   const classnames = {

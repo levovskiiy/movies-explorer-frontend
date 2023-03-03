@@ -1,4 +1,4 @@
-import React, { useMemo, type FC } from 'react'
+import React, { useMemo } from 'react'
 import { classname, merge, type Bem } from '../../utils/utils'
 import Button from '../UI/Button/Button'
 import Form from '../UI/Form/Form'
@@ -10,11 +10,11 @@ import withFormPage from '../WithFormPage/WithFormPage'
 import Text from '../UI/Text/Text'
 import './Login.css'
 
-interface LoginProps {
+type LoginProps = {
   withForm: Bem
 }
 
-const Login: FC<LoginProps> = ({ withForm, ...props }) => {
+function Login({ withForm, ...props }: LoginProps) {
   const withFormClasses = withForm
 
   const { block, element } = classname('login-form')
@@ -27,7 +27,8 @@ const Login: FC<LoginProps> = ({ withForm, ...props }) => {
       passwordLabel: merge(withFormClasses.element('label'), element('password-label')),
       passwordInput: merge(withFormClasses.element('input'), element('password-input')),
       formAction: merge(withFormClasses.element('form-action'), element('form-action')),
-      submitButton: merge(withFormClasses.element('submit-button'), element('login'))
+      submitButton: merge(withFormClasses.element('submit-button'), element('login')),
+      link: merge(withFormClasses.element('link'), element('to-register'))
     }
   }, [])
 
@@ -42,7 +43,7 @@ const Login: FC<LoginProps> = ({ withForm, ...props }) => {
       <div className={styles.formAction}>
         <Button type='submit' variant='primary' rounded className={styles.submitButton}>Войти</Button>
         <Text>Еще не зарегистрированы?
-          <BaseLink variant='secondary' to={'/register'} isRoute>
+          <BaseLink className={styles.link} variant='secondary' to={'/register'} isRoute>
             Зарегистрироваться
           </BaseLink>
         </Text>

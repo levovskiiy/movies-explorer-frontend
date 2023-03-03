@@ -4,9 +4,10 @@ import Container from '../../UI/Container/Container'
 import Divider from '../../UI/Divider/Divider'
 import Heading from '../../UI/Heading/Heading'
 import Text from '../../UI/Text/Text'
+
 import './AboutProject.css'
 
-const AboutProject = () => {
+function AboutProject(): JSX.Element {
   const { block, element } = classname('about-project')
 
   return (

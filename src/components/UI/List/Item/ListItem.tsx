@@ -1,11 +1,10 @@
-import React, { type FC, type HTMLAttributes } from 'react'
+import React, { type PropsWithChildren, type HTMLAttributes } from 'react'
 import { classname } from '../../../../utils/utils'
 import './ListItem.css'
-interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
 
-}
+type ItemProps = PropsWithChildren<HTMLAttributes<HTMLLIElement>>
 
-const Item: FC<ListItemProps> = ({ children, className = '' }) => {
+function Item({ children, className }: ItemProps): JSX.Element {
   const { block } = classname('list__item', {}, [className])
 
   return (

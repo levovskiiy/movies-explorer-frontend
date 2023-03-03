@@ -1,16 +1,34 @@
-
-
 .form-page__content {
   padding: 70px 0 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
   margin: 0 auto;
   max-width: 396px;
 }
 
+.form-page__title {
+  margin-top: 40px;
+}
+
 .form-page__logo {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+}
+
+@media screen and (max-width: 450px) {
+  .form-page {
+    width: calc(100% - 60px);
+    margin: 0 auto;
+  }
+
+  .form-page__content {
+    padding-top: 56px;
+    align-items: center;
+  }
+
+  .form-page__title {
+    margin-top: 50px;
+    font-size: 24px;
+  }
 }

@@ -1,15 +1,15 @@
-import React, { type FC } from 'react'
+import React from 'react'
 import { type IMovie } from '../../types/types'
 import { classname } from '../../utils/utils'
 import Button from '../UI/Button/Button'
 
 import './MovieCard.css'
 
-interface MovieCardProps {
+type MovieCardProps = {
   movie: IMovie
 }
 
-const MovieCard: FC<MovieCardProps> = ({ movie }) => {
+function MovieCard({ movie }: MovieCardProps): JSX.Element {
   const { element } = classname('movie-card')
   return (
     <>

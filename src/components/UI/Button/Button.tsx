@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes, type FC, type ReactNode } from 'react'
+import React, { type PropsWithChildren, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { type Size } from '../../../types/types'
 import { classname, merge } from '../../../utils/utils'
 import BaseLink from '../BaseLink/BaseLink'
@@ -6,7 +6,7 @@ import './Button.css'
 
 type Variant = 'primary' | 'secondary' | 'link' | 'ghost' | 'tertiary'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = {
   children: ReactNode
   size?: Size
   isLoading?: boolean
@@ -14,19 +14,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   rounded?: boolean
   variant: Variant
   to?: string
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button: FC<ButtonProps> = (
-  {
+function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
+  const {
+    to,
     children,
+    className,
     size = 'lg',
     variant = 'primary',
     isLoading = false,
-    rounded = false,
-    className,
-    to,
-    ...props
-  }) => {
+    rounded = false
+  } = props
+
   const { block } = classname('button', {
     size,
     variant,

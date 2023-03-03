@@ -13,7 +13,7 @@ import Text from '../../UI/Text/Text'
 
 import './AboutMe.css'
 
-const AboutMe = () => {
+function AboutMe(): JSX.Element {
   const socialLinks: ISocial[] = [{
     social: 'GitHub',
     link: 'https://github.com/levovskiiy',
@@ -35,11 +35,10 @@ const AboutMe = () => {
             <Heading as='h3' className={element('name')}>Лев</Heading>
             <Heading as='h4' className={element('profession')}>Фронтенд-разработчик, 21 год</Heading>
             <Text className={element('text')}>
-              Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
-              и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.
-              С 2015 года работал в компании «СКБ Контур».
-              После того, как прошёл курс по веб-разработке,
-              начал заниматься фриланс-заказами и ушёл с постоянной работы.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Corporis consectetur fugit illo doloremque non in sunt,
+              officiis qui expedita voluptatum animi laudantium inventore explicabo
+              aliquid iste dicta neque provident deleniti.
             </Text>
             <List className={element('social-list')} items={socialLinks} renderItem={(item) => <ListItem key={item.id}>
               <BaseLink to={element('link')} className='about-me__social-link'>{item.social}</BaseLink>

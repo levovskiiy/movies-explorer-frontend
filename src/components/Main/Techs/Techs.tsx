@@ -11,7 +11,7 @@ import './Techs.css'
 
 const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'MongoDB']
 
-const Techs = () => {
+function Techs(): JSX.Element {
   const { block, element } = classname('techs')
 
   return (

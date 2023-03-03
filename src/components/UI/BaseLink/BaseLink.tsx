@@ -1,16 +1,18 @@
-import React, { type FC, type HTMLAttributes } from 'react'
+import React, { type PropsWithChildren, type HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import { classname, merge } from '../../../utils/utils'
 
 import './BaseLink.css'
 
-interface LinkProps extends HTMLAttributes<HTMLAnchorElement> {
+type LinkProps = {
   to: string
   isRoute?: boolean
   variant?: 'secondary' | 'danger'
-}
+} & HTMLAttributes<HTMLAnchorElement>
 
-const BaseLink: FC<LinkProps> = ({ children, variant, to, isRoute = false, className, ...props }) => {
+function BaseLink(props: PropsWithChildren<LinkProps>): JSX.Element {
+  const { children, variant, to, className, isRoute = false } = props
+
   const { block } = classname('base-link', {
     variant: (variant as string)
   })

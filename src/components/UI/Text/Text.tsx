@@ -1,12 +1,9 @@
-import React, { type FC, type ReactNode } from 'react'
+import React, { type HTMLAttributes, type PropsWithChildren } from 'react'
 import './Text.css'
 
-interface TextProps {
-  children?: ReactNode
-  className?: string
-}
+type TextProps = PropsWithChildren<HTMLAttributes<HTMLParagraphElement>>
 
-const Text: FC<TextProps> = ({ children, className, ...props }) => {
+function Text({ children, className, ...props }: TextProps): JSX.Element {
   return (
     <p {...props} className={`text ${className}`}>{children}</p>
   )

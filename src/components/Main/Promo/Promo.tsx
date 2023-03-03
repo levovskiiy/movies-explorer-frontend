@@ -1,10 +1,11 @@
 import React from 'react'
 import { classname } from '../../../utils/utils'
-import './Promo.css'
 import Heading from '../../UI/Heading/Heading'
 import Container from '../../UI/Container/Container'
 
-const Promo = () => {
+import './Promo.css'
+
+function Promo(): JSX.Element {
   const { block, element } = classname('promo')
   return (
     <div className={block}>

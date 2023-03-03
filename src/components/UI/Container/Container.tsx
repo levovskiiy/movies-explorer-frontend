@@ -1,11 +1,11 @@
-import React, { type FC, type HTMLAttributes, type ReactNode } from 'react'
+import React, { type PropsWithChildren, type HTMLAttributes, type ReactNode } from 'react'
 import './Container.css'
 
-interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+type ContainerProps = {
   children?: ReactNode
-}
+} & HTMLAttributes<HTMLDivElement>
 
-const Container: FC<ContainerProps> = ({ children, className, ...props }) => {
+function Container({ children, className, ...props }: PropsWithChildren<ContainerProps>): JSX.Element {
   const classnames = `container ${className ?? ''}`
 
   return (

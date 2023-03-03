@@ -1,20 +1,27 @@
-import React, { useMemo, type FC } from 'react'
+import React, { useMemo } from 'react'
 import Button from '../UI/Button/Button'
 import Form from '../UI/Form/Form'
 import Input from '../UI/Input/Input'
 import Label from '../UI/Label/Label'
 import BaseLink from '../UI/BaseLink/BaseLink'
-import withForm from '../WithForm/WithForm'
+import withForm, { type FormFields } from '../WithForm/WithForm'
 import withFormPage from '../WithFormPage/WithFormPage'
-import { classname, merge, type Bem } from '../../utils/utils'
 import Text from '../UI/Text/Text'
+import { classname, merge, type Bem } from '../../utils/utils'
 
-interface RegisterProps {
+import './Register.css'
+
+type RegisterProps = {
   withForm: Bem
+  formFields: FormFields
 }
 
-const Register: FC<RegisterProps> = ({ withForm }) => {
+function Register({ withForm, formFields }: RegisterProps): JSX.Element {
+  const { name, email, password } = formFields
+  console.log(formFields)
+
   const withFormClasses = withForm
+
   const { block, element } = classname('register-form')
 
   const styles = useMemo(() => {
@@ -27,25 +34,44 @@ const Register: FC<RegisterProps> = ({ withForm }) => {
       passwordLabel: merge(withFormClasses.element('label'), element('password-label')),
       passwordInput: merge(withFormClasses.element('input'), element('password-input')),
       formAction: merge(withFormClasses.element('form-action'), element('form-action')),
-      submitButton: merge(withFormClasses.element('submit-button'), element('login'))
+      submitButton: merge(withFormClasses.element('submit-button'), element('login')),
+      link: merge(withFormClasses.element('link'), element('to-login'))
     }
   }, [])
 
   return (
     <Form className={styles.main}>
       <Label label='Имя' htmlFor='name' className={styles.nameLabel} />
-      <Input id='name' type='text' name='name' className={styles.name} />
+      <Input
+        value={name.value}
+        onChange={name.action}
+        id='name'
+        type='text'
+        name='name'
+        className={styles.name} />
 
       <Label label='Логин' htmlFor='email' className={styles.loginLabel} />
-      <Input id='email' type='email' name='email' className={styles.emailInput} />
+      <Input
+        value={email.value}
+        onChange={email.action}
+        id='email'
+        type='email'
+        name='email'
+        className={styles.emailInput} />
 
       <Label label='Пароль' htmlFor='password' className={styles.passwordLabel} />
-      <Input id='password' type='password' name='password' className={styles.passwordInput} />
+      <Input
+        value={password.value}
+        onChange={password.action}
+        id='password'
+        type='password'
+        name='password'
+        className={styles.passwordInput} />
 
       <div className={styles.formAction}>
         <Button type='submit' variant='primary' rounded className={styles.submitButton}>Зарегистрироваться</Button>
         <Text>Уже зарегистрированы?
-          <BaseLink variant='secondary' to={'/login'} isRoute>
+          <BaseLink className={styles.link} variant='secondary' to={'/login'} isRoute>
             Войти
           </BaseLink>
         </Text>

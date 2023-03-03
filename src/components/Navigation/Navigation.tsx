@@ -1,15 +1,11 @@
-import React, { type FC } from 'react'
+import React from 'react'
 import { classname } from '../../utils/utils'
 import BaseLink from '../UI/BaseLink/BaseLink'
 import ListItem from '../UI/List/Item/ListItem'
 import List from '../UI/List/List'
 import './Navigation.css'
 
-interface NavigationProps {
-  isLoggin: boolean
-}
-
-const Navigation: FC<NavigationProps> = ({ isLoggin }) => {
+function Navigation(): JSX.Element {
   const { block, element } = classname('navigation')
 
   const styles = {

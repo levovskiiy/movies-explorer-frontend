@@ -1,16 +1,13 @@
-import React, { type FC, type ReactNode } from 'react'
+import React, { type HTMLAttributes, type ReactNode, type PropsWithChildren } from 'react'
 import { classname } from '../../../utils/utils'
 import './Form.css'
 
-interface FormProps {
+type FormProps = {
   children?: ReactNode
   className?: string
-}
+} & HTMLAttributes<HTMLFormElement>
 
-const Form: FC<FormProps> = ({
-  children,
-  className
-}) => {
+function Form({ children, className }: PropsWithChildren<FormProps>): JSX.Element {
   const { block } = classname('form', {}, [className])
 
   return (

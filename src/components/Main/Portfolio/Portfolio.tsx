@@ -2,13 +2,13 @@ import React from 'react'
 import BaseLink from '../../UI/BaseLink/BaseLink'
 import ListItem from '../../UI/List/Item/ListItem'
 import List from '../../UI/List/List'
+import Divider from '../../UI/Divider/Divider'
+import Heading from '../../UI/Heading/Heading'
+import { classname } from '../../../utils/utils'
 
 import './Portfolio.css'
-import Divider from '../../UI/Divider/Divider'
-import { classname } from '../../../utils/utils'
-import Heading from '../../UI/Heading/Heading'
 
-const Portfolio = () => {
+function Portfolio(): JSX.Element {
   const { element } = classname('portfolio')
 
   const styles = {

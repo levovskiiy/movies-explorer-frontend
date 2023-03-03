@@ -1,11 +1,11 @@
-import React, { type FC, type LabelHTMLAttributes } from 'react'
+import React, { type LabelHTMLAttributes } from 'react'
 import './Label.css'
 
-interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+type LabelProps = {
   label: string
-}
+} & LabelHTMLAttributes<HTMLLabelElement>
 
-const Label: FC<LabelProps> = ({ label, className, ...props }) => {
+function Label({ label, className, ...props }: LabelProps): JSX.Element {
   return (
     <label
       {...props}

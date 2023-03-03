@@ -1,9 +1,10 @@
 import React from 'react'
 import Button from '../../UI/Button/Button'
 import BaseLink from '../../UI/BaseLink/BaseLink'
+
 import './NavTab.css'
 
-const NavTab = () => {
+function LendingNav(): JSX.Element {
   return (
     <nav>
       <BaseLink to='/register' isRoute>Регистрация</BaseLink>
@@ -12,4 +13,4 @@ const NavTab = () => {
   )
 }
 
-export default NavTab
+export default LendingNav

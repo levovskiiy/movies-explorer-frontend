@@ -7,7 +7,7 @@ import Button from '../Button/Button'
 
 import './SearchForm.css'
 
-const SearchForm = () => {
+function SearchForm() {
   const { block, element } = classname('search-form')
 
   return (

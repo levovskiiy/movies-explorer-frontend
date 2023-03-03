@@ -8,7 +8,7 @@ import List from '../UI/List/List'
 
 import './MoviesCardList.css'
 
-const MoviesCardList = () => {
+function MoviesCardList(): JSX.Element {
   const { block, element } = classname('movies-card-list')
   const [movies, setMovies] = useState<IMovie[]>([])
 

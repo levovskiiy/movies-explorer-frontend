@@ -1,11 +1,7 @@
-import React, { type ReactNode, type FC } from 'react'
+import React, { type PropsWithChildren } from 'react'
 import './Wrapper.css'
 
-interface WrapperProps {
-  children: ReactNode
-}
-
-const Wrapper: FC<WrapperProps> = ({ children }) => {
+function Wrapper({ children }: PropsWithChildren): JSX.Element {
   return (
     <div className='wrapper'>
       {children}
