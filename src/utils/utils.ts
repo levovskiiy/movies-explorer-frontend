@@ -1,13 +1,13 @@
-export type Modificators = Record<string, string | boolean>
+export type Modificators = Record<string, string | boolean | undefined>
 export type Mixins = Array<string | undefined>
 export type BemFormatter = (block: string, blockMods?: Modificators, mixins?: Mixins) => Bem
 
-export interface Bem {
+export type Bem = {
   block: string
   element: (elementName: string, elementMods?: Modificators, mixins?: Mixins) => string
 }
 
-interface Preset {
+type Preset = {
   namepsace?: string
   elementDelimeter?: string
   modDelimeter?: string

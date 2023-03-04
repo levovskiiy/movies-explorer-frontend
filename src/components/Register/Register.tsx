@@ -69,7 +69,7 @@ function Register({ withForm, formFields }: RegisterProps): JSX.Element {
         className={styles.passwordInput} />
 
       <div className={styles.formAction}>
-        <Button type='submit' variant='primary' rounded className={styles.submitButton}>Зарегистрироваться</Button>
+        <Button type='submit' size='lg' variant='primary' rounded className={styles.submitButton}>Зарегистрироваться</Button>
         <Text>Уже зарегистрированы?
           <BaseLink className={styles.link} variant='secondary' to={'/login'} isRoute>
             Войти

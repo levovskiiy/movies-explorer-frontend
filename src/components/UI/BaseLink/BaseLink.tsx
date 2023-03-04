@@ -11,7 +11,7 @@ type LinkProps = {
 } & HTMLAttributes<HTMLAnchorElement>
 
 function BaseLink(props: PropsWithChildren<LinkProps>): JSX.Element {
-  const { children, variant, to, className, isRoute = false } = props
+  const { children, variant, to, className, isRoute = false, ...attrs } = props
 
   const { block } = classname('base-link', {
     variant: (variant as string)
@@ -20,11 +20,11 @@ function BaseLink(props: PropsWithChildren<LinkProps>): JSX.Element {
   const classnames = merge(block, className)
 
   if (isRoute) {
-    return <Link to={to} className={classnames}>{children}</Link>
+    return <Link {...attrs} to={to} className={classnames}>{children}</Link>
   }
 
   return (
-    <a {...props} href={to} className={classnames}>
+    <a {...attrs} href={to} className={classnames}>
       {children}
     </a>
   )

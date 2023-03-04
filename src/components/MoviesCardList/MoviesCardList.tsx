@@ -14,8 +14,12 @@ function MoviesCardList(): JSX.Element {
 
   useEffect(() => {
     MoviesService.getMovies()
+      .then(response => {
+        return response.json()
+      })
       .then(movies => {
-        setMovies(movies)
+        const data = movies.slice(0, 6)
+        setMovies(data)
       })
       .catch(err => {
         console.log(err)
@@ -36,4 +40,4 @@ function MoviesCardList(): JSX.Element {
   )
 }
 
-export default MoviesCardList
+export default React.memo(MoviesCardList)

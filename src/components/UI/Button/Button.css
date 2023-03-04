@@ -31,6 +31,11 @@
   background-color: #313131;
 }
 
+.button_variant_link {
+  background-color: transparent;
+  color: var(--theme-color-tertiary)
+}
+
 .button_size_sm {
   padding: 5px 12px;
   font-size: 10px;

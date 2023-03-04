@@ -9,19 +9,19 @@ type ListProps<T> = {
 } & HTMLAttributes<HTMLUListElement>
 
 function List<T>(props: PropsWithChildren<ListProps<T>>): JSX.Element {
-  const { items, renderItem, children, className } = props
+  const { items, renderItem, children, className, ...attrs } = props
   const { block } = classname('list', {}, [className])
 
   if (items !== undefined && renderItem !== undefined) {
     return (
-      <ul {...props} className={block}>
+      <ul {...attrs} className={block}>
         {items.map(renderItem)}
       </ul>
     )
   }
 
   return (
-    <ul {...props} className={block}>
+    <ul {...attrs} className={block}>
       {children}
     </ul>
   )

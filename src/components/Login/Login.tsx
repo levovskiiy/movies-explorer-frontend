@@ -14,7 +14,7 @@ type LoginProps = {
   withForm: Bem
 }
 
-function Login({ withForm, ...props }: LoginProps) {
+function Login({ withForm }: LoginProps) {
   const withFormClasses = withForm
 
   const { block, element } = classname('login-form')
@@ -41,7 +41,7 @@ function Login({ withForm, ...props }: LoginProps) {
       <Input id='password' type='password' name='password' className={styles.passwordInput} />
 
       <div className={styles.formAction}>
-        <Button type='submit' variant='primary' rounded className={styles.submitButton}>Войти</Button>
+        <Button type='submit' size="lg" variant='primary' rounded className={styles.submitButton}>Войти</Button>
         <Text>Еще не зарегистрированы?
           <BaseLink className={styles.link} variant='secondary' to={'/register'} isRoute>
             Зарегистрироваться

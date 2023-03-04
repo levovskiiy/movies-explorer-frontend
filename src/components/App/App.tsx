@@ -6,6 +6,7 @@ import Layout from '../Layout/Layout'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Movies from '../Movies/Movies'
+import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         </Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
+        <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </ >
   )
