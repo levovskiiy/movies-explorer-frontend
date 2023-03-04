@@ -1,6 +1,6 @@
 .movies-card-list__movies {
   margin-top: 70px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(199px, 231px));
   column-gap: 30px;
   row-gap: 60px;
@@ -9,6 +9,8 @@
 }
 
 .movies-card-list__movie {
+  flex-basis: content;
+
   width: 100%;
   position: relative;
   display: flex;

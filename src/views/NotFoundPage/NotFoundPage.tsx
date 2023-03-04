@@ -13,18 +13,20 @@ function NotFoundPage(): JSX.Element {
 
   const { block, element } = classname('not-found-page')
 
-  function goBack() {
+  function goBack(): void {
     navigate(-1)
   }
 
   return (
     <Container>
       <section className={block}>
-        <Heading className={element('title')}>
-          404
-        </Heading>
-        <Text className={element('text')}>Старница не найдена</Text>
-        <Button className={element('link')} onClick={goBack} variant='link'>Назад</Button>
+        <div className={element('content')}>
+          <Heading className={element('title')}>
+            404
+          </Heading>
+          <Text className={element('text')}>Старница не найдена</Text>
+          <Button type='button' className={element('link')} onClick={goBack} variant='link'>Назад</Button>
+        </div>
       </section>
     </Container>
   )

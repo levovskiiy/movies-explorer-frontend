@@ -1,4 +1,4 @@
-import React, { type ChangeEvent } from 'react'
+import React, { useState, type ChangeEvent } from 'react'
 import Form from '../Form/Form'
 import { classname } from '../../../utils/utils'
 import Input from '../Input/Input'
@@ -7,16 +7,12 @@ import Button from '../Button/Button'
 
 import './SearchForm.css'
 
-type SearchFormProps = {
-  searchQuery: string
-  searchQueryHandler: (query: string) => void
-}
-
-function SearchForm({ searchQuery, searchQueryHandler }: SearchFormProps): JSX.Element {
+function SearchForm(): JSX.Element {
+  const [searchQuery, setSearchQuery] = useState('')
   const { block, element } = classname('search-form')
 
-  function onSearch(e: ChangeEvent<HTMLInputElement>): void {
-    searchQueryHandler(e.target.value)
+  function handleSearchQuery(e: ChangeEvent<HTMLInputElement>): void {
+    setSearchQuery(e.target.value)
   }
 
   return (
@@ -24,7 +20,7 @@ function SearchForm({ searchQuery, searchQueryHandler }: SearchFormProps): JSX.E
       <div className={element('container')}>
         <Input
           value={searchQuery}
-          onChange={onSearch}
+          onChange={handleSearchQuery}
           variant='ghost'
           className={element('input')}
           type='text'

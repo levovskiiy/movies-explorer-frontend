@@ -2,13 +2,13 @@ export type Size = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs' | 'mb'
 
 export type Theme = 'landing' | 'app' | 'auth'
 
-export interface ISocial {
+export type ISocial = {
   social: string
   link: string
   id: number
 }
 
-export interface IMovie {
+export type IMovie = {
   id: number
   country: string
   director: string
