@@ -1,11 +1,14 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Main from '../Main/Main'
 import Layout from '../Layout/Layout'
-import Register from '../Register/Register'
-import Login from '../Login/Login'
-import Movies from '../Movies/Movies'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
+
+import ProfilePage from '../../views/ProfilePage/ProfilePage'
+import LandingPage from '../../views/LandingPage/LandingPage'
+import MoviesPage from '../../views/MoviesPage/MoviesPage'
+import SavedMoviesPage from '../../views/SavedMoviesPage/SavedMoviesPage'
+import LoginPage from '../../views/LoginPage/LoginPage'
+import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
 import './App.css'
 
@@ -14,11 +17,13 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Main />} />
-          <Route path='movies' element={<Movies />} />
+          <Route index element={<LandingPage />} />
+          <Route path='movies' element={<MoviesPage />} />
+          <Route path='saved-movies' element={<SavedMoviesPage />} />
+          <Route path='profile' element={<ProfilePage />} />
         </Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/register' element={<Register />}></Route>
+        <Route path='/signin' element={<LoginPage />}></Route>
+        <Route path='/signup' element={<RegisterPage />}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </ >

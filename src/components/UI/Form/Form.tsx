@@ -7,11 +7,11 @@ type FormProps = {
   className?: string
 } & HTMLAttributes<HTMLFormElement>
 
-function Form({ children, className }: PropsWithChildren<FormProps>): JSX.Element {
+function Form({ children, className, ...props }: PropsWithChildren<FormProps>): JSX.Element {
   const { block } = classname('form', {}, [className])
 
   return (
-    <form className={block}>
+    <form {...props} className={block}>
       {children}
     </form>
   )

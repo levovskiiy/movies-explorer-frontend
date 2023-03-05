@@ -1,0 +1,19 @@
+.movies__more-button {
+  width: 100%;
+  margin: 50px 0 160px;
+  padding: 10px 0;
+  transition: all 0.03s ease-out;
+}
+
+.movies__more-button:active {
+  transform: scale(0.98);
+}
+
+.movies__preloader {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 65%;
+  right: 0;
+  transform: translateY(-50%);
+}

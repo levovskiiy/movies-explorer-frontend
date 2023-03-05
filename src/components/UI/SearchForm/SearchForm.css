@@ -1,6 +1,11 @@
+.search-form {
+  margin-top: 70px;
+}
+
 .search-form__container {
   position: relative;
   display: flex;
+  align-items: center;
   width: 100%;
 }
 
@@ -13,6 +18,14 @@
 .search-form__button {
   position: absolute;
   right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+}
+
+.search-form__divider {
+  margin-top: 44px;
+}
+
+@media screen and (max-width: 769px) {
+  .search-form__divider {
+    margin-top: 52px;
+  }
 }

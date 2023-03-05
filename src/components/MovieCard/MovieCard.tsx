@@ -1,6 +1,7 @@
 import React from 'react'
 import { type IMovie } from '../../types/types'
 import { classname } from '../../utils/utils'
+import BaseLink from '../UI/BaseLink/BaseLink'
 import Button from '../UI/Button/Button'
 import Heading from '../UI/Heading/Heading'
 
@@ -27,10 +28,12 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
 
   return (
     <>
-      <div className={element('image')}>
-        <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt="" className={element('image-img')} />
-        <Button type='button' variant='tertiary' className={element('save')}>Сохранить</Button>
-      </div>
+      <BaseLink to={movie.trailerLink} className={element('link')}>
+        <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt="" className={element('image')} />
+      </BaseLink>
+      <Button type='button' variant='tertiary' className={element('save')}>
+        Сохранить
+      </Button>
       <div className={element('text')}>
         <Heading as='h4' className={element('title')}>{movie.nameRU}</Heading>
         <span className={element('duration')}>{formatDuration(movie.duration)}</span>

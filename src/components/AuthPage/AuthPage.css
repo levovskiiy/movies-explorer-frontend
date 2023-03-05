@@ -1,4 +1,4 @@
-.form-page__content {
+.auth-page__content {
   padding: 70px 0 0;
   display: flex;
   flex-direction: column;
@@ -7,27 +7,27 @@
   max-width: 396px;
 }
 
-.form-page__title {
+.auth-page__title {
   margin-top: 40px;
 }
 
-.form-page__logo {
+.auth-page__logo {
   width: 36px;
   height: 36px;
 }
 
 @media screen and (max-width: 450px) {
-  .form-page {
+  .auth-page {
     width: calc(100% - 60px);
     margin: 0 auto;
   }
 
-  .form-page__content {
+  .auth-page__content {
     padding-top: 56px;
     align-items: center;
   }
 
-  .form-page__title {
+  .auth-page__title {
     margin-top: 50px;
     font-size: 24px;
   }

@@ -6,6 +6,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import Button from '../Button/Button'
 
 import './SearchForm.css'
+import Divider from '../Divider/Divider'
 
 function SearchForm(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('')
@@ -16,22 +17,26 @@ function SearchForm(): JSX.Element {
   }
 
   return (
-    <Form className={block}>
-      <div className={element('container')}>
-        <Input
-          value={searchQuery}
-          onChange={handleSearchQuery}
-          variant='ghost'
-          className={element('input')}
-          type='text'
-          name='search'
-          placeholder='Фильм'
-          maxLength={30}
-        />
-        <Button size='xl' rounded variant='primary' className={element('button')}>Поиск</Button>
-      </div>
-      <FilterCheckbox label='Короткометражки' />
-    </Form>
+    <>
+      <Form className={block} onSubmit={(e) => { e.preventDefault() }}>
+        <div className={element('container')}>
+          <Input
+            value={searchQuery}
+            onChange={handleSearchQuery}
+            variant='ghost'
+            className={element('input')}
+            type='text'
+            name='search'
+            placeholder='Фильм'
+            maxLength={30}
+          />
+          <Button size='xl' rounded variant='primary' className={element('button')}>Поиск</Button>
+        </div>
+        <FilterCheckbox label='Короткометражки' />
+      </Form>
+      <Divider className={element('divider')} />
+    </>
+
   )
 }
 

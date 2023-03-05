@@ -12,14 +12,20 @@
 }
 
 .footer__title {
+  font-size: 13px;
   display: inline-block;
   position: absolute;
   left: 50%;
-  top: -40px;
+  top: -30px;
   transform: translate(-50%);
   color: rgba(87, 87, 87, 0.8);
 }
 
 .footer__copyright {
   flex-grow: 2;
+  font-size: 13px;
+}
+
+.footer__link {
+  font-size: 13px;
 }

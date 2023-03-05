@@ -5,6 +5,7 @@ import BaseLink from '../UI/BaseLink/BaseLink'
 
 import './Footer.css'
 import { classname } from '../../utils/utils'
+import Heading from '../UI/Heading/Heading'
 
 function Footer(): JSX.Element {
   const { block, element } = classname('footer')
@@ -12,22 +13,23 @@ function Footer(): JSX.Element {
   const classnames = {
     title: element('title'),
     content: element('content'),
-    copyright: element('copyright')
+    copyright: element('copyright'),
+    link: element('link')
   }
 
   return (
     <footer className={block} >
       <Container>
-        <h6 className={classnames.title}>Учебный проект Яндекс.Практикум х BeatFilm.</h6>
+        <Heading as='h6' className={classnames.title}>Учебный проект Яндекс.Практикум х BeatFilm.</Heading>
         <Divider />
         <div className={classnames.content}>
           <span className={classnames.copyright}>
             &copy; 2022
           </span>
-          <BaseLink to='https://practicum.yandex.ru/'>
+          <BaseLink className={classnames.link} to='https://practicum.yandex.ru/'>
             Yandex.Praktikum
           </BaseLink>
-          <BaseLink to='https://github.com/levovskiiy'>GitHub</BaseLink>
+          <BaseLink className={classnames.link} to='https://github.com/levovskiiy'>GitHub</BaseLink>
         </div>
       </Container>
     </footer>

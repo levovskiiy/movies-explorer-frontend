@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren, type HTMLAttributes, useRef } from 'react'
+import React, { type PropsWithChildren, type HTMLAttributes, type ForwardedRef } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { classname, merge } from '../../../utils/utils'
 
@@ -11,41 +11,33 @@ type LinkProps = {
   variant?: 'secondary' | 'danger'
 } & HTMLAttributes<HTMLAnchorElement>
 
-function BaseLink(props: PropsWithChildren<LinkProps>): JSX.Element {
+function BaseLink(props: PropsWithChildren<LinkProps>, ref: ForwardedRef<HTMLAnchorElement>): JSX.Element {
   const { children, variant, to, className, isRoute = false, isNavLink = false, ...attrs } = props
 
-  const active = useRef(false)
-
   const { block } = classname('base-link', {
-    variant: (variant as string),
-    active: active.current
+    variant: (variant as string)
   })
 
   const classnames = merge(block, className)
 
-  if (isRoute) {
-    return <Link {...attrs} to={to} className={classnames}>{children}</Link>
-  }
-
-  if (isNavLink) {
-    return (
-      <NavLink {...attrs} to={to} className={((props => {
-        if (props.isActive) {
-          active.current = true
-        }
-
-        return classnames
-      }))}>
-        {children}
-      </NavLink>
-    )
-  }
-
   return (
-    <a {...attrs} href={to} className={classnames}>
-      {children}
-    </a>
+    <>
+      {isRoute && <Link {...attrs} to={to} className={classnames} ref={ref}>{children}</Link>}
+      {
+        isNavLink && (
+          <NavLink {...attrs} ref={ref} to={to} className={((props => {
+            return props.isActive ? merge(classnames, 'base-link_active') : classnames
+          }))}>
+            {children}
+          </NavLink>)
+      }
+
+      {(!isRoute && !isNavLink) && (
+        <a {...attrs} href={to} className={classnames} ref={ref}>
+          {children}
+        </a>)}
+    </>
   )
 }
 
-export default BaseLink
+export default React.forwardRef(BaseLink)

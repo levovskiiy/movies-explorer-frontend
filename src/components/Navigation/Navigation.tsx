@@ -1,4 +1,4 @@
-import React, { useState, type MouseEvent } from 'react'
+import React, { useMemo, useState, type MouseEvent } from 'react'
 import { classname } from '../../utils/utils'
 import BaseLink from '../UI/BaseLink/BaseLink'
 import Button from '../UI/Button/Button'
@@ -11,14 +11,17 @@ function Navigation(): JSX.Element {
 
   const [activeMenu, setActiveMenu] = useState(false)
 
-  const styles = {
-    list: element('list'),
-    overlay: element('overlay', { open: activeMenu }),
-    menu: element('menu', { active: activeMenu }),
-    listItem: element('list-item'),
-    listLink: element('list-link'),
-    listIcon: element('list-icon')
-  }
+  const styles = useMemo(() => {
+    return {
+      list: element('list'),
+      burgerBtn: element('burger-btn', { clicked: activeMenu }),
+      overlay: element('overlay', { open: activeMenu }),
+      menu: element('menu', { active: activeMenu }),
+      listItem: element('list-item'),
+      listLink: element('list-link'),
+      listIcon: element('list-icon')
+    }
+  }, [activeMenu])
 
   function toggle(): void {
     setActiveMenu(!activeMenu)
@@ -34,7 +37,7 @@ function Navigation(): JSX.Element {
 
   return (
     <nav className={block}>
-      <Button type='button' variant="ghost" className={element('burger-btn')} onClick={toggle}>
+      <Button type='button' variant="ghost" className={styles.burgerBtn} onClick={toggle}>
         <span className={element('burger-line')}></span>
       </Button>
       <div className={styles.overlay} onClick={close}>

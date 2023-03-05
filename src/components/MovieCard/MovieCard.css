@@ -1,17 +1,12 @@
-.movie-card__image {
-  cursor: pointer;
+.movie-card__link {
+  display: block;
   width: 100%;
+  position: relative;
   height: 201px;
-  border-radius: 6px;
 
 }
 
-.movie-card__image:hover {
-  background: red;
-}
-
-
-.movie-card__image-img {
+.movie-card__image {
   width: 100%;
   display: block;
   object-fit: cover;
@@ -24,6 +19,13 @@
   top: 14px;
   right: 14px;
   padding: 6px 7px;
+  transition: transform 0.4s ease-in-out;
+  border-radius: 30px;
+}
+
+.movie-card__save:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .movie-card__text {
@@ -32,8 +34,15 @@
   justify-content: space-between;
 }
 
+.movie-card__title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .movie-card__duration {
-  padding: 3px 4px;
+  padding: 4px 8px;
   background-color: #2F2F2Fff;
   border-radius: 3px;
+  font-size: 11px;
+  line-height: 0.91;
 }
