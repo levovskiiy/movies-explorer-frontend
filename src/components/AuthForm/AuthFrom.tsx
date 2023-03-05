@@ -17,7 +17,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
   const classnames = {
     formAction: element('form-actions'),
     input: element('input'),
-    submitButton: element('submit', { valid: isValid }),
+    submitButton: element('submit'),
     to: element('to')
   }
 
