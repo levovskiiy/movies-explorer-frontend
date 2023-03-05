@@ -1,16 +1,10 @@
 import React from 'react'
 import { type ISocial } from '../../../types/types'
-import Container from '../../UI/Container/Container'
-import Divider from '../../UI/Divider/Divider'
-import ListItem from '../../UI/List/Item/ListItem'
-import List from '../../UI/List/List'
 import PresonImage from '../../../images/person_image.jpg'
-import BaseLink from '../../UI/BaseLink/BaseLink'
-import Portfolio from '../Portfolio/Portfolio'
 import { classname } from '../../../utils/utils'
-import Heading from '../../UI/Heading/Heading'
-import Text from '../../UI/Text/Text'
-
+import { Container, Heading, Divider, List, BaseLink, Text } from '../../UI'
+import ListItem from '../../UI/List/Item/ListItem'
+import Portfolio from '../Portfolio/Portfolio'
 import './AboutMe.css'
 
 function AboutMe(): JSX.Element {

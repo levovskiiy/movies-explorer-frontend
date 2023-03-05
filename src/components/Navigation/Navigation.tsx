@@ -1,9 +1,7 @@
 import React, { useMemo, useState, type MouseEvent } from 'react'
 import { classname } from '../../utils/utils'
-import BaseLink from '../UI/BaseLink/BaseLink'
-import Button from '../UI/Button/Button'
+import { Button, BaseLink, List } from '../UI'
 import ListItem from '../UI/List/Item/ListItem'
-import List from '../UI/List/List'
 import './Navigation.css'
 
 function Navigation(): JSX.Element {

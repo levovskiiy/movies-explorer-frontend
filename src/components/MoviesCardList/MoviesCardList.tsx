@@ -2,8 +2,8 @@ import React from 'react'
 import { type IMovie } from '../../types/types'
 import { classname } from '../../utils/utils'
 import MovieCard from '../MovieCard/MovieCard'
+import { List } from '../UI'
 import Item from '../UI/List/Item/ListItem'
-import List from '../UI/List/List'
 
 import './MoviesCardList.css'
 

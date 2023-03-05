@@ -16,7 +16,7 @@ html,
 #root {
   margin: 0;
   height: 100%;
-  font-family: Inter, sans-serif;
+  font-family: "Inter", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
   color: var(--theme-color-font-main);
   background-color: var(--theme-color-primary);

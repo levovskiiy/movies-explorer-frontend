@@ -1,6 +1,5 @@
 import React from 'react'
-import Button from '../../UI/Button/Button'
-import BaseLink from '../../UI/BaseLink/BaseLink'
+import { BaseLink, Button } from '../../UI'
 
 import './LendingNav.css'
 

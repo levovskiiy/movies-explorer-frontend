@@ -23,8 +23,6 @@ export type IMovie = {
   }
   trailerLink: string
   thumbnail: string
-  owner: any
-  movieId: any
   nameRU: string
   nameEN: string
 }

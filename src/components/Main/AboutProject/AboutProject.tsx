@@ -1,9 +1,6 @@
 import React from 'react'
 import { classname } from '../../../utils/utils'
-import Container from '../../UI/Container/Container'
-import Divider from '../../UI/Divider/Divider'
-import Heading from '../../UI/Heading/Heading'
-import Text from '../../UI/Text/Text'
+import { Container, Heading, Divider, Text } from '../../UI'
 
 import './AboutProject.css'
 

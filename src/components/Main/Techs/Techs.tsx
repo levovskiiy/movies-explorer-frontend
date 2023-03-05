@@ -1,11 +1,7 @@
 import React from 'react'
 import { classname } from '../../../utils/utils'
-import Container from '../../UI/Container/Container'
-import Divider from '../../UI/Divider/Divider'
-import Heading from '../../UI/Heading/Heading'
+import { Container, Heading, Divider, List, Text } from '../../UI'
 import ListItem from '../../UI/List/Item/ListItem'
-import List from '../../UI/List/List'
-import Text from '../../UI/Text/Text'
 
 import './Techs.css'
 

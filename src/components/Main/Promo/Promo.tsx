@@ -1,7 +1,6 @@
 import React from 'react'
 import { classname } from '../../../utils/utils'
-import Heading from '../../UI/Heading/Heading'
-import Container from '../../UI/Container/Container'
+import { Container, Heading } from '../../UI'
 
 import './Promo.css'
 

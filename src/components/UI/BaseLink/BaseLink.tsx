@@ -6,6 +6,7 @@ import './BaseLink.css'
 
 type LinkProps = {
   to: string
+  target?: string
   isRoute?: boolean
   isNavLink?: boolean
   variant?: 'secondary' | 'danger'
