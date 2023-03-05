@@ -17,6 +17,13 @@
   opacity: var(--theme-opacity);
 }
 
+
+.button:disabled {
+  opacity: 0.5;
+  transition: none;
+  transform: none;
+}
+
 .button_variant_primary {
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-font-main);

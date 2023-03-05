@@ -1,4 +1,5 @@
 import React from 'react'
+import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
 import { Button, Form, TextInput, Text, BaseLink } from '../UI'
 
@@ -9,12 +10,14 @@ type AuthFromProps = {
 }
 
 function AuthForm({ type }: AuthFromProps): JSX.Element {
+  const { values, errors, handleChange, isValid } = useForm()
+
   const { block, element } = classname('auth-form', { type })
 
   const classnames = {
     formAction: element('form-actions'),
     input: element('input'),
-    submitButton: element('submit'),
+    submitButton: element('submit', { valid: isValid }),
     to: element('to')
   }
 
@@ -23,30 +26,50 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
       {
         type === 'register' && (
           <TextInput
+            value={values.name || ''}
+            onChange={handleChange}
+            error={!isValid}
+            errorMessage={errors.name}
             className={element('input')}
             type='text'
             label='Имя'
             id='name'
             name='name'
+            minLength={2}
+            maxLength={30}
+            required
           />
         )
       }
       <TextInput
+        value={values.email || ''}
+        onChange={handleChange}
+        error={!isValid}
+        errorMessage={errors.email}
         className={element('input')}
         type='email'
         label='Email'
         id='email'
         name='email'
+        required
       />
       <TextInput
+        value={values.password || ''}
+        onChange={handleChange}
+        error={!isValid}
+        errorMessage={errors.password}
         className={element('input')}
         type='password'
         label='Пароль'
         id='password'
         name='password'
+        required
+        minLength={8}
+        maxLength={25}
       />
       <div className={classnames.formAction}>
         <Button
+          disabled={!isValid}
           type='submit'
           size="lg"
           variant='primary'

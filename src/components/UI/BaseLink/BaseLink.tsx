@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren, type HTMLAttributes, type ForwardedRef } from 'react'
+import React, { type PropsWithChildren, type ForwardedRef, type AnchorHTMLAttributes } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { classname, merge } from '../../../utils/utils'
 
@@ -10,7 +10,7 @@ type LinkProps = {
   isRoute?: boolean
   isNavLink?: boolean
   variant?: 'secondary' | 'danger'
-} & HTMLAttributes<HTMLAnchorElement>
+} & AnchorHTMLAttributes<HTMLAnchorElement>
 
 function BaseLink(props: PropsWithChildren<LinkProps>, ref: ForwardedRef<HTMLAnchorElement>): JSX.Element {
   const { children, variant, to, className, isRoute = false, isNavLink = false, ...attrs } = props

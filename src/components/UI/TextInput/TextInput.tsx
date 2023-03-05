@@ -1,4 +1,4 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { type InputHTMLAttributes } from 'react'
 import { classname } from '../../../utils/utils'
 import Input from '../Input/Input'
 import Label from '../Label/Label'
@@ -13,7 +13,7 @@ type TextInputProps = {
   error?: boolean
   errorMessage?: string
   variant?: 'profile'
-} & HTMLAttributes<HTMLInputElement>
+} & InputHTMLAttributes<HTMLInputElement>
 
 function TextInput({ label, id, type, name, error, className, variant, errorMessage, ...rest }: TextInputProps): JSX.Element {
   const { block, element } = classname('text-input', {}, [className])

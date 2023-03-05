@@ -4,10 +4,11 @@
   min-height: 413px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .auth-form__input {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .auth-form__form-actions {

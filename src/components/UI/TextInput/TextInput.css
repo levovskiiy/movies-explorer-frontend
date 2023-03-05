@@ -7,7 +7,7 @@
 }
 
 .text-input__error {
-  visibility: hidden;
+  height: 20px;
   opacity: 0;
   transition: all 0.3s ease;
   font-size: 11px;
@@ -15,7 +15,6 @@
 }
 
 .text-input__error_visible {
-  visibility: visible;
   opacity: 1;
 }
 
