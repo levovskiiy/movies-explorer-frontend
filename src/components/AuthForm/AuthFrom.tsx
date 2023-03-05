@@ -66,6 +66,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
         required
         minLength={8}
         maxLength={25}
+        autoComplete='on'
       />
       <div className={classnames.formAction}>
         <Button
