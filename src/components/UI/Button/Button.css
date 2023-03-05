@@ -36,6 +36,10 @@
   color: var(--theme-color-tertiary)
 }
 
+.button_variant_ghost {
+  background-color: transparent;
+}
+
 .button_size_sm {
   padding: 5px 12px;
   font-size: 10px;

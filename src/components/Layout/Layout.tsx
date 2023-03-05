@@ -9,7 +9,7 @@ function Layout(): JSX.Element {
   return (
     <>
       <Wrapper>
-        <Header isLoggin={false} />
+        <Header isLoggin={true} />
         <Content>
           <Outlet />
         </Content>

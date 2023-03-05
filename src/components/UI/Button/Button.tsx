@@ -3,10 +3,10 @@ import { type Size } from '../../../types/types'
 import { classname, merge } from '../../../utils/utils'
 import './Button.css'
 
-type Variant = 'primary' | 'secondary' | 'link' | 'tertiary'
+type Variant = 'primary' | 'secondary' | 'link' | 'tertiary' | 'ghost'
 
 type ButtonProps = {
-  children: ReactNode
+  children?: ReactNode
   size?: Size
   isLoading?: boolean
   onClick?: (...args: any) => any

@@ -6,7 +6,7 @@ import './LendingNav.css'
 
 function LendingNav(): JSX.Element {
   return (
-    <nav>
+    <nav className='landning-nav'>
       <BaseLink to='/register' isRoute>Регистрация</BaseLink>
       <Button to='/login' rounded size='md' variant='secondary'>Логин</Button>
     </nav>
