@@ -1,6 +1,7 @@
 import React, { type PropsWithChildren, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { type Size } from '../../../types/types'
 import { classname, merge } from '../../../utils/utils'
+import BaseLink from '../BaseLink/BaseLink'
 import './Button.css'
 
 type Variant = 'primary' | 'secondary' | 'link' | 'tertiary' | 'ghost'
@@ -8,7 +9,6 @@ type Variant = 'primary' | 'secondary' | 'link' | 'tertiary' | 'ghost'
 type ButtonProps = {
   children?: ReactNode
   size?: Size
-  isLoading?: boolean
   onClick?: (...args: any) => any
   rounded?: boolean
   variant: Variant
@@ -22,7 +22,6 @@ function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
     className,
     size,
     variant = 'primary',
-    isLoading = false,
     rounded = false,
     ...attrs
   } = props
@@ -34,11 +33,13 @@ function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
   })
   const classnames = merge(block, className)
 
-  const loader = isLoading ? <></> : null
+  if (to) {
+    return <BaseLink className={classnames} isRoute to={to}>{children}</BaseLink>
+  }
 
   return (
     <button {...attrs} className={classnames}>
-      {loader}{children}
+      {children}
     </button>
   )
 }

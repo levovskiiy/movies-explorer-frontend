@@ -44,22 +44,22 @@ function Navigation(): JSX.Element {
         <div className={styles.menu} onClick={clickOutside}>
           <List className={styles.list}>
             <ListItem className={element('list-item', { 'to-main': true })}>
-              <BaseLink className={styles.listLink} to='/movies' isRoute>
+              <BaseLink onClick={close} className={styles.listLink} to='/' isRoute>
                 Главная
               </BaseLink>
             </ListItem>
             <ListItem className={styles.listItem}>
-              <BaseLink className={styles.listLink} to='/movies' isNavLink>
+              <BaseLink onClick={close} className={styles.listLink} to='/movies' isNavLink>
                 Фильмы
               </BaseLink>
             </ListItem>
             <ListItem className={styles.listItem}>
-              <BaseLink className={styles.listLink} to='/saved-movies' isNavLink>
+              <BaseLink onClick={close} className={styles.listLink} to='/saved-movies' isNavLink>
                 Сохраненные фильмы
               </BaseLink>
             </ListItem>
             <ListItem className={styles.listItem}>
-              <BaseLink className={styles.listLink} to='/profile' isRoute>
+              <BaseLink onClick={close} className={styles.listLink} to='/profile' isRoute>
                 Профиль
                 <div className={styles.listIcon}></div>
               </BaseLink>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import Content from '../UI/Content/Content'
@@ -9,11 +9,19 @@ function Layout(): JSX.Element {
   return (
     <>
       <Wrapper>
-        <Header isLoggin={true} />
+        <Routes>
+          {['/', 'movies', 'saved-movies', 'profile'].map(path => (
+            <Route key={path} path={path} element={<Header isLoggin={true} />} />
+          ))}
+        </Routes>
         <Content>
           <Outlet />
         </Content>
-        <Footer />
+        <Routes>
+          {['/', 'movies', 'saved-movies'].map(path => (
+            <Route key={path} path={path} element={<Footer />} />
+          ))}
+        </Routes>
       </Wrapper>
     </>
   )

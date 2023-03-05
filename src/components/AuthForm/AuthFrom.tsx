@@ -40,7 +40,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
       />
       <TextInput
         className={element('input')}
-        type='passowrd'
+        type='password'
         label='Пароль'
         id='password'
         name='password'

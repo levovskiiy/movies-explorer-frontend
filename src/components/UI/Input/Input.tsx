@@ -3,7 +3,7 @@ import { classname } from '../../../utils/utils'
 import './Input.css'
 
 type InputProps = {
-  variant?: 'primary' | 'ghost'
+  variant?: 'primary' | 'ghost' | 'profile'
 } & InputHTMLAttributes<HTMLInputElement>
 
 function Input({ className, variant = 'primary', ...props }: InputProps): JSX.Element {

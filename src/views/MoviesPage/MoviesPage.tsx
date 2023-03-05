@@ -4,6 +4,8 @@ import { Button, Container, Preloader, SearchForm } from '../../components/UI'
 import { type IMovie } from '../../types/types'
 import MoviesService from '../../utils/MoviesService'
 
+import './MoviesPage.css'
+
 function MoviesPage() {
   const [movies, setMovies] = useState<IMovie[]>([])
   const [isLoading, setIsLoading] = useState(true)

@@ -134,6 +134,7 @@
   }
 
   .navigation__menu {
+
     z-index: 50;
     position: fixed;
     width: 67%;
@@ -164,5 +165,17 @@
   .navigation__list-item:last-child {
     position: absolute;
     bottom: 92px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .navigation__menu {
+    width: 100%;
+  }
+
+  .navigation__list {
+    gap: 24px;
+
   }
 }

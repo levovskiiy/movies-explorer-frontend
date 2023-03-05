@@ -29,3 +29,19 @@
     margin-top: 52px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .search-form__input {
+    padding: 20px 0 20px 12px;
+    font-size: 16px;
+  }
+
+  .search-form__button {
+    right: 6px;
+    border-radius: 5px;
+  }
+
+  .search-form__divider {
+    margin-top: 63px;
+  }
+}

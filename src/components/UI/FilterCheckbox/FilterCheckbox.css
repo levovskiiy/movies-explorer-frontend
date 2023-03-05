@@ -38,3 +38,10 @@
   background: #fff;
   transform: translate(100%, -50%);
 }
+
+
+@media screen and (max-width: 450px) {
+  .filter-checkbox {
+    margin-top: 30px;
+  }
+}

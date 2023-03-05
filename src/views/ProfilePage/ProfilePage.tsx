@@ -1,10 +1,11 @@
 import React from 'react'
+import Profile from '../../components/Profile/Profile'
 
 import './ProfilePage.css'
 
 function ProfilePage(): JSX.Element {
   return (
-    <h1>profile</h1>
+    <Profile />
   )
 }
 

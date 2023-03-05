@@ -18,3 +18,9 @@
   border: 1px solid rgba(87, 87, 87, 0.5);
   background-color: transparent;
 }
+
+.input_variant_profile {
+  border-radius: 0;
+  border: none;
+  background-color: transparent;
+}

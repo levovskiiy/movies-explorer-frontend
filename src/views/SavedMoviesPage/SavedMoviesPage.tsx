@@ -1,6 +1,6 @@
 import React from 'react'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
-import { Container, SearchForm } from '../../components/UI'
+import { Container, Heading, SearchForm } from '../../components/UI'
 import { type IMovie } from '../../types/types'
 
 function SavedMoviesPage() {
@@ -9,7 +9,11 @@ function SavedMoviesPage() {
   return (
     <Container>
       <SearchForm />
-      <MoviesCardList movies={movies} />
+      {
+        movies.length === 0
+          ? <Heading>Сохраненных фильмов пока нет</Heading>
+          : <MoviesCardList movies={movies} />
+      }
     </Container>
   )
 }
