@@ -15,33 +15,34 @@ type ButtonProps = {
   to?: string
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-function Button(props: PropsWithChildren<ButtonProps>): JSX.Element {
-  const {
-    to,
-    children,
-    className,
-    size,
-    variant = 'primary',
-    rounded = false,
-    ...attrs
-  } = props
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(props: PropsWithChildren<ButtonProps>, ref): JSX.Element {
+    const {
+      to,
+      children,
+      className,
+      size,
+      variant = 'primary',
+      rounded = false,
+      ...attrs
+    } = props
 
-  const { block } = classname('button', {
-    size,
-    variant,
-    rounded
+    const { block } = classname('button', {
+      size,
+      variant,
+      rounded
+    })
+    const classnames = merge(block, className)
+
+    if (to) {
+      return <BaseLink className={classnames} isRoute to={to}>{children}</BaseLink>
+    }
+
+    return (
+      <button ref={ref} {...attrs} className={classnames}>
+        {children}
+      </button>
+    )
   })
-  const classnames = merge(block, className)
-
-  if (to) {
-    return <BaseLink className={classnames} isRoute to={to}>{children}</BaseLink>
-  }
-
-  return (
-    <button {...attrs} className={classnames}>
-      {children}
-    </button>
-  )
-}
 
 export default Button

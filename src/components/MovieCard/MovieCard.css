@@ -14,18 +14,18 @@
   border-radius: 6px;
 }
 
-.movie-card__save {
+.movie-card__action-button {
   position: absolute;
   top: 14px;
   right: 14px;
-  padding: 6px 7px;
-  transition: transform 0.4s ease-in-out;
-  border-radius: 30px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.movie-card__save:hover {
+.movie-card__action-button_visible {
   opacity: 1;
-  transform: scale(1.1);
+  visibility: visible;
 }
 
 .movie-card__text {

@@ -7,15 +7,7 @@
     "plugin:react/recommended",
     "standard-with-typescript"
   ],
-  "overrides": [
-    {
-      "parser": "@typescript-eslint/parser",
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-    }
-  ],
+  "overrides": [],
   "parserOptions": {
     "project": [
       "./tsconfig.json"

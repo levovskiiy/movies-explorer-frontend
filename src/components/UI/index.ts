@@ -14,6 +14,8 @@ import SearchForm from './SearchForm/SearchForm'
 import Text from './Text/Text'
 import Wrapper from './Wrapper/Wrapper'
 import TextInput from './TextInput/TextInput'
+import SaveButton from './SaveButton/SaveButton'
+import DeleteButton from './DeleteButton/DeleteButton'
 
 export {
   BaseLink,
@@ -31,5 +33,7 @@ export {
   SearchForm,
   Text,
   Wrapper,
-  TextInput
+  TextInput,
+  SaveButton,
+  DeleteButton
 }
