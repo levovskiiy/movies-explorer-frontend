@@ -1,6 +1,6 @@
+import Logo from 'components/UI/Logo/Logo'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import logo from '../../images/logo.svg'
 import { type Theme } from '../../types/types'
 import { classname } from '../../utils/utils'
 import LendingNav from '../Main/LendingNav/LendingNav'
@@ -37,7 +37,7 @@ function Header({ isLoggin }: HeaderProps): JSX.Element {
       <Container>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src={logo} alt="Логотип" className={styles.logoImage} />
+            <Logo className={styles.logoImage} />
           </div>
           {
             isLoggin ? <Navigation /> : <LendingNav />
