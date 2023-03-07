@@ -1,4 +1,5 @@
 import React from 'react'
+import { classname } from 'utils/utils'
 import './Divider.css'
 
 type DividerProps = {
@@ -6,10 +7,10 @@ type DividerProps = {
 }
 
 function Divider({ className }: DividerProps): JSX.Element {
-  const classnames = 'divider' + ' ' + className
+  const { block } = classname('divider', {}, [className])
 
   return (
-    <div className={classnames}></div>
+    <div className={block}></div>
   )
 }
 

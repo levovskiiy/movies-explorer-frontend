@@ -7,7 +7,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
   background-color: rgba(87, 87, 87, 0.5);
-  transition: border-color var(--theme-transition-all-duration) ease;
+  transition: border-color, color var(--theme-transition-all-duration) ease;
 }
 
 .input:focus {
@@ -23,4 +23,8 @@
   border-radius: 0;
   border: none;
   background-color: transparent;
+}
+
+.input_error {
+  color: var(--theme-color-quaternary);
 }

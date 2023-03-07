@@ -7,13 +7,14 @@ import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import Form from './Form/Form'
 import Heading from './Heading/Heading'
 import Input from './Input/Input'
-import Label from './Label/Label'
+import InputLabel from './Input/InputLabel/InputLabel'
+import InputWrapper from './Input/InputWrapper/InputWrapper'
+import InputErrorMessage from './Input/InputErrorMessage/InputErrorMessage'
 import List from './List/List'
 import Preloader from './Preloader/Preloader'
 import SearchForm from './SearchForm/SearchForm'
 import Text from './Text/Text'
 import Wrapper from './Wrapper/Wrapper'
-import TextInput from './TextInput/TextInput'
 import SaveButton from './SaveButton/SaveButton'
 import DeleteButton from './DeleteButton/DeleteButton'
 
@@ -27,13 +28,14 @@ export {
   Form,
   Heading,
   Input,
-  Label,
   List,
   Preloader,
   SearchForm,
   Text,
   Wrapper,
-  TextInput,
   SaveButton,
-  DeleteButton
+  DeleteButton,
+  InputLabel,
+  InputWrapper,
+  InputErrorMessage
 }

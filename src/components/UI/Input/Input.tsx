@@ -4,10 +4,11 @@ import './Input.css'
 
 type InputProps = {
   variant?: 'primary' | 'ghost' | 'profile'
+  error?: boolean
 } & InputHTMLAttributes<HTMLInputElement>
 
-function Input({ className, variant = 'primary', ...props }: InputProps): JSX.Element {
-  const { block } = classname('input', { variant }, [className])
+function Input({ className, variant = 'primary', error, ...props }: InputProps): JSX.Element {
+  const { block } = classname('input', { variant, error }, [className])
 
   return (
     <input {...props} className={block} />

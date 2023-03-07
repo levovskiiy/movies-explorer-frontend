@@ -1,7 +1,7 @@
 import React from 'react'
 import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
-import { Button, Form, TextInput, Text, BaseLink } from '../UI'
+import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
 
 import './AuthForm.css'
 
@@ -10,64 +10,76 @@ type AuthFromProps = {
 }
 
 function AuthForm({ type }: AuthFromProps): JSX.Element {
-  const { values, errors, handleChange, isValid } = useForm()
+  const { values, errors, handleChange, isValid, checkValidity } = useForm({
+    name: '',
+    password: '',
+    email: ''
+  })
 
   const { block, element } = classname('auth-form', { type })
 
   const classnames = {
     formAction: element('form-actions'),
     input: element('input'),
+    inputLabel: element('input-label'),
+    inputWrapper: element('input-wrapper'),
+    inputError: element('input-error'),
     submitButton: element('submit'),
+    text: element('text'),
     to: element('to')
   }
 
   return (
-    <Form className={block}>
+    <Form className={block} noValidate>
       {
         type === 'register' && (
-          <TextInput
-            value={values.name || ''}
-            onChange={handleChange}
-            error={!isValid}
-            errorMessage={errors.name}
-            className={element('input')}
-            type='text'
-            label='Имя'
-            id='name'
-            name='name'
-            minLength={2}
-            maxLength={30}
-            required
-          />
-        )
-      }
-      <TextInput
-        value={values.email || ''}
-        onChange={handleChange}
-        error={!isValid}
-        errorMessage={errors.email}
-        className={element('input')}
-        type='email'
-        label='Email'
-        id='email'
-        name='email'
-        required
-      />
-      <TextInput
-        value={values.password || ''}
-        onChange={handleChange}
-        error={!isValid}
-        errorMessage={errors.password}
-        className={element('input')}
-        type='password'
-        label='Пароль'
-        id='password'
-        name='password'
-        required
-        minLength={8}
-        maxLength={25}
-        autoComplete='on'
-      />
+          <InputWrapper className={classnames.inputWrapper}>
+            <InputLabel label='Имя' htmlFor="name" className={classnames.inputLabel} />
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              value={values.name}
+              onChange={handleChange}
+              className={classnames.input}
+              error={checkValidity('name')}
+              minLength={3}
+              maxLength={30}
+              required
+            />
+            <InputErrorMessage message={errors.name} className={classnames.inputError} />
+          </InputWrapper>
+        )}
+      <InputWrapper className={classnames.inputWrapper}>
+        <InputLabel label='Email' htmlFor="email" className={classnames.inputLabel} />
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={values.email ?? ''}
+          onChange={handleChange}
+          className={classnames.input}
+          error={checkValidity('email')}
+          required
+        />
+        <InputErrorMessage message={errors.email} className={classnames.inputError} />
+      </InputWrapper>
+      <InputWrapper className={classnames.inputWrapper}>
+        <InputLabel label='Пароль' htmlFor="password" className={classnames.inputLabel} />
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          value={values.password ?? ''}
+          onChange={handleChange}
+          className={classnames.input}
+          error={checkValidity('password')}
+          minLength={8}
+          maxLength={24}
+          required
+        />
+        <InputErrorMessage message={errors.password} className={classnames.inputError} />
+      </InputWrapper>
       <div className={classnames.formAction}>
         <Button
           disabled={!isValid}
@@ -78,9 +90,9 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
           className={classnames.submitButton}>
           Войти
         </Button>
-        <Text> {type === 'login' ? 'Еще не зарегистрированы?' : 'Уже зарегистрированы?'}
+        <Text className={classnames.text}> {type === 'login' ? 'Еще не зарегистрированы?' : 'Уже зарегистрированы?'}
           <BaseLink className={classnames.to} variant='secondary' to={type === 'login' ? '/signup' : '/signin'} isRoute>
-            {type === 'login' ? 'Зарегистрироваться' : 'Войти'}
+            {type === 'login' ? 'Регистрация' : 'Войти'}
           </BaseLink>
         </Text>
       </div>

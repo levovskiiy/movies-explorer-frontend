@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, useState } from 'react'
 import { classname } from '../../utils/utils'
-import { BaseLink, Button, Container, Divider, Form, Heading, Input } from '../UI'
+import { BaseLink, Button, Container, Divider, Form, Heading, Input, InputLabel, InputWrapper } from '../UI'
 
 import './Profile.css'
 
@@ -37,8 +37,8 @@ function Profile() {
         <Form className={element('form')} onSubmit={(e) => { e.preventDefault() }}>
           <Heading className={element('title')}>Привет, Лев</Heading>
 
-          <fieldset className={element('field-container')}>
-            <label htmlFor="name" className={element('label', { visible: !nameVisible })}>{username}</label>
+          <InputWrapper className={element('field-container')}>
+            <InputLabel htmlFor="name" className={element('label', { visible: !nameVisible })} label={username} />
             <Input
               placeholder='Имя'
               disabled={disabled}
@@ -48,12 +48,12 @@ function Profile() {
               name='name'
               id='name'
               className={element('input', { type: 'name' })} />
-          </fieldset>
+          </InputWrapper>
 
           <Divider />
 
-          <fieldset className={element('field-container')}>
-            <label htmlFor="email" className={element('label', { visible: !emailVisible })}>{email}</label>
+          <InputWrapper className={element('field-container')}>
+            <InputLabel htmlFor="email" className={element('label', { visible: !emailVisible })} label={email} />
             <Input
               placeholder='Email'
               disabled={disabled}
@@ -63,7 +63,7 @@ function Profile() {
               name='email'
               id='email'
               className={element('input', { type: 'email' })} />
-          </fieldset>
+          </InputWrapper>
 
           <div className={element('actions')}>
             <Button onClick={handleDisabled} variant='link' className={element('action-edit')}>Редактировать</Button>

@@ -1,0 +1,5 @@
+.input-error-message {
+  height: 20px;
+  font-size: 11px;
+  color: var(--theme-color-quaternary);
+}

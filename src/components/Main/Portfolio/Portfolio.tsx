@@ -6,7 +6,7 @@ import ListItem from '../../UI/List/Item/ListItem'
 import './Portfolio.css'
 
 function Portfolio(): JSX.Element {
-  const { element } = classname('portfolio')
+  const { block, element } = classname('portfolio')
 
   const styles = {
     title: element('title'),
@@ -15,7 +15,7 @@ function Portfolio(): JSX.Element {
   }
 
   return (
-    <>
+    <section className={block}>
       <Heading as='h4' className={element('title')}>Портфолио</Heading>
       <List className={styles.items}>
         <ListItem>
@@ -42,7 +42,7 @@ function Portfolio(): JSX.Element {
           </BaseLink>
         </ListItem>
       </List>
-    </>
+    </section>
   )
 }
 

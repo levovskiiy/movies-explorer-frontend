@@ -17,7 +17,7 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
   const ref = useRef(null)
   const isHover = useHover(ref)
 
-  const { element } = classname('movie-card')
+  const { block, element } = classname('movie-card')
 
   function saveHandler(): void {
     setSaved(true)
@@ -33,7 +33,7 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
     : <DeleteButton deleteHandler={deleteHandler} className={element('action-button', { visible: isHover })} />
 
   return (
-    <div className={element('container')} ref={ref}>
+    <article className={block} ref={ref}>
       <BaseLink target='_blank' to={movie.trailerLink} className={element('link')}>
         <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} className={element('image')} />
       </BaseLink>
@@ -42,7 +42,7 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
         <span className={element('duration')}>{formatDuration(movie.duration)}</span>
       </div>
       {button}
-    </div>
+    </article>
   )
 }
 

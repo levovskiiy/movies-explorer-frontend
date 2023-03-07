@@ -39,6 +39,7 @@
 }
 
 .profile__label {
+  color: #fff;
   font-size: 11px;
   opacity: 1;
   position: absolute;
