@@ -11,7 +11,8 @@ function Portfolio(): JSX.Element {
   const styles = {
     title: element('title'),
     items: element('items'),
-    link: element('link')
+    link: element('link'),
+    divider: element('divider')
   }
 
   return (
@@ -22,19 +23,19 @@ function Portfolio(): JSX.Element {
           <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
             Статический сайт
           </BaseLink>
-          <Divider />
+          <Divider className={styles.divider} />
         </ListItem>
         <ListItem>
           <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
             Сайт React
           </BaseLink>
-          <Divider />
+          <Divider className={styles.divider} />
         </ListItem>
         <ListItem>
           <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>
             Vainlla JS
           </BaseLink>
-          <Divider />
+          <Divider className={styles.divider} />
         </ListItem>
         <ListItem>
           <BaseLink className={styles.link} to='https://github.com/levovskiiy/'>

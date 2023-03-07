@@ -14,12 +14,15 @@
 .portfolio__link {
   position: relative;
   display: block;
-  margin-bottom: 19px;
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
   line-height: 1.67;
   letter-spacing: -0.04em;
+}
+
+.portfolio__divider {
+  margin: 20px 0;
 }
 
 .portfolio__link::after {
