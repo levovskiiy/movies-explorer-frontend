@@ -4,18 +4,22 @@
   --theme-color-tertiary: #4285F4;
   --theme-color-quaternary: #EE3465;
   --theme-color-font-main: #FFFFFF;
-  --theme-color-header-primary: #073042;
-  --theme-color-thumb-secondary: ##A0A0A0;
+  --theme-color-font-secondary: #000000;
+  --theme-color-header-landing: #073042;
+  --theme-color-thumb-secondary: #A0A0A0;
   --theme-opacity: 0.7;
   --theme-transition-opacity-duration: 0.5s;
   --theme-transition-all-duration: 0.4s;
 }
 
-body {
+html,
+#root {
   margin: 0;
-  font-family: Inter, sans-serif;
-  font-weight: 400;
+  height: 100%;
+  font-family: "Inter", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
+  color: var(--theme-color-font-main);
+  background-color: var(--theme-color-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

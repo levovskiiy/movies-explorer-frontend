@@ -1,0 +1,44 @@
+.portfolio__title {
+  margin-bottom: 50px;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.11;
+  color: var(--theme-color-thumb-secondary);
+}
+
+.portfolio__items {
+  grid-template-columns: repeat(auto-fill, 100%);
+  gap: 20px;
+}
+
+.portfolio__link {
+  position: relative;
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.67;
+  letter-spacing: -0.04em;
+}
+
+.portfolio__divider {
+  margin: 20px 0;
+}
+
+.portfolio__link::after {
+  content: url("../../../images/arrow.svg");
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+}
+
+
+@media screen and (max-width: 450px) {
+  .portfolio__title {
+    margin-bottom: 40px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+}

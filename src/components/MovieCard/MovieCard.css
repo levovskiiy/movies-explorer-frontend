@@ -1,0 +1,48 @@
+.movie-card__link {
+  display: block;
+  width: 100%;
+  position: relative;
+  height: 201px;
+
+}
+
+.movie-card__image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 201px;
+  border-radius: 6px;
+}
+
+.movie-card__action-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.movie-card__action-button_visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.movie-card__text {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-card__title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.movie-card__duration {
+  padding: 4px 8px;
+  background-color: #2F2F2Fff;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 0.91;
+}

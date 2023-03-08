@@ -1,0 +1,30 @@
+.input {
+  margin: 0;
+  padding: 13px;
+  color: var(--theme-color-font-main);
+  font-size: 13px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: rgba(87, 87, 87, 0.5);
+  transition: border-color, color var(--theme-transition-all-duration) ease;
+}
+
+.input:focus {
+  border: 1px solid rgba(87, 87, 87, 1);
+}
+
+.input_variant_ghost {
+  border: 1px solid rgba(87, 87, 87, 0.5);
+  background-color: transparent;
+}
+
+.input_variant_profile {
+  border-radius: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.input_error {
+  color: var(--theme-color-quaternary);
+}

@@ -1,0 +1,11 @@
+.landing-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+@media screen and (max-width: 450px) {
+  .landing-nav {
+    gap: 15px;
+  }
+}
