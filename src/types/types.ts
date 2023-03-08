@@ -26,3 +26,10 @@ export type IMovie = {
   nameRU: string
   nameEN: string
 }
+
+export type IUser = {
+  name: string
+  email: string
+  password: string
+  isAuth: boolean
+}

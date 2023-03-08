@@ -11,21 +11,24 @@ import LoginPage from '../../views/LoginPage/LoginPage'
 import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
 import './App.css'
+import UserContext from 'context/user.context'
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<LandingPage />} />
-          <Route path='movies' element={<MoviesPage />} />
-          <Route path='saved-movies' element={<SavedMoviesPage />} />
-          <Route path='profile' element={<ProfilePage />} />
-        </Route>
-        <Route path='/signin' element={<LoginPage />}></Route>
-        <Route path='/signup' element={<RegisterPage />}></Route>
-        <Route path='*' element={<NotFoundPage />}></Route>
-      </Routes>
+      <UserContext.Provider value={null}>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<LandingPage />} />
+            <Route path='movies' element={<MoviesPage />} />
+            <Route path='saved-movies' element={<SavedMoviesPage />} />
+            <Route path='profile' element={<ProfilePage />} />
+          </Route>
+          <Route path='/signin' element={<LoginPage />}></Route>
+          <Route path='/signup' element={<RegisterPage />}></Route>
+          <Route path='*' element={<NotFoundPage />}></Route>
+        </Routes>
+      </UserContext.Provider>
     </ >
   )
 }
