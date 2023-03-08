@@ -1,12 +1,14 @@
 import Api from './Api'
 
-class MoviesService extends Api {
-  constructor(protected readonly url: string) {
-    super(url)
+class MoviesService {
+  private readonly api: Api
+
+  constructor(private readonly url: string) {
+    this.api = new Api(this.url)
   }
 
   public async getMovies() {
-    return await super.get('beatfilm-movies', {
+    return await this.api.get('beatfilm-movies', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
