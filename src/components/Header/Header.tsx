@@ -1,5 +1,5 @@
 import Logo from 'components/UI/Logo/Logo'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { type Theme } from '../../types/types'
 import { classname } from '../../utils/utils'
@@ -7,14 +7,16 @@ import LendingNav from '../Main/LendingNav/LendingNav'
 import Navigation from '../Navigation/Navigation'
 import Container from '../UI/Container/Container'
 import './Header.css'
+import UserContext from 'context/user.context'
 
 type HeaderProps = {
-  isLoggin: boolean
+  isLoggin?: boolean
 }
 
 function Header({ isLoggin }: HeaderProps): JSX.Element {
   const [theme, setTheme] = useState<Theme>('landing')
   const location = useLocation()
+  const { state } = useContext(UserContext)
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -40,7 +42,7 @@ function Header({ isLoggin }: HeaderProps): JSX.Element {
             <Logo className={styles.logoImage} />
           </div>
           {
-            isLoggin ? <Navigation /> : <LendingNav />
+            state?.isAunthorized ? <Navigation /> : <LendingNav />
           }
         </div>
       </Container>

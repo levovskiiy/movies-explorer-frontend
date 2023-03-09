@@ -1,8 +1,8 @@
-import { type IUser } from 'types/types'
+import { type User } from 'types/types'
 import Api from './Api'
 
-type LoginDataType = Omit<IUser, '_id' | 'name'>
-type UpdateDataType = LoginDataType
+type LoginDataType = Omit<User, '_id' | 'name'>
+type UpdateDataType = Omit<User, 'password' | 'isAunthorized'>
 
 class UserService {
   private readonly api: Api
@@ -17,9 +17,9 @@ class UserService {
     })
   }
 
-  public async register(data: IUser): Promise<IUser> {
+  public async register(data: User): Promise<User> {
     try {
-      const newUser = await this.api.post<IUser>('signup', data)
+      const newUser = await this.api.post<User>('signup', data)
 
       return newUser
     } catch (error: any) {
@@ -27,14 +27,9 @@ class UserService {
     }
   }
 
-  public async login(data: LoginDataType): Promise<boolean> {
-    try {
-      await this.api.post<LoginDataType>('signin', data)
-
-      return true
-    } catch (error: any) {
-      return error
-    }
+  public async login(data: LoginDataType): Promise<any> {
+    const response = await this.api.post<any>('signin', data)
+    return response
   }
 
   public async logout(): Promise<{ message: string }> {
@@ -47,9 +42,9 @@ class UserService {
     }
   }
 
-  public async checkToken(): Promise<IUser> {
+  public async checkToken(): Promise<User> {
     try {
-      const user = await this.api.get<IUser>('users/me')
+      const user = await this.api.get<User>('users/me')
 
       return user
     } catch (error: any) {

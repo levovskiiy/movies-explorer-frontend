@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from '../Layout/Layout'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
@@ -11,27 +11,34 @@ import LoginPage from '../../views/LoginPage/LoginPage'
 import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
 import UserContext from 'context/user.context'
-import UserService from 'utils/UserService'
-import { type IUser } from 'types/types'
 
 import './App.css'
+import userReducer, { UserActions } from 'components/reducers/user/user.reducer'
+import { type User } from 'types/types'
+import UserService from 'utils/UserService'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mockUser: IUser = {
-  name: 'John Doe',
-  email: 'kenaa@example.com',
-  password: '123456'
+const initialUser: Partial<User> = {
+  name: '',
+  email: '',
+  password: '',
+  isAunthorized: false
 }
 
 function App() {
+  const [state, dispatch] = useReducer(userReducer, initialUser)
+
   useEffect(() => {
-    UserService.login({ email: 'kenaa@example.com', password: '123456' })
-      .then(res => { console.log(res) })
+    UserService
+      .checkToken()
+      .then((user) => {
+        dispatch({ type: UserActions.AUTHORIZE, payload: { ...user, isAunthorized: true } })
+      })
+      .catch(err => { console.log(err) })
   }, [])
 
   return (
     <>
-      <UserContext.Provider value={null}>
+      <UserContext.Provider value={{ state, dispatch }}>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<LandingPage />} />

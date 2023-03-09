@@ -18,7 +18,7 @@ function MoviesCardList({ movies }: MoviesCardListProps): JSX.Element {
       <List className={element('movies')}
         items={movies}
         renderItem={(item) => (
-          <Item className={element('movie')} key={item.id}>
+          <Item className={element('movie')} key={item._id}>
             <MovieCard movie={item} />
           </Item>
         )}

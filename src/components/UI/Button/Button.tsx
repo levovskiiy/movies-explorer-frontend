@@ -9,7 +9,6 @@ type Variant = 'primary' | 'secondary' | 'link' | 'tertiary' | 'ghost'
 type ButtonProps = {
   children?: ReactNode
   size?: Size
-  onClick?: (...args: any) => any
   rounded?: boolean
   variant: Variant
   to?: string

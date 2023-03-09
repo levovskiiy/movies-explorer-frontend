@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext, type FormEvent } from 'react'
 import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
 import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
 
+import UserService from 'utils/UserService'
+import UserContext from 'context/user.context'
+import { UserActions } from 'components/reducers/user/user.reducer'
+// import { useNavigate } from 'react-router-dom'
+
 import './AuthForm.css'
+import { useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
   type: 'register' | 'login'
@@ -15,6 +21,10 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     password: '',
     email: ''
   })
+
+  const { dispatch } = useContext(UserContext)
+  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = React.useState('')
 
   const { block, element } = classname('auth-form', { type })
 
@@ -29,8 +39,37 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     to: element('to')
   }
 
+  async function handleRegister() {
+    UserService
+      .register(values)
+      .catch(err => { setErrorMessage(err.message) })
+  }
+
+  async function handleLogin() {
+    UserService
+      .login({ email: values.email, password: values.password })
+      .then(() => { dispatch({ type: UserActions.AUTHORIZE, payload: { isAunthorized: true } }) })
+      .catch(err => {
+        setErrorMessage(err.message)
+      })
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (type === 'register') {
+      handleRegister()
+    } else {
+      handleLogin()
+    }
+
+    if (errorMessage !== '') {
+      navigate('/movies')
+    }
+  }
+
   return (
-    <Form className={block} noValidate>
+    <Form className={block} noValidate onSubmit={handleSubmit}>
       {
         type === 'register' && (
           <InputWrapper className={classnames.inputWrapper}>
@@ -79,6 +118,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
           required
         />
         <InputErrorMessage message={errors.password} className={classnames.inputError} />
+        <InputErrorMessage message={errorMessage} />
       </InputWrapper>
       <div className={classnames.formAction}>
         <Button
@@ -88,7 +128,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
           variant='primary'
           rounded
           className={classnames.submitButton}>
-          Войти
+          {type === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
         <Text className={classnames.text}> {type === 'login' ? 'Еще не зарегистрированы?' : 'Уже зарегистрированы?'}
           <BaseLink className={classnames.to} variant='secondary' to={type === 'login' ? '/signup' : '/signin'} isRoute>
