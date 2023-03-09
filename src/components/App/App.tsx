@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from '../Layout/Layout'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
@@ -12,8 +12,19 @@ import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
 import './App.css'
 import UserContext from 'context/user.context'
+import MoviesService from 'utils/MoviesService'
 
 function App() {
+  useEffect(() => {
+    MoviesService.getMovies()
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data)
+      })
+  }, [])
+
   return (
     <>
       <UserContext.Provider value={null}>

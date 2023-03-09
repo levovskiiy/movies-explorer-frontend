@@ -6,19 +6,33 @@ enum API_METHODS {
   patch = 'PATCH'
 }
 
-export default class Api {
-  constructor(private readonly url: string) {
+type Options = Pick<RequestInit, 'credentials' | 'headers'>
 
-  }
+export default class Api {
+  constructor(
+    private readonly url: string,
+    private readonly intialOptions: Options
+  ) { }
 
   private async request(path: string, params: RequestInit): Promise<any> {
-    const response = await fetch(`${this.url}/${path}`, params)
+    const { headers, credentials } = this.intialOptions
 
-    if (response.ok) {
-      return response
+    try {
+      const response = await fetch(`${this.url}/${path}`, {
+        ...params,
+        credentials,
+        headers: { ...headers, ...params.headers }
+
+      })
+
+      if (response.ok) {
+        return response
+      }
+
+      throw new Error(response.statusText)
+    } catch (error) {
+      return error
     }
-
-    return await Promise.reject(new Error('При запросе произошла ошибка'))
   }
 
   public async get(path: string, params?: RequestInit): Promise<any> {

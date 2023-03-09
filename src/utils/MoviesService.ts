@@ -4,17 +4,16 @@ class MoviesService {
   private readonly api: Api
 
   constructor(private readonly url: string) {
-    this.api = new Api(this.url)
-  }
-
-  public async getMovies() {
-    return await this.api.get('beatfilm-movies', {
-      method: 'GET',
+    this.api = new Api(this.url, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     })
+  }
+
+  public async getMovies() {
+    return await this.api.get('beatfilm-movies')
   }
 }
 
