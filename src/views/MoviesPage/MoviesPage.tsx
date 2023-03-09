@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import { Button, Container, Preloader, SearchForm } from '../../components/UI'
 import { type IMovie } from '../../types/types'
-import MoviesService from '../../utils/MoviesService'
+import BeatfilmService from '../../utils/BeatfilmService'
 
 import './MoviesPage.css'
 
@@ -11,12 +11,9 @@ function MoviesPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    MoviesService.getMovies()
-      .then(response => {
-        setIsLoading(true)
-        return response.json()
-      })
+    BeatfilmService.getMovies()
       .then(movies => {
+        setIsLoading(true)
         const data = movies.slice(0, 12)
         setMovies(data)
       })

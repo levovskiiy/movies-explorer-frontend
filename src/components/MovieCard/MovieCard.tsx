@@ -35,7 +35,7 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
   return (
     <article className={block} ref={ref}>
       <BaseLink target='_blank' to={movie.trailerLink} className={element('link')}>
-        <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} className={element('image')} />
+        <img src={`https://api.nomoreparties.co/${movie.image}`} alt={movie.nameRU} className={element('image')} />
       </BaseLink>
       <div className={element('text')}>
         <Heading as='h4' className={element('title')}>{movie.nameRU}</Heading>

@@ -10,19 +10,23 @@ import SavedMoviesPage from '../../views/SavedMoviesPage/SavedMoviesPage'
 import LoginPage from '../../views/LoginPage/LoginPage'
 import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
-import './App.css'
 import UserContext from 'context/user.context'
-import MoviesService from 'utils/MoviesService'
+import UserService from 'utils/UserService'
+import { type IUser } from 'types/types'
+
+import './App.css'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mockUser: IUser = {
+  name: 'John Doe',
+  email: 'kenaa@example.com',
+  password: '123456'
+}
 
 function App() {
   useEffect(() => {
-    MoviesService.getMovies()
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        console.log(data)
-      })
+    UserService.login({ email: 'kenaa@example.com', password: '123456' })
+      .then(res => { console.log(res) })
   }, [])
 
   return (

@@ -14,7 +14,7 @@ export default class Api {
     private readonly intialOptions: Options
   ) { }
 
-  private async request(path: string, params: RequestInit): Promise<any> {
+  private async request<T>(path: string, params: RequestInit): Promise<T> {
     const { headers, credentials } = this.intialOptions
 
     try {
@@ -26,32 +26,32 @@ export default class Api {
       })
 
       if (response.ok) {
-        return response
+        return await response.json() as T
       }
 
       throw new Error(response.statusText)
-    } catch (error) {
+    } catch (error: any) {
       return error
     }
   }
 
-  public async get(path: string, params?: RequestInit): Promise<any> {
-    return await this.request(path, { method: API_METHODS.get })
+  public async get<T>(path: string, params?: RequestInit): Promise<T> {
+    return await this.request<T>(path, { method: API_METHODS.get, ...params })
   }
 
-  public async post(path: string, data?: any, params?: RequestInit) {
-    return await this.request(path, { method: API_METHODS.post, body: JSON.stringify(data), ...params })
+  public async post<T>(path: string, data?: T, params?: RequestInit): Promise<T> {
+    return await this.request<T>(path, { method: API_METHODS.post, body: JSON.stringify(data), ...params })
   }
 
-  public async patch(path: string, data?: any, params?: RequestInit) {
-    return await this.request(path, { method: API_METHODS.patch, body: JSON.stringify(data), ...params })
+  public async patch<T>(path: string, data?: T, params?: RequestInit): Promise<T> {
+    return await this.request<T>(path, { method: API_METHODS.patch, body: JSON.stringify(data), ...params })
   }
 
-  public async delete(path: string, params?: RequestInit) {
-    return await this.request(path, { method: API_METHODS.delete, ...params })
+  public async delete<T>(path: string, params?: RequestInit): Promise<T> {
+    return await this.request<T>(path, { method: API_METHODS.delete, ...params })
   }
 
-  public async put(path: string, params?: RequestInit) {
-    return await this.request(path, { method: API_METHODS.put, ...params })
+  public async put<T>(path: string, params?: RequestInit): Promise<T> {
+    return await this.request<T>(path, { method: API_METHODS.put, ...params })
   }
 }

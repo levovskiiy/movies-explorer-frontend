@@ -8,7 +8,7 @@ export type ISocial = {
   id: number
 }
 
-export type IMovie = {
+export type IBeatfilmMovie = {
   id: number
   country: string
   director: string
@@ -16,10 +16,7 @@ export type IMovie = {
   year: string
   description: string
   image: {
-    id: number
     url: string
-    previewUrl: string
-
   }
   trailerLink: string
   thumbnail: string
@@ -27,9 +24,13 @@ export type IMovie = {
   nameEN: string
 }
 
+export type IMovie = {
+  image: string
+} & Omit<IBeatfilmMovie, 'image'>
+
 export type IUser = {
+  _id?: string
   name: string
   email: string
   password: string
-  isAuth: boolean
 }
