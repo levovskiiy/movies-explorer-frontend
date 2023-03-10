@@ -13,6 +13,7 @@ type ReturnUseForm<V, T> = {
   setValid: React.Dispatch<React.SetStateAction<boolean>>
   handleChange: ChangeEventHandler<T>
   checkValidity: (field: keyof FormErrors<V>) => boolean
+  resetForm: (newValues: V, newErrors: V, newIsValid: boolean) => void
 }
 
 export default function useForm<V extends Record<string, string>, T extends HTMLInputElement>(initialValue: V): ReturnUseForm<V, T> {
@@ -28,6 +29,15 @@ export default function useForm<V extends Record<string, string>, T extends HTML
     return false
   }, [errors])
 
+  const resetForm = useCallback(
+    (newValues: V, newErrors: V, newIsValid = false) => {
+      setValues(newValues)
+      setErrors(newErrors)
+      setValid(newIsValid)
+    },
+    [setValues, setErrors, setValid]
+  )
+
   function handleChange(e: ChangeEvent<T>): void {
     const input = e.target
     const { name, value } = input
@@ -38,6 +48,6 @@ export default function useForm<V extends Record<string, string>, T extends HTML
   }
 
   return {
-    values, setValues, errors, setErrors, isValid, setValid, handleChange, checkValidity
+    values, setValues, errors, setErrors, isValid, setValid, handleChange, checkValidity, resetForm
   }
 }

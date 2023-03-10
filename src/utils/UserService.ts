@@ -18,13 +18,9 @@ class UserService {
   }
 
   public async register(data: User): Promise<User> {
-    try {
-      const newUser = await this.api.post<User>('signup', data)
+    const newUser = await this.api.post<User>('signup', data)
 
-      return newUser
-    } catch (error: any) {
-      return error
-    }
+    return newUser
   }
 
   public async login(data: LoginDataType): Promise<any> {
@@ -33,33 +29,21 @@ class UserService {
   }
 
   public async logout(): Promise<{ message: string }> {
-    try {
-      const message = await this.api.get<{ message: string }>('signout')
+    const message = await this.api.get<{ message: string }>('signout')
 
-      return message
-    } catch (error: any) {
-      return error
-    }
+    return message
   }
 
   public async checkToken(): Promise<User> {
-    try {
-      const user = await this.api.get<User>('users/me')
+    const user = await this.api.get<User>('users/me')
 
-      return user
-    } catch (error: any) {
-      return error
-    }
+    return user
   }
 
   public async updateUser(data: UpdateDataType): Promise<UpdateDataType> {
-    try {
-      const updatedUser = await this.api.patch('users/me', data)
+    const updatedUser = await this.api.patch('users/me', data)
 
-      return updatedUser
-    } catch (error: any) {
-      return error
-    }
+    return updatedUser
   }
 }
 

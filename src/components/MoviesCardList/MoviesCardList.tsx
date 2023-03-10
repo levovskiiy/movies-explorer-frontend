@@ -15,14 +15,14 @@ function MoviesCardList({ movies }: MoviesCardListProps): JSX.Element {
   const { block, element } = classname('movies-card-list')
   return (
     <section className={block}>
-      <List className={element('movies')}
+      {/* <List className={element('movies')}
         items={movies}
         renderItem={(item) => (
           <Item className={element('movie')} key={item._id}>
             <MovieCard movie={item} />
           </Item>
         )}
-      />
+      /> */}
     </section>
   )
 }

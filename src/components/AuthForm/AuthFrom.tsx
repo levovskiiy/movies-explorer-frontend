@@ -1,14 +1,13 @@
-import React, { useContext, type FormEvent } from 'react'
+import React, { type FormEvent, useEffect, useState } from 'react'
 import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
 import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
 
-import UserService from 'utils/UserService'
-import UserContext from 'context/user.context'
-import { UserActions } from 'components/reducers/user/user.reducer'
-// import { useNavigate } from 'react-router-dom'
-
 import './AuthForm.css'
+import useUser from 'hooks/useUser'
+import UserService from 'utils/UserService'
+import { UserActions } from 'context/user/actions'
+import { type User } from 'types/types'
 import { useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
@@ -22,9 +21,14 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     email: ''
   })
 
-  const { dispatch } = useContext(UserContext)
+  const [error, setError] = useState({
+    status: false,
+    message: ''
+  })
+
   const navigate = useNavigate()
-  const [errorMessage, setErrorMessage] = React.useState('')
+
+  const { state, dispatch } = useUser()
 
   const { block, element } = classname('auth-form', { type })
 
@@ -39,32 +43,39 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     to: element('to')
   }
 
-  async function handleRegister() {
-    UserService
-      .register(values)
-      .catch(err => { setErrorMessage(err.message) })
+  async function handleLogin(user: User) {
+    try {
+      const response = await UserService.login(user)
+      if (response) {
+        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+        setError({ status: false, message: '' })
+        navigate('/movies')
+      }
+    } catch (error: any) {
+      setError({ status: true, message: error.message })
+    }
   }
 
-  async function handleLogin() {
-    UserService
-      .login({ email: values.email, password: values.password })
-      .then(() => { dispatch({ type: UserActions.AUTHORIZE, payload: { isAunthorized: true } }) })
-      .catch(err => {
-        setErrorMessage(err.message)
-      })
+  async function handleRegister(user: User) {
+    try {
+      const response = await UserService.register(user)
+      if (response) {
+        dispatch({ type: UserActions.SIGNUP, payload: { ...user, isLoggedIn: false } })
+        setError({ status: false, message: '' })
+        navigate('/signin')
+      }
+    } catch (error: any) {
+      setError({ status: true, message: error.message })
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     if (type === 'register') {
-      handleRegister()
+      handleRegister(values)
     } else {
-      handleLogin()
-    }
-
-    if (errorMessage !== '') {
-      navigate('/movies')
+      handleLogin(values)
     }
   }
 
@@ -118,7 +129,6 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
           required
         />
         <InputErrorMessage message={errors.password} className={classnames.inputError} />
-        <InputErrorMessage message={errorMessage} />
       </InputWrapper>
       <div className={classnames.formAction}>
         <Button

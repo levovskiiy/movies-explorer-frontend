@@ -8,57 +8,6 @@ enum API_METHODS {
 
 type Options = Pick<RequestInit, 'credentials' | 'headers'>
 
-class UnauthorizedError extends Error {
-  public readonly status: number
-
-  constructor(message: string) {
-    super(message)
-    this.name = 'UnauthorizedError'
-    this.status = 401
-  }
-}
-
-class ForbiddenError extends Error {
-  public readonly status: number
-
-  constructor(message: string) {
-    super(message)
-    this.name = 'ForbiddenError'
-    this.status = 403
-  }
-}
-
-class NotFoundError extends Error {
-  public readonly status: number
-
-  constructor(message: string) {
-    super(message)
-    this.name = 'NotFoundError'
-    this.status = 404
-  }
-}
-
-class InternalServerError extends Error {
-  public readonly status: number
-
-  constructor(message: string) {
-    super(message)
-    this.name = 'InternalServerError'
-    this.status = 500
-  }
-}
-
-function APIErrorHandler(status: number): never {
-  if (status === 401) {
-    throw new UnauthorizedError('Неверный Email или пароль')
-  } else if (status === 403) {
-    throw new ForbiddenError('Не возможно обработать ресурс')
-  } else if (status === 404) {
-    throw new NotFoundError('Данный ресурс не найден')
-  }
-  throw new InternalServerError('Что-то пошло не так')
-}
-
 export default class Api {
   constructor(
     private readonly url: string,
@@ -76,7 +25,7 @@ export default class Api {
     })
 
     if (!response.ok) {
-      APIErrorHandler(response.status)
+      throw new Error(response.statusText)
     }
 
     return response.json() as T

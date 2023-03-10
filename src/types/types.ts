@@ -35,5 +35,5 @@ export type User = {
   name: string
   email: string
   password: string
-  isAunthorized?: boolean
+  isLoggedIn?: boolean
 }

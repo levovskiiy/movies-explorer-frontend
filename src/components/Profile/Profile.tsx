@@ -1,88 +1,131 @@
-import React, { type ChangeEvent, useState, useContext, type FormEvent } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { type ChangeEvent, type FormEvent, useEffect, useRef, useReducer } from 'react'
 import { classname } from '../../utils/utils'
-import { BaseLink, Button, Container, Divider, Form, Heading, Input, InputErrorMessage, InputLabel, InputWrapper } from '../UI'
+import { Button, Container, Divider, Form, Heading, Input, InputLabel, InputWrapper } from '../UI'
 
-import './Profile.css'
-import UserContext from 'context/user.context'
-import UserService from 'utils/UserService'
 import useForm from 'hooks/useFormValidator'
-import { UserActions } from 'components/reducers/user/user.reducer'
+import useUser from 'hooks/useUser'
+import UserService from 'utils/UserService'
+import { UserActions } from 'context/user/actions'
+import { type UserState } from 'context/user/context'
+import profileReducer, { initialState } from 'reducers/profile/reducer'
+import { ProfileActions } from 'reducers/profile/actions'
+import './Profile.css'
 
 function Profile() {
-  const { state, dispatch } = useContext(UserContext)
-  const { values, handleChange } = useForm({ name: state?.name ?? '', email: state?.email ?? '' })
-  const [nameVisible, setNameVisible] = useState(true)
-  const [emailVisible, setEmailVisible] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('')
+  const { state, dispatch } = useUser()
+  const { values, handleChange, isValid, setValues } = useForm({ name: state.name, email: state.email })
+  const [localState, localDispatch] = useReducer(profileReducer, initialState)
+  const form = useRef<HTMLFormElement>(null)
+
   const { block, element } = classname('profile')
 
-  function handleName(evt: ChangeEvent<HTMLInputElement>): void {
-    handleChange(evt)
+  useEffect(() => {
+    setValues({ name: state.name, email: state.email })
+  }, [state])
 
-    if (evt.target.value.length > 0) {
-      setNameVisible(false)
-    } else {
-      setNameVisible(true)
+  useEffect(() => {
+    function isValidForm() {
+      return isValid && (values.name !== state.name || values.email !== state.email)
     }
-  }
 
-  function handleEmail(evt: ChangeEvent<HTMLInputElement>): void {
-    handleChange(evt)
+    localDispatch({
+      type: ProfileActions.SET_FORM_VALID,
+      payload: isValidForm()
+    })
+  }, [values])
 
-    if (evt.target.value.length > 0) {
-      setEmailVisible(false)
-    } else {
-      setEmailVisible(true)
+  async function handleUpdateUser(user: UserState) {
+    try {
+      const updatedUser = await UserService.updateUser({ name: user.name, email: user.email })
+
+      if (updatedUser) {
+        dispatch({ type: UserActions.UPDATE, payload: updatedUser })
+        localDispatch({
+          type: ProfileActions.SET_ERROR,
+          payload: { status: 'SUCCESS', message: 'Данные успено изменены' }
+        })
+      }
+    } catch (error: any) {
+      localDispatch({
+        type: ProfileActions.SET_ERROR,
+        payload: { status: 'SUCCESS', message: error.message }
+      })
     }
   }
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault()
-    UserService
-      .updateUser(values)
-      .then((updatedData) => {
-        const { name, email } = updatedData
-        dispatch({ type: UserActions.UPDATE, payload: { name, email } })
-      })
-      .catch(err => { setErrorMessage(err.message) })
+    handleUpdateUser(values)
+    form.current?.reset()
+    localDispatch({ type: ProfileActions.RESET })
   }
 
   return (
     <Container>
       <section className={block}>
-        <Form className={element('form')} onSubmit={handleSubmit}>
-          <Heading className={element('title')}>Привет, {state?.name}</Heading>
+        <Form ref={form} className={element('form')} noValidate onSubmit={handleSubmit}>
+          <Heading className={element('title')}>Привет, {state.name}</Heading>
 
           <InputWrapper className={element('field-container')}>
-            <InputLabel htmlFor="name" className={element('label', { visible: !nameVisible })} label={state?.name ?? ''} />
+            <InputLabel htmlFor="name" className={element('label', { visible: !localState.nameVisible })} label={state.name} />
             <Input
+              onFocus={() => {
+                localDispatch({ type: ProfileActions.SET_NAME_VISIBLE, payload: false })
+              }}
+              onBlur={() => {
+                localDispatch({ type: ProfileActions.SET_NAME_VISIBLE, payload: true })
+              }}
+              minLength={3}
+              maxLength={30}
               placeholder='Имя'
-              onChange={handleName}
+              onChange={handleChange}
               variant='profile'
               type="text"
               name='name'
               id='name'
-              className={element('input', { type: 'name' })} />
+              className={element('input', { type: 'name' })}
+            />
           </InputWrapper>
 
           <Divider />
 
           <InputWrapper className={element('field-container')}>
-            <InputLabel htmlFor="email" className={element('label', { visible: !emailVisible })} label={state?.email ?? ''} />
+            <InputLabel
+              htmlFor="email"
+              className={
+                element('label', {
+                  visible: !localState.emailVisible
+                })}
+              label={state.email}
+            />
             <Input
+              onFocus={() => {
+                localDispatch({ type: ProfileActions.SET_EMAIL_VISIBLE, payload: false })
+              }}
+              onBlur={() => {
+                localDispatch({ type: ProfileActions.SET_EMAIL_VISIBLE, payload: true })
+              }}
               placeholder='Email'
-              onChange={handleEmail}
+              onChange={handleChange}
               variant='profile'
               type="email"
               name='email'
               id='email'
-              className={element('input', { type: 'email' })} />
-            <InputErrorMessage message={errorMessage} />
+              className={element('input', { type: 'email' })
+              }
+            />
           </InputWrapper>
 
           <div className={element('actions')}>
-            <Button type='submit' variant='link' className={element('action-edit')}>Редактировать</Button>
-            <BaseLink variant='danger' className={element('action-leave')} to={''}>Выйти из акканута</BaseLink>
+            <Button
+              disabled={!localState.formValid}
+              type='submit'
+              variant='link'
+              className={element('action-edit')}>
+              Редактировать
+            </Button>
+            <Button variant='danger' className={element('action-leave')}>Выйти из акканута</Button>
           </div>
         </Form>
       </section>
