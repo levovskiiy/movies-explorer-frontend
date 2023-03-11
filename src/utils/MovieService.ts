@@ -1,4 +1,4 @@
-import { type IMovie } from './../types/types'
+import { type Movie } from './../types/types'
 import Api from './Api'
 
 class MovieService {
@@ -14,9 +14,9 @@ class MovieService {
     })
   }
 
-  public async getMovies(): Promise<IMovie[]> {
+  public async getMovies(): Promise<Movie[]> {
     try {
-      const movies = await this.api.get<IMovie[]>('movies')
+      const movies = await this.api.get<Movie[]>('movies')
 
       return movies
     } catch (error: any) {
@@ -24,18 +24,18 @@ class MovieService {
     }
   }
 
-  public async saveMovie(movie: IMovie): Promise<IMovie> {
+  public async saveMovie(movie: Movie): Promise<Movie> {
     try {
-      const savedMovie = await this.api.post<IMovie>('movies', movie)
+      const savedMovie = await this.api.post<Movie>('movies', movie)
       return savedMovie
     } catch (error: any) {
       return error
     }
   }
 
-  public async deleteMovie(movieId: string): Promise<IMovie> {
+  public async deleteMovie(movieId: string): Promise<Movie> {
     try {
-      const deletedMovie = await this.api.delete<IMovie>(`movies/${movieId}`)
+      const deletedMovie = await this.api.delete<Movie>(`movies/${movieId}`)
       return deletedMovie
     } catch (error: any) {
       return error

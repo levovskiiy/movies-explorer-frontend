@@ -8,14 +8,14 @@ import useUser from 'hooks/useUser'
 import UserService from 'utils/UserService'
 import { UserActions } from 'context/user/actions'
 import { type User } from 'types/types'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
   type: 'register' | 'login'
 }
 
 function AuthForm({ type }: AuthFromProps): JSX.Element {
-  const { values, errors, handleChange, isValid, checkValidity } = useForm({
+  const { values, errors, handleChange, isValid, checkValidity } = useForm<User, HTMLInputElement>({
     name: '',
     password: '',
     email: ''
@@ -26,9 +26,8 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     message: ''
   })
 
+  const { dispatch } = useUser()
   const navigate = useNavigate()
-
-  const { state, dispatch } = useUser()
 
   const { block, element } = classname('auth-form', { type })
 

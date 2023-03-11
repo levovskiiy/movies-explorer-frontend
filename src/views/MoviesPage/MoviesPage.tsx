@@ -1,41 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { Button, Container, Preloader, SearchForm, Text } from '../../components/UI'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
-import { Button, Container, Preloader, SearchForm } from '../../components/UI'
-import { type IMovie } from '../../types/types'
-import BeatfilmService from '../../utils/BeatfilmService'
 
+import { MoviesContext } from '../../context/movies/context'
 import './MoviesPage.css'
 
 function MoviesPage() {
-  const [movies, setMovies] = useState<IMovie[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    BeatfilmService.getMovies()
-      .then(movies => {
-        setIsLoading(true)
-        const data = movies.slice(0, 12)
-        setMovies(data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
+  const { state } = useContext(MoviesContext)
 
   return (
     <section className='movies' >
       <Container>
         <SearchForm />
         {
-          isLoading
+          state.isLoading
             ? <Preloader className='movies__preloader' />
-            : <>
-              <MoviesCardList movies={movies} />
-              <Button className='movies__more-button' type='button' variant='tertiary' rounded>Еще</Button>
-            </>
+            : state.movies.length > 0
+              ? (
+                <>
+                  <MoviesCardList movies={state.movies} />
+                  <Button
+                    className='movies__more-button'
+                    type='button'
+                    variant='tertiary'
+                    rounded
+                  >
+                    Еще
+                  </Button>
+                </>)
+              : <Text>{state.error}</Text>
+
         }
       </Container>
     </section>

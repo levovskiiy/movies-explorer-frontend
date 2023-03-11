@@ -36,7 +36,6 @@ class UserService {
 
   public async checkToken(): Promise<User> {
     const user = await this.api.get<User>('users/me')
-
     return user
   }
 

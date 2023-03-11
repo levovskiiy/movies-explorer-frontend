@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { type ChangeEvent, type FormEvent, useEffect, useRef, useReducer } from 'react'
+import React, { type FormEvent, useEffect, useRef, useReducer, useContext } from 'react'
 import { classname } from '../../utils/utils'
 import { Button, Container, Divider, Form, Heading, Input, InputLabel, InputWrapper } from '../UI'
 
@@ -11,6 +10,7 @@ import { type UserState } from 'context/user/context'
 import profileReducer, { initialState } from 'reducers/profile/reducer'
 import { ProfileActions } from 'reducers/profile/actions'
 import './Profile.css'
+import { MoviesContext } from 'context/movies/context'
 
 function Profile() {
   const { state, dispatch } = useUser()
@@ -54,9 +54,26 @@ function Profile() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      await UserService.logout()
+      dispatch({ type: UserActions.SIGNOUT, payload: null })
+      localStorage.clear()
+    } catch (error: any) {
+      localDispatch({
+        type: ProfileActions.SET_ERROR,
+        payload: { status: 'FAIL', message: error.message }
+      })
+    }
+  }
+
+  function handleClick() {
+    handleLogout()
+  }
+
   function handleSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault()
-    handleUpdateUser(values)
+    handleUpdateUser(values as UserState)
     form.current?.reset()
     localDispatch({ type: ProfileActions.RESET })
   }
@@ -125,7 +142,7 @@ function Profile() {
               className={element('action-edit')}>
               Редактировать
             </Button>
-            <Button variant='danger' className={element('action-leave')}>Выйти из акканута</Button>
+            <Button onClick={handleClick} type='button' variant='danger' className={element('action-leave')}>Выйти из акканута</Button>
           </div>
         </Form>
       </section>

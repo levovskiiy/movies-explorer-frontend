@@ -1,4 +1,4 @@
-import { type IBeatfilmMovie, type IMovie } from 'types/types'
+import { type BeatfilmMovie, type Movie } from 'types/types'
 import Api from './Api'
 
 class BeatfilmService {
@@ -13,19 +13,15 @@ class BeatfilmService {
     })
   }
 
-  public async getMovies(): Promise<IMovie[]> {
-    try {
-      const movies = await this.api.get<IBeatfilmMovie[]>('beatfilm-movies')
+  public async getMovies(): Promise<Movie[]> {
+    const movies = await this.api.get<BeatfilmMovie[]>('beatfilm-movies')
 
-      return movies.map(movie => {
-        return {
-          ...movie,
-          image: movie.image.url
-        }
-      })
-    } catch (error: any) {
-      return error
-    }
+    return movies.map(movie => {
+      return {
+        ...movie,
+        image: movie.image.url
+      }
+    })
   }
 }
 

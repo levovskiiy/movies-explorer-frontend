@@ -2,13 +2,13 @@ import { BaseLink, DeleteButton, Heading, SaveButton } from 'components/UI'
 import useHover from 'hooks/useHover'
 import React, { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { type IMovie } from 'types/types'
+import { type Movie } from 'types/types'
 import { classname, formatDuration } from 'utils/utils'
 
 import './MovieCard.css'
 
 type MovieCardProps = {
-  movie: IMovie
+  movie: Movie
 }
 
 function MovieCard({ movie }: MovieCardProps): JSX.Element {

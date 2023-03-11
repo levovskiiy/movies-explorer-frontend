@@ -1,10 +1,10 @@
 import React from 'react'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import { Container, Heading, SearchForm } from '../../components/UI'
-import { type IMovie } from '../../types/types'
+import { type Movie } from '../../types/types'
 
 function SavedMoviesPage() {
-  const movies: IMovie[] = []
+  const movies: Movie[] = []
 
   return (
     <Container>

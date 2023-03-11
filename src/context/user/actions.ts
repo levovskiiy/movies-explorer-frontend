@@ -10,4 +10,4 @@ export enum UserActions {
 export type UserActionsType = {
   type: UserActions
   payload: UserState
-}
+} | { type: UserActions.SIGNOUT, payload: null }

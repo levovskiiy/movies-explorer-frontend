@@ -7,6 +7,7 @@ export default function userReducer(state: UserState = initialState, action: Use
     case UserActions.SIGNIN:
       return {
         ...state,
+        _id: payload._id,
         name: payload.name,
         email: payload.email,
         isLoggedIn: payload.isLoggedIn
@@ -14,12 +15,16 @@ export default function userReducer(state: UserState = initialState, action: Use
     case UserActions.SIGNUP:
       return {
         ...state,
-        ...payload
+        _id: payload._id,
+        name: payload.name,
+        email: payload.email,
+        isLoggedIn: payload.isLoggedIn
       }
     case UserActions.UPDATE:
       return {
         ...state,
-        ...payload
+        name: payload.name,
+        email: payload.email
       }
 
     case UserActions.SIGNOUT:
