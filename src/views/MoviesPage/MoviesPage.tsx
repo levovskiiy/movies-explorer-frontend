@@ -3,12 +3,11 @@ import React, { useState, useRef, useEffect, type FormEvent } from 'react'
 import MoviesCardList from 'components/MoviesCardList/MoviesCardList'
 import { Container, SearchForm, Preloader, Button, Text } from 'components/UI'
 import { type Movie } from 'types/types'
-import { classname, filterMovies, findMovies } from 'utils/utils'
+import { classname } from 'utils/utils'
 
 import useMovies from 'hooks/useMovies'
 import useMore from 'hooks/useMore'
 import './MoviesPage.css'
-import BeatfilmService from 'utils/BeatfilmService'
 
 function MoviesPage() {
   const { state, actions, handlers } = useMovies()

@@ -1,4 +1,4 @@
-import React, { type FormEvent, useEffect, useState } from 'react'
+import React, { type FormEvent, useState } from 'react'
 import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
 import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
@@ -8,7 +8,7 @@ import useUser from 'hooks/useUser'
 import UserService from 'utils/UserService'
 import { UserActions } from 'context/user/actions'
 import { type User } from 'types/types'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
   type: 'register' | 'login'

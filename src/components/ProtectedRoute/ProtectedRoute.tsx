@@ -1,6 +1,6 @@
 import useUser from 'hooks/useUser'
-import React, { type PropsWithChildren } from 'react'
-import { Navigate, Outlet, Route, Routes, type RouteProps } from 'react-router-dom'
+import React from 'react'
+import { Navigate, type RouteProps } from 'react-router-dom'
 
 type ProtectedRouteProps = {
   redirect: string

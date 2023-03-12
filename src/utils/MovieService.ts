@@ -43,4 +43,4 @@ class MovieService {
   }
 }
 
-export default new MovieService('http://localhost:5000')
+export default new MovieService('https://api.moviesapp.nomoredomains.work')

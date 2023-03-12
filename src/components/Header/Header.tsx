@@ -1,5 +1,5 @@
 import Logo from 'components/UI/Logo/Logo'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { type Theme } from '../../types/types'
 import { classname } from '../../utils/utils'

@@ -1,4 +1,4 @@
-import React, { useRef, type FormEvent, type FormEventHandler } from 'react'
+import React, { useRef, type FormEvent } from 'react'
 
 import { type MoviesState, type MoviesActions } from 'context/movies'
 import { type SavedMoviesState, type SavedMoviesAction } from 'context/saved-movies'

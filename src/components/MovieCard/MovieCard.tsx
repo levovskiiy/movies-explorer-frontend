@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { SaveButton, DeleteButton, BaseLink, Heading } from 'components/UI'
 import useHover from 'hooks/useHover'
 import { useLocation } from 'react-router-dom'
@@ -17,7 +17,7 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
   const location = useLocation()
   const ref = useRef(null)
   const isHover = useHover(ref)
-  const { state: moviesStore, actions: moviesActions } = useMovies()
+  const { actions: moviesActions } = useMovies()
   const { state: savedMoviesStore, actions: savedMoviesActions } = useSavedMovies()
   const { block, element } = classname('movie-card')
 

@@ -21,21 +21,25 @@ import useSavedMovies from 'hooks/useSavedMovies'
 import MovieService from 'utils/MovieService'
 
 function App() {
-  const { dispatch } = useUser()
+  const { dispatch, state } = useUser()
   const { handlers } = useSavedMovies(async () => await MovieService.getMovies())
   const navigate = useNavigate()
 
   useEffect(() => {
-    UserService
-      .checkToken()
-      .then((user) => {
-        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-        navigate('/movies')
-      })
+    if (state.isLoggedIn) {
+      UserService
+        .checkToken()
+        .then((user) => {
+          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+          navigate('/movies')
+        })
+    }
   }, [])
 
   useEffect(() => {
-    handlers.getSavedMovies()
+    if (state.isLoggedIn) {
+      handlers.getSavedMovies()
+    }
   }, [])
 
   return (

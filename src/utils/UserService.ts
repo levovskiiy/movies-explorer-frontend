@@ -46,4 +46,4 @@ class UserService {
   }
 }
 
-export default new UserService('http://localhost:5000')
+export default new UserService('https://api.moviesapp.nomoredomains.work')

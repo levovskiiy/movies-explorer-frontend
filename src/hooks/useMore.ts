@@ -1,4 +1,4 @@
-import { type MutableRefObject, useEffect, useRef, useState } from 'react'
+import { type MutableRefObject, useEffect, useState } from 'react'
 import { getVisibleConfig } from 'utils/visibleCards'
 import useResize from './useResize'
 

@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, type ChangeEventHandler, useContext } from 'react'
+import React, { useContext } from 'react'
 import { classname } from '../../../utils/utils'
 import { MoviesContext } from 'context/movies/context'
 import './FilterCheckbox.css'

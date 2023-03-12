@@ -1,4 +1,4 @@
-import React, { type FormEvent, useEffect, useRef, useReducer, useContext } from 'react'
+import React, { type FormEvent, useEffect, useRef, useReducer } from 'react'
 import { classname } from '../../utils/utils'
 import { Button, Container, Divider, Form, Heading, Input, InputLabel, InputWrapper } from '../UI'
 
@@ -10,7 +10,6 @@ import { type UserState } from 'context/user/context'
 import profileReducer, { initialState } from 'reducers/profile/reducer'
 import { ProfileActions } from 'reducers/profile/actions'
 import './Profile.css'
-import { MoviesContext } from 'context/movies/context'
 
 function Profile() {
   const { state, dispatch } = useUser()
