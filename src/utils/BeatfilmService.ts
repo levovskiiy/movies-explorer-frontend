@@ -17,9 +17,12 @@ class BeatfilmService {
     const movies = await this.api.get<BeatfilmMovie[]>('beatfilm-movies')
 
     return movies.map(movie => {
+      const { id: movieId, ...other } = movie
       return {
-        ...movie,
-        image: movie.image.url
+        ...other,
+        movieId: Number(movie.id),
+        isSaved: false,
+        image: 'https://api.nomoreparties.co' + movie.image.url
       }
     })
   }

@@ -1,66 +1,41 @@
-import React, { type FormEvent, useContext } from 'react'
-import Form from '../Form/Form'
-import { classname } from '../../../utils/utils'
-import Input from '../Input/Input'
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
-import Button from '../Button/Button'
+import React, { useRef, type FormEvent, type FormEventHandler } from 'react'
 
-import Divider from '../Divider/Divider'
+import { type MoviesState, type MoviesActions } from 'context/movies'
+import { type SavedMoviesState, type SavedMoviesAction } from 'context/saved-movies'
+import { Button, Divider, FilterCheckbox, Form, Input } from '../../UI/'
+import { classname } from 'utils/utils'
 import useForm from 'hooks/useFormValidator'
-import { MoviesContext } from '../../../context/movies/context'
-import BeatfilmService from '../../../utils/BeatfilmService'
 
 import './SearchForm.css'
 
-function SearchForm(): JSX.Element {
-  const { state, actions } = useContext(MoviesContext)
+type SearchFormProps = {
+  handleSubmit: (evt: FormEvent<HTMLFormElement>, queris: { search: string, isShort: boolean }) => void
+  context: {
+    state: MoviesState | SavedMoviesState
+    actions: MoviesActions | SavedMoviesAction | null
+  }
+}
 
-  const { values, handleChange, isValid } = useForm({
+function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
+  const { state, actions } = context
+  const ref = useRef<HTMLFormElement | null>(null)
+
+  const { values, handleChange, isValid, resetForm } = useForm({
     search: state.query
   })
 
   const { block, element } = classname('search-form')
 
-  async function onSubmit() {
-    const { search } = values
-
-    actions?.setLoading(true)
-    try {
-      const movies = await BeatfilmService.getMovies()
-      const findedMovies = movies.filter(({ nameRU }) => (
-        nameRU
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      ))
-
-      const result = state.isShort
-        ? findedMovies.filter(({ duration }) => duration <= 40)
-        : findedMovies
-
-      if (result.length === 0) {
-        actions?.setError('Ничего не найдено')
-        actions?.setMovies([])
-      } else {
-        actions?.setError('')
-        actions?.setMovies(result)
-      }
-    } catch (error: any) {
-      actions?.setError('Что-то произошло на сервере. Попробуйте перезагрузить страницу и сделать запрос снова.')
-    } finally {
-      actions?.setLoading(false)
-    }
-  }
-
-  function handleSubmit(evt: FormEvent<HTMLFormElement>): void {
+  function onSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault()
+    handleSubmit(evt, { search: values.search, isShort: state.isShort })
     actions?.setQuery(values.search)
-
-    onSubmit()
+    resetForm({ search: '' }, { search: '' }, false)
   }
 
   return (
     <>
-      <Form className={block} onSubmit={handleSubmit}>
+      <Form ref={ref} className={block} onSubmit={onSubmit} noValidate>
         <div className={element('container')}>
           <Input
             value={values.search}

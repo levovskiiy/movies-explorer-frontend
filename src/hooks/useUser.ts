@@ -8,5 +8,5 @@ export default function useUser() {
     return context
   }
 
-  throw new Error('useUser must be used within a UserProvider')
+  throw new Error('Context User не является дочерним для Context Provider')
 }

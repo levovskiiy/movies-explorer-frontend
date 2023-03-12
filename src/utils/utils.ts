@@ -1,4 +1,14 @@
+import { type Movie } from 'types/types'
 import bem from './bem'
+
+function findMovies(value: Movie[], query: string): Movie[] {
+  console.log(query)
+  return value.filter(v => v.nameRU.toLowerCase().includes(query.toLowerCase()))
+}
+
+function filterMovies(movies: Movie[], isShort: boolean): Movie[] {
+  return isShort ? movies.filter(m => m.duration <= 40) : movies
+}
 
 function merge(...tokens: Array<string | undefined>): string {
   const result: string[] = []
@@ -35,5 +45,7 @@ const classname = bem({
 export {
   classname,
   merge,
-  formatDuration
+  formatDuration,
+  findMovies,
+  filterMovies
 }

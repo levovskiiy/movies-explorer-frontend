@@ -1,26 +1,55 @@
-import React, { useContext } from 'react'
-import { Button, Container, Preloader, SearchForm, Text } from '../../components/UI'
-import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
+import React, { useState, useRef, useEffect, type FormEvent } from 'react'
 
-import { MoviesContext } from '../../context/movies/context'
+import MoviesCardList from 'components/MoviesCardList/MoviesCardList'
+import { Container, SearchForm, Preloader, Button, Text } from 'components/UI'
+import { type Movie } from 'types/types'
+import { classname, filterMovies, findMovies } from 'utils/utils'
+
+import useMovies from 'hooks/useMovies'
+import useMore from 'hooks/useMore'
 import './MoviesPage.css'
+import BeatfilmService from 'utils/BeatfilmService'
 
 function MoviesPage() {
-  const { state } = useContext(MoviesContext)
+  const { state, actions, handlers } = useMovies()
+  const button = useRef<HTMLButtonElement | null>(null)
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>([])
+  const { step, endIndex, setEndIndex } = useMore(button)
+  const { block, element } = classname('movies')
+
+  useEffect(() => {
+    const initalList = state.movies.slice(0, endIndex)
+
+    setVisibleMovies(initalList)
+  }, [state.movies, state.query, step, endIndex])
+
+  function handleMore() {
+    const nextItems = state.movies.slice(endIndex, endIndex + step)
+    setVisibleMovies(prev => [...prev, ...nextItems])
+    setEndIndex(prev => prev + step)
+  }
+
+  function handleSubmit(evt: FormEvent<HTMLFormElement>, queries: { search: string, isShort: boolean }) {
+    handlers.find(queries.search, queries.isShort)
+  }
 
   return (
-    <section className='movies' >
+    <section className={block} >
       <Container>
-        <SearchForm />
+        <SearchForm context={{ state, actions }} handleSubmit={handleSubmit} />
         {
           state.isLoading
-            ? <Preloader className='movies__preloader' />
-            : state.movies.length > 0
+            ? <Preloader className={element('preloader')} />
+            : visibleMovies.length > 0
               ? (
                 <>
-                  <MoviesCardList movies={state.movies} />
+                  <MoviesCardList movies={visibleMovies} />
                   <Button
-                    className='movies__more-button'
+                    ref={button}
+                    onClick={handleMore}
+                    className={element('more-button', {
+                      hidden: state.movies.length <= 3 || state.movies.length === visibleMovies.length
+                    })}
                     type='button'
                     variant='tertiary'
                     rounded
@@ -28,7 +57,7 @@ function MoviesPage() {
                     Еще
                   </Button>
                 </>)
-              : <Text>{state.error}</Text>
+              : <Text className={element('error-message')}>{state.error}</Text>
 
         }
       </Container>

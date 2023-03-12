@@ -1,14 +1,15 @@
 import { type Movie } from '../../types/types'
-import { type MoviesState } from './context'
+import { type MoviesState } from './state'
 
-type MoviesActions =
+export type MoviesDispatchers =
   { type: 'SET_MOVIES', payload: Movie[] }
   | { type: 'SET_IS_LOADING', payload: boolean }
   | { type: 'SET_ERROR', payload: string }
   | { type: 'SET_QUERY', payload: string }
   | { type: 'SET_SHORT', payload: boolean }
+  | { type: 'SET_IS_SAVED_MOVIE', payload: { isSaved: boolean, movieId: number } }
 
-export default function moviesReducer(state: MoviesState, action: MoviesActions) {
+export function moviesReducer(state: MoviesState, action: MoviesDispatchers) {
   const { type, payload } = action
 
   switch (type) {
@@ -22,6 +23,15 @@ export default function moviesReducer(state: MoviesState, action: MoviesActions)
       return { ...state, query: payload }
     case 'SET_SHORT':
       return { ...state, isShort: payload }
+    case 'SET_IS_SAVED_MOVIE':
+      return {
+        ...state,
+        movies: state.movies.map(movie =>
+          movie.movieId === payload.movieId
+            ? { ...movie, isSaved: payload.isSaved }
+            : movie
+        )
+      }
     default:
       return state
   }

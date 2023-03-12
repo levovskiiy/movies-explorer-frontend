@@ -1,8 +1,19 @@
+.movies__error-message {
+  padding: 150px 0;
+  text-align: center;
+  font-size: 24px;
+}
+
 .movies__more-button {
+  visibility: visible;
   width: 100%;
   margin: 50px 0 160px;
   padding: 10px 0;
   transition: all 0.03s ease-out;
+}
+
+.movies__more-button_hidden {
+  visibility: hidden;
 }
 
 .movies__more-button:active {
@@ -11,9 +22,5 @@
 
 .movies__preloader {
   margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 65%;
-  right: 0;
-  transform: translateY(-50%);
+  padding: 150px 0;
 }

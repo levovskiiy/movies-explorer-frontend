@@ -64,7 +64,9 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
         navigate('/signin')
       }
     } catch (error: any) {
-      setError({ status: true, message: error.message })
+      if (error.message === 'Conflict') {
+        setError({ status: true, message: 'Пользователь с таким email уже существует' })
+      }
     }
   }
 
@@ -129,6 +131,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
         />
         <InputErrorMessage message={errors.password} className={classnames.inputError} />
       </InputWrapper>
+      <InputErrorMessage message={error.message} className={classnames.inputError} />
       <div className={classnames.formAction}>
         <Button
           disabled={!isValid}

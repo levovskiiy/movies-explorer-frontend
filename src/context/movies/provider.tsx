@@ -1,8 +1,10 @@
 import React, { type PropsWithChildren, useReducer, useEffect } from 'react'
-import moviesReducer from './reducer'
 import { type Movie } from '../../types/types'
-import { type MoviesActions, MoviesContext, initialMoviesState } from './context'
 import useLocalStorage from 'hooks/useLocalStorage'
+import { initialMoviesState } from './state'
+import { type MoviesActions } from './action'
+import { MoviesContext } from './context'
+import { moviesReducer } from './reducer'
 
 export default function MoviesProvider({ children }: PropsWithChildren): JSX.Element {
   const [moviesStore, setMoviesStore] = useLocalStorage<Movie[]>('MOVIES', [])
@@ -22,26 +24,18 @@ export default function MoviesProvider({ children }: PropsWithChildren): JSX.Ele
 
   useEffect(() => {
     setMoviesStore(state.movies)
-
-    return () => {
-      localStorage.removeItem('MOVIES')
-    }
+    return () => { localStorage.removeItem('MOVIES') }
   }, [state.movies])
 
   useEffect(() => {
     setQuerySearchStore(state.query)
-
-    return () => {
-      localStorage.removeItem('QUERY')
-    }
+    return () => { localStorage.removeItem('QUERY') }
   }, [state.query])
 
   useEffect(() => {
     setShortStore(state.isShort)
 
-    return () => {
-      localStorage.removeItem('SHORT')
-    }
+    return () => { localStorage.removeItem('SHORT') }
   }, [state.isShort])
 
   const actions: MoviesActions = {
@@ -76,6 +70,13 @@ export default function MoviesProvider({ children }: PropsWithChildren): JSX.Ele
       dispatch({
         type: 'SET_SHORT',
         payload: isShort
+      })
+    },
+
+    setIsSavedMovie: (isSaved: boolean, movieId: number) => {
+      dispatch({
+        type: 'SET_IS_SAVED_MOVIE',
+        payload: { isSaved, movieId }
       })
     }
 

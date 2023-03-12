@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Routes, Route, useLocation, useNavigate, Outlet } from 'react-router-dom'
-import Layout from '../Layout/Layout'
+import React, { useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
 
 import ProfilePage from '../../views/ProfilePage/ProfilePage'
@@ -18,11 +17,12 @@ import './App.css'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import { Wrapper, Content } from 'components/UI'
-import MoviesProvider from '../../context/movies/provider'
+import useSavedMovies from 'hooks/useSavedMovies'
+import MovieService from 'utils/MovieService'
 
 function App() {
-  const { state, dispatch } = useUser()
-  const location = useLocation()
+  const { dispatch } = useUser()
+  const { handlers } = useSavedMovies(async () => await MovieService.getMovies())
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -34,32 +34,34 @@ function App() {
       })
   }, [])
 
+  useEffect(() => {
+    handlers.getSavedMovies()
+  }, [])
+
   return (
-      <MoviesProvider>
-        <Wrapper>
-          <Routes>
-            {['/', 'movies', 'saved-movies', 'profile'].map(path => (
-              <Route key={path} path={path} element={<Header />} />
-            ))}
-          </Routes>
-          <Content>
-            <Routes>
-              <Route path='/' element={<LandingPage />} />
-              <Route path='/signin' element={<LoginPage />}></Route>
-              <Route path='/signup' element={<RegisterPage />}></Route>
-              <Route path='/movies' element={<ProtectedRoute redirect='/' element={<MoviesPage />} />} />
-              <Route path='/saved-movies' element={<ProtectedRoute redirect='/' element={<SavedMoviesPage />} />} />
-              <Route path='/profile' element={<ProtectedRoute redirect='/' element={<ProfilePage />} />} />
-              <Route path='*' element={<NotFoundPage />}></Route>
-            </Routes>
-          </Content>
-          <Routes>
-            {['/', 'movies', 'saved-movies'].map(path => (
-              <Route key={path} path={path} element={<Footer />} />
-            ))}
-          </Routes>
-        </Wrapper>
-      </MoviesProvider>
+    <Wrapper>
+      <Routes>
+        {['/', 'movies', 'saved-movies', 'profile'].map(path => (
+          <Route key={path} path={path} element={<Header />} />
+        ))}
+      </Routes>
+      <Content>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/signin' element={<LoginPage />}></Route>
+          <Route path='/signup' element={<RegisterPage />}></Route>
+          <Route path='/movies' element={<ProtectedRoute redirect='/' element={<MoviesPage />} />} />
+          <Route path='/saved-movies' element={<ProtectedRoute redirect='/' element={<SavedMoviesPage />} />} />
+          <Route path='/profile' element={<ProtectedRoute redirect='/' element={<ProfilePage />} />} />
+          <Route path='*' element={<NotFoundPage />}></Route>
+        </Routes>
+      </Content>
+      <Routes>
+        {['/', 'movies', 'saved-movies'].map(path => (
+          <Route key={path} path={path} element={<Footer />} />
+        ))}
+      </Routes>
+    </Wrapper>
   )
 }
 

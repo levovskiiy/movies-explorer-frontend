@@ -27,7 +27,7 @@ export default function useForm<V, T extends HTMLInputElement>(initialValue: V):
   }, [errors])
 
   const resetForm = useCallback(
-    (newValues: V, newErrors: V, newIsValid = false) => {
+    (newValues: V, newErrors: V, newIsValid: boolean = false) => {
       setValues(newValues)
       setErrors(newErrors)
       setValid(newIsValid)

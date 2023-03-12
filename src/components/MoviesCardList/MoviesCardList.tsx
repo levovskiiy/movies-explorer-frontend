@@ -9,17 +9,17 @@ import './MoviesCardList.css'
 
 type MoviesCardListProps = {
   movies: Movie[]
+  className?: string
 }
 
-function MoviesCardList({ movies }: MoviesCardListProps): JSX.Element {
-  const { block, element } = classname('movies-card-list')
-
+function MoviesCardList({ movies, className }: MoviesCardListProps): JSX.Element {
+  const { block, element } = classname('movies-card-list', {}, [className])
   return (
     <section className={block}>
       <List className={element('movies')}
         items={movies}
         renderItem={(item) => (
-          <Item className={element('movie')} key={item.id}>
+          <Item className={element('movie')} key={item.movieId}>
             <MovieCard movie={item} />
           </Item>
         )}
