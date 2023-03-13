@@ -1,5 +1,6 @@
 import { type User } from 'types/types'
 import Api from './Api'
+import { API_URL } from './constants'
 
 type LoginDataType = Omit<User, '_id' | 'name'>
 type UpdateDataType = Omit<User, 'password' | 'isAunthorized'>
@@ -46,4 +47,4 @@ class UserService {
   }
 }
 
-export default new UserService('https://api.moviesapp.nomoredomains.work')
+export default new UserService(API_URL)

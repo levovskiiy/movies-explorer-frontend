@@ -2,8 +2,12 @@ import { type Movie } from 'types/types'
 import bem from './bem'
 
 function findMovies(value: Movie[], query: string): Movie[] {
-  console.log(query)
-  return value.filter(v => v.nameRU.toLowerCase().includes(query.toLowerCase()))
+  return value.filter(v => {
+    console.log(v)
+    console.log(query)
+    console.log(v.nameRU.toLowerCase().includes(query.toLowerCase()))
+    return v.nameRU.toLowerCase().includes(query.toLowerCase())
+  })
 }
 
 function filterMovies(movies: Movie[], isShort: boolean): Movie[] {

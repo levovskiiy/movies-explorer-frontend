@@ -27,9 +27,10 @@ export default function useSavedMovies(callback: () => any = () => []) {
       try {
         const findedMovies = findMovies(context.state.movies, query)
         const result = filterMovies(findedMovies, isShort)
-        context.actions?.saveMovies(result)
+        return result
       } catch (error: any) {
         context.actions?.setError(error.message)
+        return []
       }
     }
   }

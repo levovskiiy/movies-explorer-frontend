@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
 
 import ProfilePage from '../../views/ProfilePage/ProfilePage'
@@ -21,26 +21,23 @@ import useSavedMovies from 'hooks/useSavedMovies'
 import MovieService from 'utils/MovieService'
 
 function App() {
-  const { dispatch, state } = useUser()
+  const { dispatch } = useUser()
   const { handlers } = useSavedMovies(async () => await MovieService.getMovies())
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
-    if (state.isLoggedIn) {
-      UserService
-        .checkToken()
-        .then((user) => {
-          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-          navigate('/movies')
-        })
-    }
+    UserService
+      .checkToken()
+      .then((user) => {
+        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+        navigate('/movies')
+      })
   }, [])
 
   useEffect(() => {
-    if (state.isLoggedIn) {
-      handlers.getSavedMovies()
-    }
-  }, [])
+    handlers.getSavedMovies()
+  }, [location])
 
   return (
     <Wrapper>

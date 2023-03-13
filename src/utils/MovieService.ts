@@ -1,11 +1,12 @@
 import { type Movie } from './../types/types'
 import Api from './Api'
+import { API_URL } from './constants'
 
 class MovieService {
   private readonly api: Api
 
   constructor(private readonly url: string) {
-    this.api = new Api(url, {
+    this.api = new Api(this.url, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -43,4 +44,4 @@ class MovieService {
   }
 }
 
-export default new MovieService('https://api.moviesapp.nomoredomains.work')
+export default new MovieService(API_URL)

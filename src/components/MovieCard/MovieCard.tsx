@@ -27,12 +27,14 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
   }, [savedMoviesStore.movies, movie.movieId])
 
   function deleteHandler(): void {
-    const currentMovie = savedMoviesStore.movies.find((m) => m.movieId === movie.movieId)
+    const currentMovie = savedMoviesStore.movies.find((m) => {
+      return m.movieId === movie.movieId
+    })
+
     if (currentMovie?._id) {
       MovieService
         .deleteMovie(currentMovie._id)
         .then((deletedMovie) => {
-          console.log('delete')
           savedMoviesActions?.deleteMovie(deletedMovie.movieId)
           moviesActions?.setIsSavedMovie(false, movie.movieId)
         })
@@ -49,8 +51,9 @@ function MovieCard({ movie }: MovieCardProps): JSX.Element {
 
     if (!movie.isSaved) {
       MovieService.saveMovie(newMovie)
-        .then(() => {
-          moviesActions?.setIsSavedMovie(true, movie.movieId)
+        .then((savedMovie) => {
+          savedMoviesActions?.saveMovie(savedMovie)
+          moviesActions?.setIsSavedMovie(true, savedMovie.movieId)
         })
     } else {
       deleteHandler()

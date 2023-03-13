@@ -26,10 +26,11 @@ export function moviesReducer(state: MoviesState, action: MoviesDispatchers) {
     case 'SET_IS_SAVED_MOVIE':
       return {
         ...state,
-        movies: state.movies.map(movie =>
-          movie.movieId === payload.movieId
+        movies: state.movies.map(movie => {
+          return movie.movieId === payload.movieId
             ? { ...movie, isSaved: payload.isSaved }
             : movie
+        }
         )
       }
     default:

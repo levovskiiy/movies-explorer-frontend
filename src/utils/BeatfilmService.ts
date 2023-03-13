@@ -1,5 +1,6 @@
 import { type BeatfilmMovie, type Movie } from 'types/types'
 import Api from './Api'
+import { BEATFILM_MOVIE_API_URL } from './constants'
 
 class BeatfilmService {
   private readonly api: Api
@@ -22,10 +23,10 @@ class BeatfilmService {
         ...other,
         movieId: Number(movie.id),
         isSaved: false,
-        image: 'https://api.nomoreparties.co' + movie.image.url
+        image: BEATFILM_MOVIE_API_URL + movie.image.url
       }
     })
   }
 }
 
-export default new BeatfilmService('https://api.nomoreparties.co')
+export default new BeatfilmService(BEATFILM_MOVIE_API_URL)
