@@ -11,7 +11,7 @@ export const visibleCardsConfig = {
 }
 
 export const getVisibleConfig = (width: number) => {
-  if (width > 1100 && width <= 1400) {
+  if (width > 1100 && width <= 2560) {
     return visibleCardsConfig[BREAKPOINTS.DESKTOP]
   }
 
