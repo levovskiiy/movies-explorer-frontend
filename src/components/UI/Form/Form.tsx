@@ -7,14 +7,16 @@ type FormProps = {
   className?: string
 } & FormHTMLAttributes<HTMLFormElement>
 
-function Form({ children, className, ...props }: PropsWithChildren<FormProps>): JSX.Element {
-  const { block } = classname('form', {}, [className])
+const Form = React.forwardRef<HTMLFormElement, FormProps>(
+  function Form({ children, className, ...props }: PropsWithChildren<FormProps>, ref): JSX.Element {
+    const { block } = classname('form', {}, [className])
 
-  return (
-    <form {...props} className={block}>
-      {children}
-    </form>
-  )
-}
+    return (
+      <form {...props} ref={ref} className={block}>
+        {children}
+      </form>
+    )
+  }
+)
 
 export default Form

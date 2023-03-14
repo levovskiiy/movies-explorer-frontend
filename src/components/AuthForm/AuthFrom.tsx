@@ -1,20 +1,33 @@
-import React from 'react'
+import React, { type FormEvent, useState } from 'react'
 import useForm from '../../hooks/useFormValidator'
 import { classname } from '../../utils/utils'
 import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
 
 import './AuthForm.css'
+import useUser from 'hooks/useUser'
+import UserService from 'utils/UserService'
+import { UserActions } from 'context/user/actions'
+import { type User } from 'types/types'
+import { useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
   type: 'register' | 'login'
 }
 
 function AuthForm({ type }: AuthFromProps): JSX.Element {
-  const { values, errors, handleChange, isValid, checkValidity } = useForm({
+  const { values, errors, handleChange, isValid, checkValidity } = useForm<User, HTMLInputElement>({
     name: '',
     password: '',
     email: ''
   })
+
+  const [error, setError] = useState({
+    status: false,
+    message: ''
+  })
+
+  const { dispatch } = useUser()
+  const navigate = useNavigate()
 
   const { block, element } = classname('auth-form', { type })
 
@@ -29,8 +42,46 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     to: element('to')
   }
 
+  async function handleLogin(user: User) {
+    try {
+      const response = await UserService.login(user)
+      if (response) {
+        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+        setError({ status: false, message: '' })
+        navigate('/movies')
+      }
+    } catch (error: any) {
+      setError({ status: true, message: error.message })
+    }
+  }
+
+  async function handleRegister(user: User) {
+    try {
+      const response = await UserService.register(user)
+      if (response) {
+        dispatch({ type: UserActions.SIGNUP, payload: { ...user, isLoggedIn: false } })
+        setError({ status: false, message: '' })
+        navigate('/signin')
+      }
+    } catch (error: any) {
+      if (error.message === 'Conflict') {
+        setError({ status: true, message: 'Пользователь с таким email уже существует' })
+      }
+    }
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (type === 'register') {
+      handleRegister(values)
+    } else {
+      handleLogin(values)
+    }
+  }
+
   return (
-    <Form className={block} noValidate>
+    <Form className={block} noValidate onSubmit={handleSubmit}>
       {
         type === 'register' && (
           <InputWrapper className={classnames.inputWrapper}>
@@ -80,6 +131,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
         />
         <InputErrorMessage message={errors.password} className={classnames.inputError} />
       </InputWrapper>
+      <InputErrorMessage message={error.message} className={classnames.inputError} />
       <div className={classnames.formAction}>
         <Button
           disabled={!isValid}
@@ -88,7 +140,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
           variant='primary'
           rounded
           className={classnames.submitButton}>
-          Войти
+          {type === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
         <Text className={classnames.text}> {type === 'login' ? 'Еще не зарегистрированы?' : 'Уже зарегистрированы?'}
           <BaseLink className={classnames.to} variant='secondary' to={type === 'login' ? '/signup' : '/signin'} isRoute>

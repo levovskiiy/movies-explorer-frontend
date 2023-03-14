@@ -1,41 +1,80 @@
-import { BaseLink, DeleteButton, Heading, SaveButton } from 'components/UI'
+import React, { useEffect, useRef } from 'react'
+import { SaveButton, DeleteButton, BaseLink, Heading } from 'components/UI'
 import useHover from 'hooks/useHover'
-import React, { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { type IMovie } from 'types/types'
+import { type Movie } from 'types/types'
+import MovieService from 'utils/MovieService'
 import { classname, formatDuration } from 'utils/utils'
-
 import './MovieCard.css'
+import useMovies from 'hooks/useMovies'
+import useSavedMovies from 'hooks/useSavedMovies'
 
 type MovieCardProps = {
-  movie: IMovie
+  movie: Movie
 }
 
 function MovieCard({ movie }: MovieCardProps): JSX.Element {
-  const [saved, setSaved] = useState(false)
   const location = useLocation()
   const ref = useRef(null)
   const isHover = useHover(ref)
-
+  const { actions: moviesActions } = useMovies()
+  const { state: savedMoviesStore, actions: savedMoviesActions } = useSavedMovies()
   const { block, element } = classname('movie-card')
 
-  function saveHandler(): void {
-    setSaved(true)
-    console.log('save')
-  }
+  useEffect(() => {
+    const isSaved = savedMoviesStore.movies.some((savedMovie) => savedMovie.movieId === movie.movieId)
+    moviesActions?.setIsSavedMovie(isSaved, movie.movieId)
+  }, [savedMoviesStore.movies, movie.movieId])
 
   function deleteHandler(): void {
-    console.log('delete')
+    const currentMovie = savedMoviesStore.movies.find((m) => {
+      return m.movieId === movie.movieId
+    })
+
+    if (currentMovie?._id) {
+      MovieService
+        .deleteMovie(currentMovie._id)
+        .then((deletedMovie) => {
+          savedMoviesActions?.deleteMovie(deletedMovie.movieId)
+          moviesActions?.setIsSavedMovie(false, movie.movieId)
+        })
+    }
+  }
+
+  function saveHandler(): void {
+    const newMovie = {
+      ...movie,
+      image: movie.image,
+      trailerLink: movie.trailerLink,
+      thumbnail: 'https://api.nomoreparties.co/' + (movie.thumbnail ?? '')
+    }
+
+    if (!movie.isSaved) {
+      MovieService.saveMovie(newMovie)
+        .then((savedMovie) => {
+          savedMoviesActions?.saveMovie(savedMovie)
+          moviesActions?.setIsSavedMovie(true, savedMovie.movieId)
+        })
+    } else {
+      deleteHandler()
+    }
   }
 
   const button = location.pathname === '/movies'
-    ? <SaveButton saved={saved} saveHandler={saveHandler} className={element('action-button', { visible: isHover || saved })} />
-    : <DeleteButton deleteHandler={deleteHandler} className={element('action-button', { visible: isHover })} />
+    ? <SaveButton
+      saved={movie.isSaved}
+      saveHandler={saveHandler}
+      className={element('action-button', { visible: isHover || movie.isSaved })}
+    />
+    : <DeleteButton
+      deleteHandler={deleteHandler}
+      className={element('action-button', { visible: isHover })}
+    />
 
   return (
     <article className={block} ref={ref}>
       <BaseLink target='_blank' to={movie.trailerLink} className={element('link')}>
-        <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} className={element('image')} />
+        <img src={movie.image} alt={movie.nameRU} className={element('image')} />
       </BaseLink>
       <div className={element('text')}>
         <Heading as='h4' className={element('title')}>{movie.nameRU}</Heading>

@@ -5,6 +5,9 @@ import './vendor/normalize.css'
 import './vendor/fonts/fonts.css'
 import './index.css'
 import App from './components/App/App'
+import UserProvider from 'context/user/UserProvider'
+import { MoviesProvider } from 'context/saved-movies'
+import SavedMoviesProvider from 'context/saved-movies/provider'
 
 const root = ReactDOM.createRoot(
   document.querySelector('.root') as HTMLElement
@@ -13,7 +16,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <MoviesProvider>
+          <SavedMoviesProvider>
+            <App />
+          </SavedMoviesProvider>
+        </MoviesProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

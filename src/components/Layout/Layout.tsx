@@ -3,7 +3,7 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import Content from '../UI/Content/Content'
-import Wrapper from '../UI/Wrapper/Wrapper'
+import { Wrapper } from 'components/UI'
 
 function Layout(): JSX.Element {
   return (
@@ -11,7 +11,7 @@ function Layout(): JSX.Element {
       <Wrapper>
         <Routes>
           {['/', 'movies', 'saved-movies', 'profile'].map(path => (
-            <Route key={path} path={path} element={<Header isLoggin={true} />} />
+            <Route key={path} path={path} element={<Header />} />
           ))}
         </Routes>
         <Content>

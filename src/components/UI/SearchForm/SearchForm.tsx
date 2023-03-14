@@ -1,21 +1,41 @@
-import React from 'react'
-import Form from '../Form/Form'
-import { classname } from '../../../utils/utils'
-import Input from '../Input/Input'
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
-import Button from '../Button/Button'
+import React, { useRef, type FormEvent } from 'react'
 
-import './SearchForm.css'
-import Divider from '../Divider/Divider'
+import { type MoviesState, type MoviesActions } from 'context/movies'
+import { type SavedMoviesState, type SavedMoviesAction } from 'context/saved-movies'
+import { Button, Divider, FilterCheckbox, Form, Input } from '../../UI/'
+import { classname } from 'utils/utils'
 import useForm from 'hooks/useFormValidator'
 
-function SearchForm(): JSX.Element {
-  const { values, handleChange, isValid } = useForm({ search: '' })
+import './SearchForm.css'
+
+type SearchFormProps = {
+  handleSubmit: (evt: FormEvent<HTMLFormElement>, queris: { search: string, isShort: boolean }) => void
+  context: {
+    state: MoviesState | SavedMoviesState
+    actions: MoviesActions | SavedMoviesAction | null
+  }
+}
+
+function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
+  const { state, actions } = context
+  const ref = useRef<HTMLFormElement | null>(null)
+
+  const { values, handleChange, isValid, resetForm } = useForm({
+    search: state.query
+  })
+
   const { block, element } = classname('search-form')
+
+  function onSubmit(evt: FormEvent<HTMLFormElement>): void {
+    evt.preventDefault()
+    handleSubmit(evt, { search: values.search, isShort: state.isShort })
+    actions?.setQuery(values.search)
+    resetForm({ search: '' }, { search: '' }, false)
+  }
 
   return (
     <>
-      <Form className={block} onSubmit={(e) => { e.preventDefault() }}>
+      <Form ref={ref} className={block} onSubmit={onSubmit} noValidate>
         <div className={element('container')}>
           <Input
             value={values.search}
