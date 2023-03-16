@@ -1,15 +1,15 @@
 import React, { type PropsWithChildren, useReducer, useEffect } from 'react'
 import { type Movie } from '../../types/types'
-import useLocalStorage from 'hooks/useLocalStorage'
-import { initialMoviesState } from './state'
 import { type MoviesActions } from './action'
+import { initialMoviesState } from './state'
 import { MoviesContext } from './context'
 import { moviesReducer } from './reducer'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 export default function MoviesProvider({ children }: PropsWithChildren): JSX.Element {
   const [moviesStore, setMoviesStore] = useLocalStorage<Movie[]>('MOVIES', [])
-  const [querySearchStore, setQuerySearchStore] = useLocalStorage('QUERY', '')
   const [shortStore, setShortStore] = useLocalStorage('SHORT', false)
+  const [querySearchStore, setQuerySearchStore] = useLocalStorage('QUERY', '')
 
   const [state, dispatch] = useReducer(
     moviesReducer,

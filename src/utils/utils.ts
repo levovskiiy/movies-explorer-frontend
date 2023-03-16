@@ -1,5 +1,6 @@
 import { type Movie } from 'types/types'
 import bem from './bem'
+import validator from 'validator'
 
 function findMovies(value: Movie[], query: string): Movie[] {
   return value.filter(v => {
@@ -41,6 +42,18 @@ function formatDuration(duration: number): string {
   return duration + 'м'
 }
 
+const emailValidator = (email: string): string => {
+  if (email.length === 0) {
+    return 'Заполните поле'
+  }
+
+  if (!validator.isEmail(email)) {
+    return 'Некорректный адрес электронной почты. Напишите в формате "example@domain.com"'
+  }
+
+  return ''
+}
+
 const classname = bem({
   modDelimeter: '_',
   elementDelimeter: '__'
@@ -51,5 +64,6 @@ export {
   merge,
   formatDuration,
   findMovies,
-  filterMovies
+  filterMovies,
+  emailValidator
 }

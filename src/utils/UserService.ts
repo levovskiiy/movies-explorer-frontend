@@ -9,7 +9,7 @@ class UserService {
   private readonly api: Api
 
   constructor(private readonly url: string) {
-    this.api = new Api(url, {
+    this.api = new Api(this.url, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ class UserService {
     return newUser
   }
 
-  public async login(data: LoginDataType): Promise<any> {
+  public async login(data: LoginDataType): Promise<User> {
     const response = await this.api.post<any>('signin', data)
     return response
   }

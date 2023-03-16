@@ -6,7 +6,6 @@ export default function userReducer(state: UserState = initialState, action: Use
   switch (type) {
     case UserActions.SIGNIN:
       return {
-        ...state,
         _id: payload._id,
         name: payload.name,
         email: payload.email,
@@ -14,7 +13,6 @@ export default function userReducer(state: UserState = initialState, action: Use
       }
     case UserActions.SIGNUP:
       return {
-        ...state,
         _id: payload._id,
         name: payload.name,
         email: payload.email,

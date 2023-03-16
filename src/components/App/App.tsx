@@ -11,33 +11,47 @@ import RegisterPage from '../../views/RegisterPage/RegisterPage'
 
 import useUser from 'hooks/useUser'
 import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute'
-import { UserActions } from 'context/user/actions'
-import UserService from 'utils/UserService'
-import './App.css'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import { Wrapper, Content } from 'components/UI'
+import { UserActions } from 'context/user/actions'
 import useSavedMovies from 'hooks/useSavedMovies'
 import MovieService from 'utils/MovieService'
+import UserService from 'utils/UserService'
+import './App.css'
 
 function App() {
-  const { dispatch } = useUser()
+  const { dispatch, state } = useUser()
   const { handlers } = useSavedMovies(async () => await MovieService.getMovies())
   const navigate = useNavigate()
   const location = useLocation()
 
   useEffect(() => {
-    UserService
-      .checkToken()
-      .then((user) => {
-        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-        navigate('/movies')
-      })
-  }, [])
+    if (state.isLoggedIn) {
+      UserService
+        .checkToken()
+        .then((user) => {
+          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+          navigate('/movies')
+        })
+    }
+  }, [state.isLoggedIn])
 
   useEffect(() => {
-    handlers.getSavedMovies()
-  }, [location])
+    if (state.isLoggedIn) {
+      UserService
+        .checkToken()
+        .then((user) => {
+          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+        })
+    }
+  }, [location, state.isLoggedIn])
+
+  useEffect(() => {
+    if (state.isLoggedIn) {
+      handlers.getSavedMovies()
+    }
+  }, [location, state.isLoggedIn])
 
   return (
     <Wrapper>

@@ -1,6 +1,8 @@
 import { useCallback } from 'react'
 import { useState, type ChangeEvent, type ChangeEventHandler } from 'react'
 
+type Validators = Record<string, (value: string) => string>
+
 type ReturnUseForm<V, T> = {
   values: V
   errors: V
@@ -13,7 +15,7 @@ type ReturnUseForm<V, T> = {
   resetForm: (newValues: V, newErrors: V, newIsValid: boolean) => void
 }
 
-export default function useForm<V, T extends HTMLInputElement>(initialValue: V): ReturnUseForm<V, T> {
+export default function useForm<V, T extends HTMLInputElement>(initialValue: V, validators?: Validators): ReturnUseForm<V, T> {
   const [values, setValues] = useState<V>(initialValue)
   const [errors, setErrors] = useState<V>(initialValue)
   const [isValid, setValid] = useState(false)
@@ -39,8 +41,10 @@ export default function useForm<V, T extends HTMLInputElement>(initialValue: V):
     const input = e.target
     const { name, value } = input
 
+    const currentValidator = validators?.[name]
+
     setValues({ ...values, [name]: value })
-    setErrors({ ...errors, [name]: input.validationMessage })
+    setErrors({ ...errors, [name]: currentValidator ? currentValidator(value) : input.validationMessage })
     setValid(input.closest('form')?.checkValidity() ?? false)
   }
 

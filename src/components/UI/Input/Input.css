@@ -7,11 +7,11 @@
   border: 1px solid transparent;
   border-radius: 8px;
   background-color: rgba(87, 87, 87, 0.5);
-  transition: border-color, color var(--theme-transition-all-duration) ease;
+  transition: all var(--theme-transition-all-duration) ease;
 }
 
 .input:focus {
-  border: 1px solid rgba(87, 87, 87, 1);
+  border-color: var(--theme-color-secondary);
 }
 
 .input_variant_ghost {
@@ -25,6 +25,11 @@
   background-color: transparent;
 }
 
+
 .input_error {
   color: var(--theme-color-quaternary);
+}
+
+.input_error:focus {
+  border-color: var(--theme-color-quaternary);
 }

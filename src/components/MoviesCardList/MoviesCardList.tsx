@@ -14,6 +14,7 @@ type MoviesCardListProps = {
 
 function MoviesCardList({ movies, className }: MoviesCardListProps): JSX.Element {
   const { block, element } = classname('movies-card-list', {}, [className])
+
   return (
     <section className={block}>
       <List className={element('movies')}

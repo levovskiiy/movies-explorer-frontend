@@ -14,15 +14,13 @@ const root = ReactDOM.createRoot(
 )
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
-        <MoviesProvider>
-          <SavedMoviesProvider>
-            <App />
-          </SavedMoviesProvider>
-        </MoviesProvider>
-      </UserProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <UserProvider>
+      <MoviesProvider>
+        <SavedMoviesProvider>
+          <App />
+        </SavedMoviesProvider>
+      </MoviesProvider>
+    </UserProvider>
+  </BrowserRouter>
 )

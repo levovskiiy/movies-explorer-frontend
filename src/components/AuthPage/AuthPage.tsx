@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren } from 'react'
 import { classname } from '../../utils/utils'
 import { Container, Heading } from '../UI'
-import logo from '../../images/logo.svg'
 
+import Logo from 'components/UI/Logo/Logo'
 import './AuthPage.css'
 
 type AuthPageProps = {
@@ -21,7 +21,7 @@ function AuthPage({ children }: PropsWithChildren<AuthPageProps>): JSX.Element {
     <Container>
       <section className={block}>
         <div className={classnames.content}>
-          <img src={logo} alt="Логотип" className={classnames.logo} />
+          <Logo className={classnames.logo} />
           <Heading className={classnames.title}>Рады видеть!</Heading>
           {children}
         </div>

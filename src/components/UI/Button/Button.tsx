@@ -3,10 +3,12 @@ import { type Size } from '../../../types/types'
 import { classname, merge } from '../../../utils/utils'
 import BaseLink from '../BaseLink/BaseLink'
 import './Button.css'
+import Spinner from '../spinner/Spinner'
 
 type Variant = 'primary' | 'secondary' | 'link' | 'tertiary' | 'ghost' | 'danger'
 
 type ButtonProps = {
+  isLoading?: boolean
   children?: ReactNode
   size?: Size
   rounded?: boolean
@@ -23,6 +25,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       variant = 'primary',
       rounded = false,
+      isLoading = false,
       ...attrs
     } = props
 
@@ -33,13 +36,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     })
     const classnames = merge(block, className)
 
+    const content = isLoading ? <Spinner /> : children
+
     if (to) {
-      return <BaseLink className={classnames} isRoute to={to}>{children}</BaseLink>
+      return <BaseLink className={classnames} isRoute to={to}>{content}</BaseLink>
     }
 
     return (
       <button ref={ref} {...attrs} className={classnames}>
-        {children}
+        {content}
       </button>
     )
   })

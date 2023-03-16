@@ -18,11 +18,11 @@ type SearchFormProps = {
 
 function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
   const { state, actions } = context
-  const ref = useRef<HTMLFormElement | null>(null)
-
   const { values, handleChange, isValid, resetForm } = useForm({
     search: state.query
   })
+
+  const ref = useRef<HTMLFormElement | null>(null)
 
   const { block, element } = classname('search-form')
 
@@ -47,7 +47,15 @@ function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
             placeholder='Фильм'
             required
           />
-          <Button disabled={!isValid} size='xl' rounded variant='primary' className={element('button')}>Поиск</Button>
+          <Button
+            disabled={!isValid}
+            size='xl'
+            variant='primary'
+            className={element('button')}
+            rounded
+          >
+            Поиск
+          </Button>
         </div>
         <FilterCheckbox label='Короткометражки' />
         <Divider className={element('divider')} />
