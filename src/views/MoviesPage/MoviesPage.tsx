@@ -28,14 +28,18 @@ function MoviesPage() {
     setEndIndex(prev => prev + step)
   }
 
-  function handleSubmit(evt: FormEvent<HTMLFormElement>, queries: { search: string, isShort: boolean }) {
-    handlers.find(queries.search, queries.isShort)
+  async function findMovies(search: string, isShort: boolean) {
+    handlers.find(search, isShort)
+  }
+
+  function handleSubmit(queries: { search: string, isShort: boolean }, evt?: FormEvent<HTMLFormElement>) {
+    findMovies(queries.search, queries.isShort)
   }
 
   return (
     <section className={block} >
       <Container>
-        <SearchForm context={{ state, actions }} handleSubmit={handleSubmit} />
+        <SearchForm findMovieHandler={findMovies} context={{ state, actions, handlers }} handleSubmit={handleSubmit} />
         {
           state.isLoading
             ? <Preloader className={element('preloader')} />

@@ -7,4 +7,5 @@ export type MoviesActions = {
   setShort: (isShort: boolean) => void
   setQuery: (query: string) => void
   setIsSavedMovie: (isSaved: boolean, movieId: number) => void
+  clear: () => void
 }

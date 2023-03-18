@@ -1,5 +1,5 @@
 import React, { type FormEvent, useEffect, useRef, useReducer } from 'react'
-import { classname } from '../../utils/utils'
+import { classname, emailValidator } from '../../utils/utils'
 import { Button, Container, Divider, Form, Heading, Input, InputLabel, InputWrapper } from '../UI'
 
 import useForm from 'hooks/useFormValidator'
@@ -9,11 +9,18 @@ import { UserActions } from 'context/user/actions'
 import { type UserState } from 'context/user/context'
 import profileReducer, { initialState } from 'reducers/profile/reducer'
 import { ProfileActions } from 'reducers/profile/actions'
+import useSavedMovies from 'hooks/useSavedMovies'
+import useMovies from 'hooks/useMovies'
+
 import './Profile.css'
 
 function Profile() {
   const { state, dispatch } = useUser()
-  const { values, handleChange, isValid, setValues } = useForm({ name: state.name, email: state.email })
+  const { actions: savedActions } = useSavedMovies()
+  const { actions: moviesActions } = useMovies()
+  const { values, handleChange, isValid, setValues } = useForm({ name: state.name, email: state.email }, {
+    email: (email: string) => emailValidator(email)
+  })
   const [localState, localDispatch] = useReducer(profileReducer, initialState)
   const form = useRef<HTMLFormElement>(null)
 
@@ -57,6 +64,8 @@ function Profile() {
     try {
       await UserService.logout()
       dispatch({ type: UserActions.SIGNOUT, payload: null })
+      savedActions?.clear()
+      moviesActions?.clear()
       localStorage.clear()
     } catch (error: any) {
       localDispatch({
@@ -95,6 +104,7 @@ function Profile() {
               minLength={3}
               maxLength={30}
               placeholder='Имя'
+              value={localState.nameVisible ? '' : values.name}
               onChange={handleChange}
               variant='profile'
               type="text"
@@ -123,6 +133,7 @@ function Profile() {
                 localDispatch({ type: ProfileActions.SET_EMAIL_VISIBLE, payload: true })
               }}
               placeholder='Email'
+              value={localState.emailVisible ? '' : values.email}
               onChange={handleChange}
               variant='profile'
               type="email"
@@ -133,6 +144,9 @@ function Profile() {
             />
           </InputWrapper>
 
+          <span className={element('status')}>
+            {localState.error.message}
+          </span>
           <div className={element('actions')}>
             <Button
               disabled={!localState.formValid}

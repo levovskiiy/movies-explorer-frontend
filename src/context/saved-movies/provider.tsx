@@ -9,6 +9,12 @@ export default function SavedMoviesProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(savedMovieReducer, initialSavedMoviesState)
 
   const actions: SavedMoviesAction = {
+    clear: () => {
+      dispatch({
+        type: 'CLEAR'
+      })
+    },
+
     saveMovies: (movies: Movie[]) => {
       dispatch({
         type: 'SAVE_MOVIES',

@@ -1,8 +1,10 @@
-import React, { type PropsWithChildren } from 'react'
+import React, { useEffect, type PropsWithChildren } from 'react'
 import { classname } from '../../utils/utils'
 import { Container, Heading } from '../UI'
 
 import Logo from 'components/UI/Logo/Logo'
+import UserService from 'utils/UserService'
+
 import './AuthPage.css'
 
 type AuthPageProps = {
@@ -17,6 +19,16 @@ function AuthPage({ children }: PropsWithChildren<AuthPageProps>): JSX.Element {
     logo: element('logo'),
     title: element('title')
   }
+
+  useEffect(() => {
+    UserService.checkToken()
+      .then((user) => {
+        if (user._id) {
+          history.back()
+        }
+      })
+  }, [])
+
   return (
     <Container>
       <section className={block}>

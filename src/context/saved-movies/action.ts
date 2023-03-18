@@ -8,4 +8,5 @@ export type SavedMoviesAction = {
   setQuery: (query: string) => void
   setShort: (isShort: boolean) => void
   setLoading: (isLoading: boolean) => void
+  clear: () => void
 }

@@ -39,6 +39,11 @@ export default function MoviesProvider({ children }: PropsWithChildren): JSX.Ele
   }, [state.isShort])
 
   const actions: MoviesActions = {
+    clear: () => {
+      dispatch({
+        type: 'CLEAR'
+      })
+    },
     setMovies: (movies: Movie[]) => {
       dispatch({
         type: 'SET_MOVIES',

@@ -1,5 +1,5 @@
 import { type Movie } from '../../types/types'
-import { type SavedMoviesState } from './state'
+import { initialSavedMoviesState, type SavedMoviesState } from './state'
 
 export type SavedMoviesDispatchers =
   { type: 'SAVE_MOVIE', payload: Movie }
@@ -9,6 +9,7 @@ export type SavedMoviesDispatchers =
   | { type: 'SET_QUERY', payload: string }
   | { type: 'SET_SHORT', payload: boolean }
   | { type: 'SET_LOADING', payload: boolean }
+  | { type: 'CLEAR', payload?: null }
 
 export function savedMovieReducer(state: SavedMoviesState, action: SavedMoviesDispatchers) {
   const { type, payload } = action
@@ -28,6 +29,8 @@ export function savedMovieReducer(state: SavedMoviesState, action: SavedMoviesDi
       return { ...state, short: payload }
     case 'SET_LOADING':
       return { ...state, isLoading: payload }
+    case 'CLEAR':
+      return initialSavedMoviesState
     default:
       return state
   }

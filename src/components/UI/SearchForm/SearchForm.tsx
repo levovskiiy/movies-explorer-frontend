@@ -1,4 +1,4 @@
-import React, { useRef, type FormEvent } from 'react'
+import React, { useRef, type FormEvent, type ChangeEvent } from 'react'
 
 import { type MoviesState, type MoviesActions } from 'context/movies'
 import { type SavedMoviesState, type SavedMoviesAction } from 'context/saved-movies'
@@ -9,16 +9,18 @@ import useForm from 'hooks/useFormValidator'
 import './SearchForm.css'
 
 type SearchFormProps = {
-  handleSubmit: (evt: FormEvent<HTMLFormElement>, queris: { search: string, isShort: boolean }) => void
+  handleSubmit: (queris: { search: string, isShort: boolean, evt?: FormEvent<HTMLFormElement> }) => void
+  findMovieHandler: (query: string, isShort: boolean) => unknown
   context: {
     state: MoviesState | SavedMoviesState
     actions: MoviesActions | SavedMoviesAction | null
+    handlers: any
   }
 }
 
-function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
+function SearchForm({ handleSubmit, findMovieHandler, context }: SearchFormProps): JSX.Element {
   const { state, actions } = context
-  const { values, handleChange, isValid, resetForm } = useForm({
+  const { values, handleChange, isValid } = useForm({
     search: state.query
   })
 
@@ -28,9 +30,16 @@ function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
 
   function onSubmit(evt: FormEvent<HTMLFormElement>): void {
     evt.preventDefault()
-    handleSubmit(evt, { search: values.search, isShort: state.isShort })
+    handleSubmit({ search: values.search, isShort: state.isShort })
     actions?.setQuery(values.search)
-    resetForm({ search: '' }, { search: '' }, false)
+  }
+
+  function checkboxHandler(evt: ChangeEvent<HTMLInputElement>) {
+    actions?.setShort(evt.target.checked)
+
+    if (state.movies.length > 0) {
+      handleSubmit({ search: values.search, isShort: evt.target.checked })
+    }
   }
 
   return (
@@ -57,7 +66,7 @@ function SearchForm({ handleSubmit, context }: SearchFormProps): JSX.Element {
             Поиск
           </Button>
         </div>
-        <FilterCheckbox label='Короткометражки' />
+        <FilterCheckbox onChange={checkboxHandler} isShort={state.isShort} label='Короткометражки' />
         <Divider className={element('divider')} />
       </Form>
     </>

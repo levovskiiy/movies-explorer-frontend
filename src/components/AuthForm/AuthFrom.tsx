@@ -29,7 +29,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     message: ''
   })
 
-  const { dispatch, state } = useUser()
+  const { dispatch } = useUser()
   const navigate = useNavigate()
 
   const { block, element } = classname('auth-form', { type })
@@ -48,15 +48,15 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
   async function handleLogin(user: User) {
     try {
       setLoading(true)
-      const response = await UserService.login(user)
+      console.log(user)
+      const response = await UserService.login({ email: user.email, password: user.password })
       if (response) {
-        console.log(user)
         dispatch({
           type: UserActions.SIGNIN,
           payload: {
-            _id: user._id,
-            name: state.name,
-            email: user.email,
+            _id: response._id,
+            name: response.name,
+            email: response.email,
             isLoggedIn: true
           }
         })
@@ -78,9 +78,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
       const response = await UserService.register(user)
 
       if (response) {
-        dispatch({ type: UserActions.SIGNUP, payload: { ...response, isLoggedIn: false } })
-        setError({ status: false, message: '' })
-        navigate('/signin')
+        handleLogin(values)
       }
     } catch (error: any) {
       if (error.message === 'Conflict') {

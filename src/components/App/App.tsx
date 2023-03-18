@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import NotFoundPage from '../../views/NotFoundPage/NotFoundPage'
 
 import ProfilePage from '../../views/ProfilePage/ProfilePage'
@@ -27,21 +27,15 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    UserService
-      .checkToken()
-      .then((user) => {
-        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-        navigate('/movies')
-      })
-  }, [])
-
-  useEffect(() => {
-    UserService
-      .checkToken()
-      .then((user) => {
-        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-      })
-  }, [location])
+    if (location.pathname !== '/' && !state.isLoggedIn) {
+      UserService
+        .checkToken()
+        .then((user) => {
+          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+          navigate(location.pathname)
+        })
+    }
+  }, [location, state.isLoggedIn])
 
   useEffect(() => {
     if (state.isLoggedIn) {
@@ -61,8 +55,8 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/signin' element={<LoginPage />}></Route>
           <Route path='/signup' element={<RegisterPage />}></Route>
-          <Route path='/movies' element={<ProtectedRoute redirect='/' element={<MoviesPage />} />} />
           <Route path='/saved-movies' element={<ProtectedRoute redirect='/' element={<SavedMoviesPage />} />} />
+          <Route path='/movies' element={<ProtectedRoute redirect='/' element={<MoviesPage />} />} />
           <Route path='/profile' element={<ProtectedRoute redirect='/' element={<ProfilePage />} />} />
           <Route path='*' element={<NotFoundPage />}></Route>
         </Routes>

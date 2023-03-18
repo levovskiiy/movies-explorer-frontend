@@ -5,6 +5,7 @@ import { Container, SearchForm, Heading } from 'components/UI'
 import MovieService from 'utils/MovieService'
 import { classname } from 'utils/utils'
 import './SavedMoviesPage.css'
+import { type Movie } from 'types/types'
 
 function SavedMoviesPage() {
   const { state, actions, handlers } = useSavedMovies(async () => await MovieService.getMovies())
@@ -15,14 +16,18 @@ function SavedMoviesPage() {
     setSavedMovies(state.movies)
   }, [state.movies])
 
-  function handleSubmit(evt: FormEvent<HTMLFormElement>, queries: { search: string, isShort: boolean }) {
-    const movies = handlers.find(queries.search, queries.isShort)
+  function findSavedMovies(search: string, short: boolean): Movie[] {
+    return handlers.find(search, short)
+  }
+
+  function handleSubmit(queries: { search: string, isShort: boolean }, evt?: FormEvent<HTMLFormElement>) {
+    const movies = findSavedMovies(queries.search, queries.isShort)
     setSavedMovies(movies)
   }
 
   return (
     <Container>
-      <SearchForm handleSubmit={handleSubmit} context={{ state, actions }} />
+      <SearchForm findMovieHandler={findSavedMovies} handleSubmit={handleSubmit} context={{ state, actions, handlers }} />
       {
         state.movies.length === 0
           ? <Heading className={element('error-message')}>{state.error}</Heading>

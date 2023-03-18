@@ -32,7 +32,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const { block } = classname('button', {
       size,
       variant,
-      rounded
+      rounded,
+      loading: isLoading
     })
     const classnames = merge(block, className)
 
@@ -43,7 +44,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      <button ref={ref} {...attrs} className={classnames}>
+      <button disabled={isLoading} ref={ref} {...attrs} className={classnames}>
         {content}
       </button>
     )
