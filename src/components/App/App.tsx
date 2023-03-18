@@ -27,25 +27,21 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    if (state.isLoggedIn) {
-      UserService
-        .checkToken()
-        .then((user) => {
-          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-          navigate('/movies')
-        })
-    }
-  }, [state.isLoggedIn])
+    UserService
+      .checkToken()
+      .then((user) => {
+        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+        navigate('/movies')
+      })
+  }, [])
 
   useEffect(() => {
-    if (state.isLoggedIn) {
-      UserService
-        .checkToken()
-        .then((user) => {
-          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-        })
-    }
-  }, [location, state.isLoggedIn])
+    UserService
+      .checkToken()
+      .then((user) => {
+        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+      })
+  }, [location])
 
   useEffect(() => {
     if (state.isLoggedIn) {
