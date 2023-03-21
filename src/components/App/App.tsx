@@ -27,16 +27,18 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    UserService
-      .checkToken()
-      .then((user) => {
-        dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
-        navigate(location.pathname)
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
-  }, [location.pathname])
+    if (location.pathname !== '/' || !state.isLoggedIn) {
+      UserService
+        .checkToken()
+        .then((user) => {
+          dispatch({ type: UserActions.SIGNIN, payload: { ...user, isLoggedIn: true } })
+          navigate(location.pathname)
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
+    }
+  }, [location.pathname, state.isLoggedIn])
 
   useEffect(() => {
     if (state.isLoggedIn) {
