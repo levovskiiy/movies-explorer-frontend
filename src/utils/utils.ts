@@ -1,18 +1,16 @@
 import { type Movie } from 'types/types'
 import bem from './bem'
 import validator from 'validator'
+import { SHORT_DURATION, VALIDATION_ERROR_MESSAGE } from './constants'
 
 function findMovies(value: Movie[], query: string): Movie[] {
   return value.filter(v => {
-    console.log(v)
-    console.log(query)
-    console.log(v.nameRU.toLowerCase().includes(query.toLowerCase()))
     return v.nameRU.toLowerCase().includes(query.toLowerCase())
   })
 }
 
 function filterMovies(movies: Movie[], isShort: boolean): Movie[] {
-  return isShort ? movies.filter(m => m.duration <= 40) : movies
+  return isShort ? movies.filter(m => m.duration <= SHORT_DURATION) : movies
 }
 
 function merge(...tokens: Array<string | undefined>): string {
@@ -44,11 +42,11 @@ function formatDuration(duration: number): string {
 
 const emailValidator = (email: string): string => {
   if (email.length === 0) {
-    return 'Заполните поле'
+    return VALIDATION_ERROR_MESSAGE.email.REQUIRED
   }
 
   if (!validator.isEmail(email)) {
-    return 'Некорректный адрес электронной почты. Напишите в формате "example@domain.com"'
+    return VALIDATION_ERROR_MESSAGE.email.INCORRECT_FORMAT
   }
 
   return ''
