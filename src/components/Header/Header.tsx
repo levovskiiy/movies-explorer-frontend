@@ -7,13 +7,15 @@ import LendingNav from '../Main/LendingNav/LendingNav'
 import Navigation from '../Navigation/Navigation'
 import Container from '../UI/Container/Container'
 import './Header.css'
+import useUser from 'hooks/useUser'
 
 type HeaderProps = {
-  isLoggin: boolean
+  isLoggin?: boolean
 }
 
 function Header({ isLoggin }: HeaderProps): JSX.Element {
   const [theme, setTheme] = useState<Theme>('landing')
+  const { state } = useUser()
   const location = useLocation()
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function Header({ isLoggin }: HeaderProps): JSX.Element {
             <Logo className={styles.logoImage} />
           </div>
           {
-            isLoggin ? <Navigation /> : <LendingNav />
+            state.isLoggedIn ? <Navigation /> : <LendingNav />
           }
         </div>
       </Container>

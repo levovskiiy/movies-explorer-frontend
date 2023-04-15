@@ -1,44 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
-import { Button, Container, Preloader, SearchForm } from '../../components/UI'
-import { type IMovie } from '../../types/types'
-import MoviesService from '../../utils/MoviesService'
+import React, { useState, useRef, useEffect, type FormEvent } from 'react'
 
+import MoviesCardList from 'components/MoviesCardList/MoviesCardList'
+import { Container, SearchForm, Preloader, Button, Text } from 'components/UI'
+import { type Movie } from 'types/types'
+import { classname } from 'utils/utils'
+
+import useMovies from 'hooks/useMovies'
+import useMore from 'hooks/useMore'
 import './MoviesPage.css'
 
 function MoviesPage() {
-  const [movies, setMovies] = useState<IMovie[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { state, actions, handlers } = useMovies()
+  const button = useRef<HTMLButtonElement | null>(null)
+  const [visibleMovies, setVisibleMovies] = useState<Movie[]>([])
+  const { step, endIndex, setEndIndex } = useMore(button)
+  const { block, element } = classname('movies')
 
   useEffect(() => {
-    MoviesService.getMovies()
-      .then(response => {
-        setIsLoading(true)
-        return response.json()
-      })
-      .then(movies => {
-        const data = movies.slice(0, 12)
-        setMovies(data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
+    const initalList = state.movies.slice(0, endIndex)
+
+    setVisibleMovies(initalList)
+  }, [state.movies, state.query, step, endIndex])
+
+  function handleMore() {
+    const nextItems = state.movies.slice(endIndex, endIndex + step)
+    setVisibleMovies(prev => [...prev, ...nextItems])
+    setEndIndex(prev => prev + step)
+  }
+
+  async function findMovies(search: string, isShort: boolean) {
+    handlers.find(search, isShort)
+  }
+
+  function handleSubmit(queries: { search: string, isShort: boolean }, evt?: FormEvent<HTMLFormElement>) {
+    findMovies(queries.search, queries.isShort)
+  }
 
   return (
-    <section className='movies' >
+    <section className={block} >
       <Container>
-        <SearchForm />
+        <SearchForm findMovieHandler={findMovies} context={{ state, actions, handlers }} handleSubmit={handleSubmit} />
         {
-          isLoading
-            ? <Preloader className='movies__preloader' />
-            : <>
-              <MoviesCardList movies={movies} />
-              <Button className='movies__more-button' type='button' variant='tertiary' rounded>Еще</Button>
-            </>
+          state.isLoading
+            ? <Preloader className={element('preloader')} />
+            : visibleMovies.length > 0
+              ? (
+                <>
+                  <MoviesCardList movies={visibleMovies} />
+                  <Button
+                    ref={button}
+                    onClick={handleMore}
+                    className={element('more-button', {
+                      hidden: state.movies.length <= 3 || state.movies.length === visibleMovies.length
+                    })}
+                    type='button'
+                    variant='tertiary'
+                    rounded
+                  >
+                    Еще
+                  </Button>
+                </>)
+              : <Text className={element('error-message')}>{state.error}</Text>
+
         }
       </Container>
     </section>

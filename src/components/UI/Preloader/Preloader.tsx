@@ -9,7 +9,6 @@ type PreloaderProps = {
 function Preloader({ className }: PreloaderProps): JSX.Element {
   const { block, element } = classname('preloader', {}, [className])
 
-  console.log(className)
   return (
     <div className={block}>
       <div className={element('container')}>

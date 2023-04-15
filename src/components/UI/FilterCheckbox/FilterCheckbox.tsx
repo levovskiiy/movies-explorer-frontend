@@ -1,17 +1,20 @@
-import React, { type ChangeEvent, useState } from 'react'
+import React, { useState, type ChangeEvent, type ChangeEventHandler } from 'react'
 import { classname } from '../../../utils/utils'
 import './FilterCheckbox.css'
 
 type FilterCheckboxProps = {
   label: string
+  isShort: boolean
+  onChange: ChangeEventHandler
 }
 
-function FilterCheckbox({ label }: FilterCheckboxProps): JSX.Element {
+function FilterCheckbox({ label, isShort, onChange }: FilterCheckboxProps): JSX.Element {
   const { block, element } = classname('filter-checkbox')
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(isShort)
 
-  function handleCheckbox(e: ChangeEvent<HTMLInputElement>) {
-    setChecked(e.target.checked)
+  function change(evt: ChangeEvent<HTMLInputElement>) {
+    onChange(evt)
+    setChecked(!checked)
   }
 
   return (
@@ -19,9 +22,10 @@ function FilterCheckbox({ label }: FilterCheckboxProps): JSX.Element {
       <input
         type="checkbox"
         role='switch'
-        name='short-film'
+        name='short'
+        value='short'
         checked={checked}
-        onChange={handleCheckbox}
+        onChange={change}
         className={element('checkbox')}
       />
       <label className={element('label')}>{label}</label>

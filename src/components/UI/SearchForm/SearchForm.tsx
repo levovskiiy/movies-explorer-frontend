@@ -1,21 +1,50 @@
-import React from 'react'
-import Form from '../Form/Form'
-import { classname } from '../../../utils/utils'
-import Input from '../Input/Input'
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
-import Button from '../Button/Button'
+import React, { useRef, type FormEvent, type ChangeEvent } from 'react'
 
-import './SearchForm.css'
-import Divider from '../Divider/Divider'
+import { type MoviesState, type MoviesActions } from 'context/movies'
+import { type SavedMoviesState, type SavedMoviesAction } from 'context/saved-movies'
+import { Button, Divider, FilterCheckbox, Form, Input } from '../../UI/'
+import { classname } from 'utils/utils'
 import useForm from 'hooks/useFormValidator'
 
-function SearchForm(): JSX.Element {
-  const { values, handleChange, isValid } = useForm({ search: '' })
+import './SearchForm.css'
+
+type SearchFormProps = {
+  handleSubmit: (queris: { search: string, isShort: boolean, evt?: FormEvent<HTMLFormElement> }) => void
+  findMovieHandler: (query: string, isShort: boolean) => unknown
+  context: {
+    state: MoviesState | SavedMoviesState
+    actions: MoviesActions | SavedMoviesAction | null
+    handlers: any
+  }
+}
+
+function SearchForm({ handleSubmit, findMovieHandler, context }: SearchFormProps): JSX.Element {
+  const { state, actions } = context
+  const { values, handleChange, isValid } = useForm({
+    search: state.query
+  })
+
+  const ref = useRef<HTMLFormElement | null>(null)
+
   const { block, element } = classname('search-form')
+
+  function onSubmit(evt: FormEvent<HTMLFormElement>): void {
+    evt.preventDefault()
+    handleSubmit({ search: values.search, isShort: state.isShort })
+    actions?.setQuery(values.search)
+  }
+
+  function checkboxHandler(evt: ChangeEvent<HTMLInputElement>) {
+    actions?.setShort(evt.target.checked)
+
+    if (state.movies.length > 0) {
+      handleSubmit({ search: values.search, isShort: evt.target.checked })
+    }
+  }
 
   return (
     <>
-      <Form className={block} onSubmit={(e) => { e.preventDefault() }}>
+      <Form ref={ref} className={block} onSubmit={onSubmit} noValidate>
         <div className={element('container')}>
           <Input
             value={values.search}
@@ -27,9 +56,17 @@ function SearchForm(): JSX.Element {
             placeholder='Фильм'
             required
           />
-          <Button disabled={!isValid} size='xl' rounded variant='primary' className={element('button')}>Поиск</Button>
+          <Button
+            disabled={!isValid}
+            size='xl'
+            variant='primary'
+            className={element('button')}
+            rounded
+          >
+            Поиск
+          </Button>
         </div>
-        <FilterCheckbox label='Короткометражки' />
+        <FilterCheckbox onChange={checkboxHandler} isShort={state.isShort} label='Короткометражки' />
         <Divider className={element('divider')} />
       </Form>
     </>

@@ -1,20 +1,36 @@
-import React from 'react'
+import React, { type FormEvent, useState } from 'react'
 import useForm from '../../hooks/useFormValidator'
-import { classname } from '../../utils/utils'
+import { classname, emailValidator } from '../../utils/utils'
 import { Button, Form, Input, InputErrorMessage, InputLabel, InputWrapper, Text, BaseLink } from '../UI'
 
 import './AuthForm.css'
+import useUser from 'hooks/useUser'
+import UserService from 'utils/UserService'
+import { UserActions } from 'context/user/actions'
+import { type User } from 'types/types'
+import { useNavigate } from 'react-router-dom'
 
 type AuthFromProps = {
   type: 'register' | 'login'
 }
 
 function AuthForm({ type }: AuthFromProps): JSX.Element {
-  const { values, errors, handleChange, isValid, checkValidity } = useForm({
+  const { values, errors, handleChange, isValid, checkValidity } = useForm<User, HTMLInputElement>({
     name: '',
     password: '',
     email: ''
+  }, {
+    email: (value) => emailValidator(value)
   })
+
+  const [isLoading, setLoading] = useState(false)
+  const [error, setError] = useState({
+    status: false,
+    message: ''
+  })
+
+  const { dispatch } = useUser()
+  const navigate = useNavigate()
 
   const { block, element } = classname('auth-form', { type })
 
@@ -29,8 +45,61 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
     to: element('to')
   }
 
+  async function handleLogin(user: User) {
+    try {
+      setLoading(true)
+      console.log(user)
+      const response = await UserService.login({ email: user.email, password: user.password })
+      if (response) {
+        dispatch({
+          type: UserActions.SIGNIN,
+          payload: {
+            _id: response._id,
+            name: response.name,
+            email: response.email,
+            isLoggedIn: true
+          }
+        })
+        setError({ status: false, message: '' })
+        navigate('/movies')
+      }
+    } catch (error: any) {
+      if (error.message === 'Unauthorized') {
+        setError({ status: true, message: 'Пользователя с таким email не существует' })
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleRegister(user: User) {
+    try {
+      setLoading(true)
+      const response = await UserService.register(user)
+
+      if (response) {
+        handleLogin(values)
+      }
+    } catch (error: any) {
+      if (error.message === 'Conflict') {
+        setError({ status: true, message: 'Пользователь с таким email уже существует' })
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (type === 'register') {
+      handleRegister(values)
+    } else {
+      handleLogin(values)
+    }
+  }
+
   return (
-    <Form className={block} noValidate>
+    <Form className={block} onSubmit={handleSubmit}>
       {
         type === 'register' && (
           <InputWrapper className={classnames.inputWrapper}>
@@ -43,7 +112,7 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
               onChange={handleChange}
               className={classnames.input}
               error={checkValidity('name')}
-              minLength={3}
+              minLength={2}
               maxLength={30}
               required
             />
@@ -80,15 +149,17 @@ function AuthForm({ type }: AuthFromProps): JSX.Element {
         />
         <InputErrorMessage message={errors.password} className={classnames.inputError} />
       </InputWrapper>
+      <InputErrorMessage message={error.message} className={classnames.inputError} />
       <div className={classnames.formAction}>
         <Button
+          isLoading={isLoading}
           disabled={!isValid}
           type='submit'
           size="lg"
           variant='primary'
           rounded
           className={classnames.submitButton}>
-          Войти
+          {type === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
         <Text className={classnames.text}> {type === 'login' ? 'Еще не зарегистрированы?' : 'Уже зарегистрированы?'}
           <BaseLink className={classnames.to} variant='secondary' to={type === 'login' ? '/signup' : '/signin'} isRoute>

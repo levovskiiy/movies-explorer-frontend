@@ -1,4 +1,17 @@
+import { type Movie } from 'types/types'
 import bem from './bem'
+import validator from 'validator'
+import { SHORT_DURATION, VALIDATION_ERROR_MESSAGE } from './constants'
+
+function findMovies(value: Movie[], query: string): Movie[] {
+  return value.filter(v => {
+    return v.nameRU.toLowerCase().includes(query.toLowerCase())
+  })
+}
+
+function filterMovies(movies: Movie[], isShort: boolean): Movie[] {
+  return isShort ? movies.filter(m => m.duration <= SHORT_DURATION) : movies
+}
 
 function merge(...tokens: Array<string | undefined>): string {
   const result: string[] = []
@@ -27,6 +40,18 @@ function formatDuration(duration: number): string {
   return duration + 'м'
 }
 
+const emailValidator = (email: string): string => {
+  if (email.length === 0) {
+    return VALIDATION_ERROR_MESSAGE.email.REQUIRED
+  }
+
+  if (!validator.isEmail(email)) {
+    return VALIDATION_ERROR_MESSAGE.email.INCORRECT_FORMAT
+  }
+
+  return ''
+}
+
 const classname = bem({
   modDelimeter: '_',
   elementDelimeter: '__'
@@ -35,5 +60,8 @@ const classname = bem({
 export {
   classname,
   merge,
-  formatDuration
+  formatDuration,
+  findMovies,
+  filterMovies,
+  emailValidator
 }
